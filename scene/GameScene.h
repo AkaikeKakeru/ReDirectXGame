@@ -58,9 +58,10 @@ class GameScene {
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	Vector3* Myline_;
+	//Vector3* Myline_;
 
 	/// <summary>
 	/// ゲームシーン用

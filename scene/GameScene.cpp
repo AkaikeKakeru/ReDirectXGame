@@ -28,14 +28,15 @@ void GameScene::Initialize() {
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
-
+	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 800);
 
-	Myline_ = new Vector3(0.0f, 0.0f,0.0f);
+	//Myline_ = new Vector3(0.0f, 0.0f,0.0f);
 	//PrimitiveDrawer::GetInstance()->SetViewProjection()
 }
 
 void GameScene::Update() {
+	//デバッグカメラの更新
 	debugCamera_->Update();
 }
 
@@ -68,7 +69,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	//model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
