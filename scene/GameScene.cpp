@@ -23,9 +23,15 @@ void GameScene::Initialize() {
 	//モデルの生成
 	model_ = Model::Create();
 
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	//ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
+
 	debugCamera_ = new DebugCamera(1280, 800);
 
-	Myline_ = Vector3(0.0f, 0.0f,0.0f);
+	Myline_ = new Vector3(0.0f, 0.0f,0.0f);
 	//PrimitiveDrawer::GetInstance()->SetViewProjection()
 }
 
