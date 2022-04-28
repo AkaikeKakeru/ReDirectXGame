@@ -61,7 +61,21 @@ class GameScene {
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	//Vector3* Myline_;
+	//Vector3* startMyLine_;
+	//Vector3* endMyLine;
+
+	Vector3 vertex[8] = 
+	{
+		{0,0,0},
+		{5,0,0},
+		{5,0,5},
+		{0,0,5},
+
+		{0,5,0},
+		{5,5,0},
+		{5,5,5},
+		{0,5,5},
+	};
 
 	/// <summary>
 	/// ゲームシーン用

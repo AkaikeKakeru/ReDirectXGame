@@ -36,8 +36,21 @@ void GameScene::Initialize() {
 	//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 
-	//Myline_ = new Vector3(0.0f, 0.0f,0.0f);
-	//PrimitiveDrawer::GetInstance()->SetViewProjection()
+	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
+
+	/*vertex[8] = 
+	{
+		{0,0,0},
+		{5,0,0},
+		{5,0,5},
+		{0,0,5},
+
+		{0,5,0},
+		{5,5,0},
+		{5,5,5},
+		{0,5,5},
+	};*/
 }
 
 void GameScene::Update() {
@@ -79,7 +92,7 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 
-	//PrimitiveDrawer::GetInstance()->DrawLine3d(Myline_.x,Myline_.z,)
+	//PrimitiveDrawer::GetInstance()->DrawLine3d(*startMyLine_->x,*startMyLine_->z,)
 
 #pragma endregion
 
