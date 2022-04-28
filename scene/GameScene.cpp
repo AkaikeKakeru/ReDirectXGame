@@ -6,7 +6,10 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete debugCamera_; }
+GameScene::~GameScene() {
+	delete debugCamera_; 
+	delete model_;
+}
 
 void GameScene::Initialize() {
 
@@ -17,7 +20,8 @@ void GameScene::Initialize() {
 
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
-
+	//モデルの生成
+	model_ = Model::Create();
 
 	debugCamera_ = new DebugCamera(1280, 800);
 

@@ -50,6 +50,10 @@ class GameScene {
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	//モデル
+	Model* model_ = nullptr;
+
+
 
 	DebugCamera* debugCamera_ = nullptr;
 
