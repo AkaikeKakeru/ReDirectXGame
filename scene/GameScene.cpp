@@ -15,9 +15,11 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 
+	//ファイル名を指定してテクスチャを読み込む
+	textureHandle_ = TextureManager::Load("mario.jpg");
+
+
 	debugCamera_ = new DebugCamera(1280, 800);
-
-
 
 	Myline_ = Vector3(0.0f, 0.0f,0.0f);
 	//PrimitiveDrawer::GetInstance()->SetViewProjection()
