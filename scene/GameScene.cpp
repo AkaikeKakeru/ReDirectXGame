@@ -39,18 +39,6 @@ void GameScene::Initialize() {
 	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	/*vertex[8] =
-	{
-		{0,0,0},
-		{5,0,0},
-		{5,0,5},
-		{0,0,5},
-
-		{0,5,0},
-		{5,5,0},
-		{5,5,5},
-		{0,5,5},
-	};*/
 }
 
 void GameScene::Update() {
