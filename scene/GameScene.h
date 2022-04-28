@@ -16,10 +16,10 @@
 /// </summary>
 class GameScene {
 
-  public: // メンバ関数
-	/// <summary>
-	/// コンストクラタ
-	/// </summary>
+public: // メンバ関数
+  /// <summary>
+  /// コンストクラタ
+  /// </summary>
 	GameScene();
 
 	/// <summary>
@@ -42,7 +42,7 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
-  private: // メンバ変数
+private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -64,19 +64,47 @@ class GameScene {
 	//Vector3* startMyLine_;
 	//Vector3* endMyLine;
 
-	Vector3 vertex[8] = 
+	Vector3 vertex[8] =
 	{
 		{0,0,0},
 		{5,0,0},
+
 		{5,0,5},
 		{0,0,5},
 
 		{0,5,0},
 		{5,5,0},
+
 		{5,5,5},
 		{0,5,5},
 	};
+	
+	int edgeList[12][2] =
+	{
+		{0,1},
+		{1,2},
+		{2,3},
+		{3,0},
+		{4,5},
+		{5,6},
+		{6,7},
+		{7,4},
+		{0,4},
+		{1,5},
+		{2,6},
+		{3,7},
+	};
 
+	Vector4 vecColor = 
+	{
+		0, 0, 0, 0xFF
+	};
+
+	Vector4 debugColor = 
+	{
+		200, 150, 0, 0xFF
+
+	};
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

@@ -7,7 +7,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete debugCamera_; 
+	delete debugCamera_;
 	delete model_;
 }
 
@@ -39,7 +39,7 @@ void GameScene::Initialize() {
 	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	/*vertex[8] = 
+	/*vertex[8] =
 	{
 		{0,0,0},
 		{5,0,0},
@@ -60,7 +60,7 @@ void GameScene::Update() {
 
 void GameScene::Draw() {
 
-	
+
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -92,8 +92,13 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 
-	//PrimitiveDrawer::GetInstance()->DrawLine3d(*startMyLine_->x,*startMyLine_->z,)
+	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 
+	for (int i = 0; i < 12; i++)
+	{
+		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
+	}
+	
 #pragma endregion
 
 #pragma region 前景スプライト描画
