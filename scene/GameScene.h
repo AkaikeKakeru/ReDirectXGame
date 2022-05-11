@@ -96,6 +96,58 @@ private: // メンバ変数
 		0x00, 0x00, 0x00, 0xFF
 	};
 
+	Vector3 vertexScale[8] =
+	{
+		{0.0f,0.0f,0.0f},
+		{5.0f,0.0f,0.0f},
+		{5.0f,0.0f,5.0f},
+		{0.0f,0.0f,5.0f},
+		{0.0f,5.0f,0.0f},
+		{5.0f,5.0f,0.0f},
+		{5.0f,5.0f,5.0f},
+		{0.0f,5.0f,5.0f}
+	};
+
+	Vector3 vertexRote[8] =
+	{
+		{0.0f,0.0f,0.0f},
+		{5.0f,0.0f,0.0f},
+		{5.0f,0.0f,5.0f},
+		{0.0f,0.0f,5.0f},
+		{0.0f,5.0f,0.0f},
+		{5.0f,5.0f,0.0f},
+		{5.0f,5.0f,5.0f},
+		{0.0f,5.0f,5.0f}
+	};
+
+	Vector3 vertexTransform[8] =
+	{
+		{0.0f,0.0f,0.0f},
+		{5.0f,0.0f,0.0f},
+		{5.0f,0.0f,5.0f},
+		{0.0f,0.0f,5.0f},
+		{0.0f,5.0f,0.0f},
+		{5.0f,5.0f,0.0f},
+		{5.0f,5.0f,5.0f},
+		{0.0f,5.0f,5.0f}
+	};
+
+
+	Vector4 vecScaleColor = 
+	{
+		0x00, 0xFF, 0x00, 0xFF
+	};
+
+	Vector4 vecRoteColor = 
+	{
+		0x00, 0x00, 0xFF, 0xFF
+	};
+
+	Vector4 vecTransformColor = 
+	{
+		0xFF, 0x00, 0x00, 0xFF
+	};
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

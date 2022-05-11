@@ -4,6 +4,10 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
+#include <math.h>
+
+#define PI 3.141592
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -38,26 +42,77 @@ void GameScene::Initialize() {
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
+	//ワールドトランスフォーム行列
+	worldTransform_.matWorld_ =
+	{ 1,0,0,0,
+	  0,1,0,0,
+	  0,0,1,0,
+	  0,0,0,1 };
 
+	//scale
 	//X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = {5.0f,1.0f,5.0f};
+	worldTransform_.scale_ = { 5.0f,1.0f,5.0f };
 
 	////スケーリング行列を宣言
 	Matrix4 matScale;
 
-	matScale = 
-	{worldTransform_.scale_.x,0,0,0,
+	matScale =
+	{ worldTransform_.scale_.x,0,0,0,
 		0,worldTransform_.scale_.y,0,0,
 		0,0,worldTransform_.scale_.z,0,
-		0,0,0,1};
+		0,0,0,1 };
 
+	//ワールドトランスフォーム行列
 	worldTransform_.matWorld_ =
-	  { 1,0,0,0,
+	{ 1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		0,0,0,1};
+		0,0,0,1 };
 
 	worldTransform_.matWorld_ *= matScale;
+
+
+	//Rote
+	float radian = 45 * PI / 180.0;
+
+	//X,Y,Z方向の回転を設定
+	worldTransform_.rotation_ = { radian,radian,radian };
+
+	//合成用回転行列を宣言
+	Matrix4 matRot;
+
+	//各軸用回転行列を宣言
+	Matrix4 matRotX, matRotY, matRotZ;
+
+	matRotX =
+	{ 1,0,0,0,
+		0,cos(radian),sin(radian),0,
+		0,-sin(radian),cos(radian),0,
+		0,0,0,1 };
+
+	matRotY =
+	{ cos(radian),0,-sin(radian),0,
+		0,1,0,0,
+		sin(radian),0,cos(radian),0,
+		0,0,0,1 };
+
+	matRotZ =
+	{ cos(radian),sin(radian),0,0,
+		-sin(radian),cos(radian),0,0,
+		0,0,1,0,
+		0,0,0,1 };
+
+	//各軸の回転行列を合成
+	matRot = matRotZ *= matRotX *= matRotY;
+
+	//ワールドトランスフォーム行列
+	worldTransform_.matWorld_ =
+	{ 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1 };
+
+	worldTransform_.matWorld_ *= matRot;
 
 	//行列の転送
 	worldTransform_.TransferMatrix();
@@ -69,8 +124,6 @@ void GameScene::Update() {
 }
 
 void GameScene::Draw() {
-
-
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -108,7 +161,7 @@ void GameScene::Draw() {
 	{
 		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
 	}
-	
+
 #pragma endregion
 
 #pragma region 前景スプライト描画
