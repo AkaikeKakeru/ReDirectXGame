@@ -70,19 +70,19 @@ void GameScene::Initialize() {
 
 	matRotX =
 	{ 1,0,0,0,
-		0,cos(radian),sin(radian),0,
-		0,-sin(radian),cos(radian),0,
+		0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
+		0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
 		0,0,0,1 };
 
 	matRotY =
-	{ cos(radian),0,-sin(radian),0,
+	{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
 		0,1,0,0,
-		sin(radian),0,cos(radian),0,
+		sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
 		0,0,0,1 };
 
 	matRotZ =
-	{ cos(radian),sin(radian),0,0,
-		-sin(radian),cos(radian),0,0,
+	{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
+		-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
 		0,0,1,0,
 		0,0,0,1 };
 
@@ -103,6 +103,7 @@ void GameScene::Initialize() {
 		0,0,1,0,
 		worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
 
+	//行列の合成
 	//ワールドトランスフォーム行列
 	worldTransform_.matWorld_ =
 	{ 1,0,0,0,
