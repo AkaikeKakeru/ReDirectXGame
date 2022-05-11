@@ -42,13 +42,6 @@ void GameScene::Initialize() {
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	//ワールドトランスフォーム行列
-	worldTransform_.matWorld_ =
-	{ 1,0,0,0,
-	  0,1,0,0,
-	  0,0,1,0,
-	  0,0,0,1 };
-
 	//scale
 	//X,Y,Z方向のスケーリングを設定
 	worldTransform_.scale_ = { 5.0f,1.0f,5.0f };
@@ -61,15 +54,6 @@ void GameScene::Initialize() {
 		0,worldTransform_.scale_.y,0,0,
 		0,0,worldTransform_.scale_.z,0,
 		0,0,0,1 };
-
-	//ワールドトランスフォーム行列
-	worldTransform_.matWorld_ =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1 };
-
-	worldTransform_.matWorld_ *= matScale;
 
 
 	//Rote
@@ -105,6 +89,20 @@ void GameScene::Initialize() {
 	//各軸の回転行列を合成
 	matRot = matRotZ *= matRotX *= matRotY;
 
+
+	//translation
+	//X,Y,Z方向の平行移動を設定
+	worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
+
+	//平行移動行列を宣言
+	Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+	matTrans =
+	{ 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
+
 	//ワールドトランスフォーム行列
 	worldTransform_.matWorld_ =
 	{ 1,0,0,0,
@@ -112,7 +110,9 @@ void GameScene::Initialize() {
 		0,0,1,0,
 		0,0,0,1 };
 
+	worldTransform_.matWorld_ *= matScale;
 	worldTransform_.matWorld_ *= matRot;
+	worldTransform_.matWorld_ *= matTrans;
 
 	//行列の転送
 	worldTransform_.TransferMatrix();
