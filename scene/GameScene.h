@@ -108,7 +108,7 @@ private: // メンバ変数
 		{0.0f,5.0f,5.0f}
 	};
 
-	Vector3 vertexRote[8] =
+	Vector3 vertexRota[8] =
 	{
 		{0.0f,0.0f,0.0f},
 		{5.0f,0.0f,0.0f},
@@ -138,7 +138,7 @@ private: // メンバ変数
 		0x00, 0xFF, 0x00, 0xFF
 	};
 
-	Vector4 vecRoteColor = 
+	Vector4 vecRotaColor = 
 	{
 		0x00, 0x00, 0xFF, 0xFF
 	};

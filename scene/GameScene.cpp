@@ -44,7 +44,7 @@ void GameScene::Initialize() {
 
 	//scale
 	//X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = { 5.0f,1.0f,5.0f };
+	worldTransform_.scale_ = { 2.0f,2.0f,2.0f };
 
 	////スケーリング行列を宣言
 	Matrix4 matScale;
@@ -117,11 +117,37 @@ void GameScene::Initialize() {
 
 	//行列の転送
 	worldTransform_.TransferMatrix();
+
+
+	for (int i = 0; i < 8; i++)
+	{
+		vertexScale[i].x = vertex[i].x * matScale.m[0][0] + vertex[i].y * matScale.m[0][1] + vertex[i].z * matScale.m[0][2];
+
+		vertexScale[i].y = vertex[i].x * matScale.m[1][0] + vertex[i].y * matScale.m[1][1] + vertex[i].z * matScale.m[1][2];
+
+		vertexScale[i].z = vertex[i].x * matScale.m[2][0] + vertex[i].y * matScale.m[2][1] + vertex[i].z * matScale.m[2][2];
+
+
+		vertexRota[i].x = vertex[i].x * matRot.m[0][0] + vertex[i].y * matRot.m[0][1] + vertex[i].z * matRot.m[0][2];
+
+		vertexRota[i].y = vertex[i].x * matRot.m[1][0] + vertex[i].y * matRot.m[1][1] + vertex[i].z * matRot.m[1][2];
+
+		vertexRota[i].z = vertex[i].x * matRot.m[2][0] + vertex[i].y * matRot.m[2][1] + vertex[i].z * matRot.m[2][2];
+
+
+		vertexTransform[i].x += 5;
+
+		vertexTransform[i].y += 5;
+
+		vertexTransform[i].z += 5;
+	}
 }
 
 void GameScene::Update() {
 	//デバッグカメラの更新
 	debugCamera_->Update();
+
+	
 }
 
 void GameScene::Draw() {
@@ -161,6 +187,9 @@ void GameScene::Draw() {
 	for (int i = 0; i < 12; i++)
 	{
 		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
+		PrimitiveDrawer::GetInstance()->DrawLine3d(vertexScale[edgeList[i][0]], vertexScale[edgeList[i][1]], vecScaleColor);
+		PrimitiveDrawer::GetInstance()->DrawLine3d(vertexRota[edgeList[i][0]], vertexRota[edgeList[i][1]], vecRotaColor);
+		PrimitiveDrawer::GetInstance()->DrawLine3d(vertexTransform[edgeList[i][0]], vertexTransform[edgeList[i][1]], vecTransformColor);
 	}
 
 #pragma endregion
