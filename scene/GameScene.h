@@ -61,24 +61,20 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	//Vector3* startMyLine_;
-	//Vector3* endMyLine;
-
 	Vector3 vertex[8] =
 	{
 		{0.0f,0.0f,0.0f},
 		{5.0f,0.0f,0.0f},
-
 		{5.0f,0.0f,5.0f},
 		{0.0f,0.0f,5.0f},
-
 		{0.0f,5.0f,0.0f},
 		{5.0f,5.0f,0.0f},
-
 		{5.0f,5.0f,5.0f},
 		{0.0f,5.0f,5.0f}
 	};
 	
+
+
 	int edgeList[12][2] =
 	{
 		{0,1},

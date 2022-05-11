@@ -36,9 +36,31 @@ void GameScene::Initialize() {
 	//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 
-	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
+
+	//X,Y,Z方向のスケーリングを設定
+	worldTransform_.scale_ = {5.0f,1.0f,5.0f};
+
+	////スケーリング行列を宣言
+	Matrix4 matScale;
+
+	matScale = 
+	{worldTransform_.scale_.x,0,0,0,
+		0,worldTransform_.scale_.y,0,0,
+		0,0,worldTransform_.scale_.z,0,
+		0,0,0,1};
+
+	worldTransform_.matWorld_ =
+	  { 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1};
+
+	worldTransform_.matWorld_ *= matScale;
+
+	//行列の転送
+	worldTransform_.TransferMatrix();
 }
 
 void GameScene::Update() {
