@@ -86,8 +86,18 @@ void GameScene::Draw() {
 	{
 		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
 	}
-	
+
+	for (int i = 0; i < 22; i++)
+	{
+		if(i < 11)
+		PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], zColor);
+
+		else
+		PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], xColor);
+	}
+
 #pragma endregion
+
 
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
