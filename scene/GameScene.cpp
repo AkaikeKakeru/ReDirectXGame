@@ -44,7 +44,7 @@ void GameScene::Initialize() {
 
 	//scale
 	//X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = { 5.0f,1.0f,5.0f };
+	worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
 
 	////スケーリング行列を宣言
 	Matrix4 matScale;
@@ -60,7 +60,7 @@ void GameScene::Initialize() {
 	float radian = 45 * PI / 180.0;
 
 	//X,Y,Z方向の回転を設定
-	worldTransform_.rotation_ = { radian,radian,radian };
+	worldTransform_.rotation_ = { radian,radian,0.0f };
 
 	//合成用回転行列を宣言
 	Matrix4 matRot;
