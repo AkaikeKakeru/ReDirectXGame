@@ -162,7 +162,10 @@ void GameScene::Initialize() {
 	}
 
 	//カメラ視点座標を設定
-	viewProjection_.eye = {0,0,-10};
+	//viewProjection_.eye = {0,0,-10};
+
+	//カメラ注視点座標を設定
+	viewProjection_.target = {10,0,0};
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
