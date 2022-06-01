@@ -176,87 +176,38 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_ /*&debugCamera_->GetViewProjection()*/);
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
-
-	////scale
-	////X,Y,Z方向のスケーリングを設定
-	//worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
-
-	//////スケーリング行列を宣言
-	//Matrix4 matScale;
-
-	//matScale =
-	//{ worldTransform_.scale_.x,0,0,0,
-	//	0,worldTransform_.scale_.y,0,0,
-	//	0,0,worldTransform_.scale_.z,0,
-	//	0,0,0,1 };
-
-
-	////Rote
-	//float radian = 45 * PI / 180.0;
-
-	////X,Y,Z方向の回転を設定
-	//worldTransform_.rotation_ = { radian,radian,0.0f };
-
-	////合成用回転行列を宣言
-	//Matrix4 matRot;
-
-	////各軸用回転行列を宣言
-	//Matrix4 matRotX, matRotY, matRotZ;
-
-	//matRotX =
-	//{ 1,0,0,0,
-	//	0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
-	//	0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
-	//	0,0,0,1 };
-
-	//matRotY =
-	//{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
-	//	0,1,0,0,
-	//	sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
-	//	0,0,0,1 };
-
-	//matRotZ =
-	//{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
-	//	-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
-	//	0,0,1,0,
-	//	0,0,0,1 };
-
-	////各軸の回転行列を合成
-	//matRot = matRotZ *= matRotX *= matRotY;
-
-
-	////translation
-	////X,Y,Z方向の平行移動を設定
-	//worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
-
-	////平行移動行列を宣言
-	//Matrix4 matTrans = MathUtility::Matrix4Identity();
-
-	//matTrans =
-	//{ 1,0,0,0,
-	//	0,1,0,0,
-	//	0,0,1,0,
-	//	worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
-
-	////行列の合成
-	////ワールドトランスフォーム行列
-	//worldTransform_.matWorld_ =
-	//{ 1,0,0,0,
-	//	0,1,0,0,
-	//	0,0,1,0,
-	//	0,0,0,1 };
-
-	//worldTransform_.matWorld_ *= matScale;
-	//worldTransform_.matWorld_ *= matRot;
-	//worldTransform_.matWorld_ *= matTrans;
-
-	////行列の転送
-	//worldTransform_.TransferMatrix();
 }
 
 void GameScene::Update() {
 	//デバッグカメラの更新
 	debugCamera_->Update();
+
+	//視点移動処理
+	{
+		//視点ベクトル
+		Vector3 move = { 0,0,0 };
+
+		//視点の移動速さ
+		const float kEyeSpeed = 0.2f;
+
+		//押した方向で移動ベクトルを変更
+		if (input_->PushKey(DIK_W)) {
+			move.z += kEyeSpeed;
+		}else if (input_->PushKey(DIK_S)) {
+			move.z -= kEyeSpeed;
+		}
+
+		//視点移動(ベクトルの加算)
+		viewProjection_.eye += move;
+
+		//行列の再計算
+		viewProjection_.UpdateMatrix();
+
+		//デバッグ用表示
+		debugText_->SetPos(50, 50);
+		debugText_->Printf(
+			"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+	}
 }
 
 void GameScene::Draw() {
