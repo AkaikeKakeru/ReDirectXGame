@@ -275,6 +275,28 @@ void GameScene::Update() {
 //	}
 //#pragma endregion 
 
+	//FoV変更処理
+	{
+		//視野角が広がる
+		if (input_->PushKey(DIK_UP)) {
+			viewProjection_.fovAngleY += 0.01f;
+			viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
+		//視野角が狭まる
+		}else if (input_->PushKey(DIK_DOWN)) {
+			viewProjection_.fovAngleY -= 0.01f;
+			viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
+		}
+
+		//行列の再計算
+		viewProjection_.UpdateMatrix();
+
+		//デバッグ用表示
+		debugText_->SetPos(50, 110);
+		debugText_->Printf(
+			"fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+	}
+
+
 	
 }
 
