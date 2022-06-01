@@ -211,6 +211,33 @@ void GameScene::Update() {
 		debugText_->Printf(
 			"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 	}
+
+	//注視点移動処理
+	{
+		//注視点ベクトル
+		Vector3 move = { 0,0,0 };
+
+		//視点の移動速さ
+		const float kTargetSpeed = 0.2f;
+
+		//押した方向で移動ベクトルを変更
+		if (input_->PushKey(DIK_LEFT)) {
+			move.x -= kTargetSpeed;
+		}else if (input_->PushKey(DIK_RIGHT)) {
+			move.x += kTargetSpeed;
+		}
+
+		//視点移動(ベクトルの加算)
+		viewProjection_.target += move;
+
+		//行列の再計算
+		viewProjection_.UpdateMatrix();
+
+		//デバッグ用表示
+		debugText_->SetPos(50, 70);
+		debugText_->Printf(
+			"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);
+	}
 }
 
 void GameScene::Draw() {
