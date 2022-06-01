@@ -175,6 +175,9 @@ void GameScene::Initialize() {
 	//カメラ垂直方向視野を設定
 	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
 
+	//アスペクト比を設定
+	viewProjection_.aspectRatio = 1.0f;
+
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
