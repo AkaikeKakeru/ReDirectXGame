@@ -176,7 +176,7 @@ void GameScene::Initialize() {
 	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
 
 	//アスペクト比を設定
-	//viewProjection_.aspectRatio = 1.0f;
+	viewProjection_.aspectRatio = 1.0f;
 
 	//ニアクリップ距離を設定
 	viewProjection_.nearZ = 52.0f;
@@ -287,11 +287,11 @@ void GameScene::Update() {
 	//FoV変更処理
 	{
 		//視野角が広がる
-		if (input_->PushKey(DIK_UP)) {
+		if (input_->PushKey(DIK_W)) {
 			viewProjection_.fovAngleY += 0.01f;
 			viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
 		//視野角が狭まる
-		}else if (input_->PushKey(DIK_DOWN)) {
+		}else if (input_->PushKey(DIK_S)) {
 			viewProjection_.fovAngleY -= 0.01f;
 			viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
 		}
@@ -303,6 +303,24 @@ void GameScene::Update() {
 		debugText_->SetPos(50, 110);
 		debugText_->Printf(
 			"fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+	}
+
+	//クリップ距離変更処理
+	{
+		//クリップ距離を増減
+		if (input_->PushKey(DIK_UP)) {
+			viewProjection_.nearZ += 0.1f;
+		}else if (input_->PushKey(DIK_DOWN)) {
+			viewProjection_.nearZ -= 0.1f;
+		}
+
+		//行列の再計算
+		viewProjection_.UpdateMatrix();
+
+		//デバッグ用表示
+		debugText_->SetPos(50, 130);
+		debugText_->Printf(
+			"nearZ:%f", XMConvertToDegrees(viewProjection_.nearZ));
 	}
 
 
