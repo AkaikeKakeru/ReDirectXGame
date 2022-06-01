@@ -59,6 +59,9 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	//カメラ上方向の角度
+	float viewAngle = 0.0f;
+
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
