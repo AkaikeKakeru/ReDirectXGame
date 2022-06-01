@@ -5,6 +5,8 @@
 #include "AxisIndicator.h"
 
 #include <math.h>
+#include <random>
+//#include <time.h>
 
 #define PI 3.141592
 
@@ -17,6 +19,9 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
+	float randomRote = rand() % (314 / 100) - PI;// / 180;
+	int randomCordinate = rand() % 20 - 10;
+
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
@@ -27,8 +32,88 @@ void GameScene::Initialize() {
 	//モデルの生成
 	model_ = Model::Create();
 
-	//ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
+	//範囲forで全てのワールドトランスフォームを順に処理する
+	for(WorldTransform& worldTransform : worldTransforms_)
+	{
+		//ワールドトランスフォームの初期化
+		worldTransform.Initialize();
+
+		//scale
+		//X,Y,Z方向のスケーリングを設定
+		worldTransform.scale_ = { 5.0f,5.0f,5.0f };
+
+		////スケーリング行列を宣言
+		Matrix4 matScale;
+
+		matScale =
+		{ worldTransform.scale_.x,0,0,0,
+			0,worldTransform.scale_.y,0,0,
+			0,0,worldTransform.scale_.z,0,
+			0,0,0,1 };
+
+
+		//Rote
+		float radian = 45 * PI / 180.0;
+
+		//X,Y,Z方向の回転を設定
+		worldTransform.rotation_ = { radian,radian,0.0f };
+
+		//合成用回転行列を宣言
+		Matrix4 matRot;
+
+		//各軸用回転行列を宣言
+		Matrix4 matRotX, matRotY, matRotZ;
+
+		matRotX =
+		{ 1,0,0,0,
+			0,cos(worldTransform.rotation_.x),sin(worldTransform.rotation_.x),0,
+			0,-sin(worldTransform.rotation_.x),cos(worldTransform.rotation_.x),0,
+			0,0,0,1 };
+
+		matRotY =
+		{ cos(worldTransform.rotation_.y),0,-sin(worldTransform.rotation_.y),0,
+			0,1,0,0,
+			sin(worldTransform.rotation_.y),0,cos(worldTransform.rotation_.y),0,
+			0,0,0,1 };
+
+		matRotZ =
+		{ cos(worldTransform.rotation_.z),sin(worldTransform.rotation_.z),0,0,
+			-sin(worldTransform.rotation_.z),cos(worldTransform.rotation_.z),0,0,
+			0,0,1,0,
+			0,0,0,1 };
+
+		//各軸の回転行列を合成
+		matRot = matRotZ *= matRotX *= matRotY;
+
+
+		//translation
+		//X,Y,Z方向の平行移動を設定
+		worldTransform.translation_ = { 10.0f,10.0f,10.0f };
+
+		//平行移動行列を宣言
+		Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+		matTrans =
+		{ 1,0,0,0,
+			0,1,0,0,
+			0,0,1,0,
+			worldTransform.translation_.x,worldTransform.translation_.y,worldTransform.translation_.z,1 };
+
+		//行列の合成
+		//ワールドトランスフォーム行列
+		worldTransform.matWorld_ =
+		{ 1,0,0,0,
+			0,1,0,0,
+			0,0,1,0,
+			0,0,0,1 };
+
+		worldTransform.matWorld_ *= matScale;
+		worldTransform.matWorld_ *= matRot;
+		worldTransform.matWorld_ *= matTrans;
+
+		//行列の転送
+		worldTransform.TransferMatrix();
+	}
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
@@ -42,81 +127,81 @@ void GameScene::Initialize() {
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	//scale
-	//X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
+	////scale
+	////X,Y,Z方向のスケーリングを設定
+	//worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
 
-	////スケーリング行列を宣言
-	Matrix4 matScale;
+	//////スケーリング行列を宣言
+	//Matrix4 matScale;
 
-	matScale =
-	{ worldTransform_.scale_.x,0,0,0,
-		0,worldTransform_.scale_.y,0,0,
-		0,0,worldTransform_.scale_.z,0,
-		0,0,0,1 };
-
-
-	//Rote
-	float radian = 45 * PI / 180.0;
-
-	//X,Y,Z方向の回転を設定
-	worldTransform_.rotation_ = { radian,radian,0.0f };
-
-	//合成用回転行列を宣言
-	Matrix4 matRot;
-
-	//各軸用回転行列を宣言
-	Matrix4 matRotX, matRotY, matRotZ;
-
-	matRotX =
-	{ 1,0,0,0,
-		0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
-		0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
-		0,0,0,1 };
-
-	matRotY =
-	{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
-		0,1,0,0,
-		sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
-		0,0,0,1 };
-
-	matRotZ =
-	{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
-		-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
-		0,0,1,0,
-		0,0,0,1 };
-
-	//各軸の回転行列を合成
-	matRot = matRotZ *= matRotX *= matRotY;
+	//matScale =
+	//{ worldTransform_.scale_.x,0,0,0,
+	//	0,worldTransform_.scale_.y,0,0,
+	//	0,0,worldTransform_.scale_.z,0,
+	//	0,0,0,1 };
 
 
-	//translation
-	//X,Y,Z方向の平行移動を設定
-	worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
+	////Rote
+	//float radian = 45 * PI / 180.0;
 
-	//平行移動行列を宣言
-	Matrix4 matTrans = MathUtility::Matrix4Identity();
+	////X,Y,Z方向の回転を設定
+	//worldTransform_.rotation_ = { radian,radian,0.0f };
 
-	matTrans =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
+	////合成用回転行列を宣言
+	//Matrix4 matRot;
 
-	//行列の合成
-	//ワールドトランスフォーム行列
-	worldTransform_.matWorld_ =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1 };
+	////各軸用回転行列を宣言
+	//Matrix4 matRotX, matRotY, matRotZ;
 
-	worldTransform_.matWorld_ *= matScale;
-	worldTransform_.matWorld_ *= matRot;
-	worldTransform_.matWorld_ *= matTrans;
+	//matRotX =
+	//{ 1,0,0,0,
+	//	0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
+	//	0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
+	//	0,0,0,1 };
 
-	//行列の転送
-	worldTransform_.TransferMatrix();
+	//matRotY =
+	//{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
+	//	0,1,0,0,
+	//	sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
+	//	0,0,0,1 };
+
+	//matRotZ =
+	//{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
+	//	-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
+	//	0,0,1,0,
+	//	0,0,0,1 };
+
+	////各軸の回転行列を合成
+	//matRot = matRotZ *= matRotX *= matRotY;
+
+
+	////translation
+	////X,Y,Z方向の平行移動を設定
+	//worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
+
+	////平行移動行列を宣言
+	//Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+	//matTrans =
+	//{ 1,0,0,0,
+	//	0,1,0,0,
+	//	0,0,1,0,
+	//	worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
+
+	////行列の合成
+	////ワールドトランスフォーム行列
+	//worldTransform_.matWorld_ =
+	//{ 1,0,0,0,
+	//	0,1,0,0,
+	//	0,0,1,0,
+	//	0,0,0,1 };
+
+	//worldTransform_.matWorld_ *= matScale;
+	//worldTransform_.matWorld_ *= matRot;
+	//worldTransform_.matWorld_ *= matTrans;
+
+	////行列の転送
+	//worldTransform_.TransferMatrix();
 }
 
 void GameScene::Update() {
