@@ -39,6 +39,7 @@ void GameScene::Initialize() {
 	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
+
 }
 
 void GameScene::Update() {
@@ -73,6 +74,43 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
+	
+	Vector3 vertex[8] =
+	{
+		{0.0f,0.0f,0.0f},
+		{5.0f,0.0f,0.0f},
+
+		{5.0f,0.0f,5.0f},
+		{0.0f,0.0f,5.0f},
+
+		{0.0f,5.0f,0.0f},
+		{5.0f,5.0f,0.0f},
+
+		{5.0f,5.0f,5.0f},
+		{0.0f,5.0f,5.0f}
+	};
+
+	int edgeList[12][2] =
+	{
+		{0,1},
+		{1,2},
+		{2,3},
+		{3,0},
+		{0,4},
+		{1,5},
+		{2,6},
+		{3,7},
+		{4,5},
+		{5,6},
+		{6,7},
+		{7,4}
+	};
+
+	Vector4 vecColor = 
+	{
+		0x00, 0x00, 0x00, 0xFF
+	};
+	
 	/// </summary>
 
 	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
