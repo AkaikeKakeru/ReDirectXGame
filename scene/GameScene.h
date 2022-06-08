@@ -53,7 +53,6 @@ private: // メンバ変数
 	//モデル
 	Model* model_ = nullptr;
 
-
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
@@ -61,9 +60,6 @@ private: // メンバ変数
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
-	
-	
 
 	/// <summary>
 	/// ゲームシーン用
