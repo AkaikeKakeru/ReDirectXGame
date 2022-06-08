@@ -39,6 +39,7 @@ void GameScene::Initialize() {
 	//startMyLine_ = new Vector3(0.0f, 0.0f,0.0f);
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
+
 }
 
 void GameScene::Update() {
@@ -47,8 +48,6 @@ void GameScene::Update() {
 }
 
 void GameScene::Draw() {
-
-
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -82,10 +81,10 @@ void GameScene::Draw() {
 
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 
-	for (int i = 0; i < 12; i++)
+	/*for (int i = 0; i < 12; i++)
 	{
 		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
-	}
+	}*/
 
 	for (int i = 0; i < 22; i++)
 	{
