@@ -156,13 +156,6 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 
-	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
-
-	/*for (int i = 0; i < 12; i++)
-	{
-		PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
-	}*/
-
 #pragma endregion
 
 #pragma region 前景スプライト描画
