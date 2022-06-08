@@ -61,7 +61,7 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	Vector3 vertex[8] =
+	/*Vector3 vertex[8] =
 	{
 		{0.0f,0.0f,0.0f},
 		{5.0f,0.0f,0.0f},
@@ -146,7 +146,7 @@ private: // メンバ変数
 	Vector4 vecTransformColor = 
 	{
 		0xFF, 0x00, 0x00, 0xFF
-	};
+	};*/
 
 	/// <summary>
 	/// ゲームシーン用
