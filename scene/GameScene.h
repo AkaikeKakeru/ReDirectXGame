@@ -11,6 +11,16 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 
+#include "TextureManager.h"
+#include <cassert>
+#include "PrimitiveDrawer.h"
+#include "AxisIndicator.h"
+
+#include <math.h>
+#include <DirectXMath.h>
+using namespace DirectX;
+//#define PI 3.141592
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -31,6 +41,11 @@ public: // メンバ関数
 	/// 初期化
 	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// 転送
+	/// </summary>
+	void MyMatrix(WorldTransform* worldTransform);
 
 	/// <summary>
 	/// 毎フレーム処理
