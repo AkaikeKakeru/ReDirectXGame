@@ -2,6 +2,7 @@
 
 const float PI = XM_PI;
 
+
 void GameScene::MyMatrix(WorldTransform* worldTransform)
 {
 	Matrix4 Mat[] =

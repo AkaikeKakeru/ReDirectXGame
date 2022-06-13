@@ -42,6 +42,7 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize();
 
+
 	/// <summary>
 	/// 転送
 	/// </summary>
