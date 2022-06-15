@@ -4,52 +4,6 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#pragma region WorldTransformIntialize
-void GameScene::WorldTransformIntialize(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
-{
-	worldTransform->scale_ = scale;
-	worldTransform->rotation_ = rotation;
-	worldTransform->translation_ = translation;
-
-	Matrix4 Mat[] =
-	{
-		//拡縮
-		{ scale.x,0,0,0,
-		0,scale.y,0,0,
-		0,0,scale.z,0,
-		0,0,0,1 } ,
-
-		//z回転
-		{ cos(rotation.z),sin(rotation.z),0,0,
-		-sin(rotation.z),cos(rotation.z),0,0,
-		0,0,1,0,
-		0,0,0,1 },
-		//x回転
-		{ 1,0,0,0,
-		0,cos(rotation.x),sin(rotation.x),0,
-		0,-sin(rotation.x),cos(rotation.x),0,
-		0,0,0,1 },
-		//y回転
-		{ cos(rotation.y),0,-sin(rotation.y),0,
-		0,1,0,0,
-		sin(rotation.y),0,cos(rotation.y),0,
-		0,0,0,1 },
-
-		//平行
-		{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		translation.x,translation.y,translation.z,1 },
-	};
-
-	for (int i = 0; i < 5; i++)
-	{
-		worldTransform->matWorld_ *= Mat[i];
-	}
-	worldTransform->TransferMatrix();
-}
-#pragma endregion
-
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
