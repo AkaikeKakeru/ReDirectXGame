@@ -33,6 +33,15 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
+	/// worldTransform初期化
+	/// </summary>
+	Matrix4 TransformScale(WorldTransform* worldTransform,Vector3 scale);
+	Matrix4 TransformRotation(WorldTransform* worldTransform,Vector3 rotation);
+	Matrix4 TransformTranslation(WorldTransform* worldTransform,Vector3 translation);
+	void WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
+
+
+	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
