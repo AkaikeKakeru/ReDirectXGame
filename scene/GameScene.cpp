@@ -12,32 +12,32 @@ void GameScene::WorldTransformIntialize(WorldTransform* worldTransform,Vector3 s
 	Matrix4 Mat[] =
 	{
 		//拡縮
-		{ scale.x,0,0,0,
-		0,scale.y,0,0,
-		0,0,scale.z,0,
+		{ worldTransform->scale_.x,0,0,0,
+		0,worldTransform->scale_.y,0,0,
+		0,0,worldTransform->scale_.z,0,
 		0,0,0,1 } ,
 
 		//z回転
-		{ cos(rotation.z),sin(rotation.z),0,0,
-		-sin(rotation.z),cos(rotation.z),0,0,
+		{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
+		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
 		0,0,1,0,
 		0,0,0,1 },
 		//x回転
 		{ 1,0,0,0,
-		0,cos(rotation.x),sin(rotation.x),0,
-		0,-sin(rotation.x),cos(rotation.x),0,
+		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
+		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
 		0,0,0,1 },
 		//y回転
-		{ cos(rotation.y),0,-sin(rotation.y),0,
+		{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
 		0,1,0,0,
-		sin(rotation.y),0,cos(rotation.y),0,
+		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
 		0,0,0,1 },
 
 		//平行
 		{ 1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		translation.x,translation.y,translation.z,1 },
+		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 },
 	};
 
 	for (int i = 0; i < 5; i++)
