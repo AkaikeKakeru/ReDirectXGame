@@ -330,25 +330,25 @@ void GameScene::Update() {
 			move.x += 0.2f;
 		}
 	
-		worldTransforms_[0].translation_ += move;
+		worldTransforms_[PartId::kRoot].translation_ += move;
 
 
-		//scale
-		Matrix4 matScale = MatrixScale(worldTransforms_[0].scale_);
+		////scale
+		//Matrix4 matScale = MatrixScale(worldTransforms_[0].scale_);
 
-		//Rote
-		Matrix4 matRotation = MatrixRotationZ(worldTransforms_[0].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
+		////Rote
+		//Matrix4 matRotation = MatrixRotationZ(worldTransforms_[0].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
 
-		//translation
-		Matrix4 matTranslation = MatrixTranslation(worldTransforms_[0].translation_);
+		////translation
+		//Matrix4 matTranslation = MatrixTranslation(worldTransforms_[0].translation_);
 
-		worldTransforms_[0].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
-		worldTransforms_[0].TransferMatrix();
+		//worldTransforms_[0].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
+		//worldTransforms_[0].TransferMatrix();
 
 		//デバッグ用表示
 		debugText_->SetPos(50, 150);
 		debugText_->Printf(
-			"Root:(%f,%f,%f)", worldTransforms_[0].translation_.x, worldTransforms_[0].translation_.y, worldTransforms_[0].translation_.z);
+			"Root:(%f,%f,%f)", worldTransforms_[PartId::kRoot].translation_.x, worldTransforms_[PartId::kRoot].translation_.y, worldTransforms_[PartId::kRoot].translation_.z);
 	}
 
 	//子の更新
