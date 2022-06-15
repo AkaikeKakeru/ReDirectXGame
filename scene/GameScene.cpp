@@ -12,6 +12,70 @@ using namespace DirectX;
 
 #define PI 3.141592
 
+#pragma region Transform
+Matrix4 GameScene::MatrixScale(Vector3 scale)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ scale.x,0,0,0,
+		0,scale.y,0,0,
+		0,0,scale.z,0,
+		0,0,0,1 };
+	return mat;
+}
+
+Matrix4 GameScene::MatrixRotationX(Vector3 rotation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ 1,0,0,0,
+		0,cos(rotation.x),sin(rotation.x),0,
+		0,-sin(rotation.x),cos(rotation.x),0,
+		0,0,0,1 };
+	return mat;
+}
+
+Matrix4 GameScene::MatrixRotationY(Vector3 rotation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ cos(rotation.y),0,-sin(rotation.y),0,
+		0,1,0,0,
+		sin(rotation.y),0,cos(rotation.y),0,
+		0,0,0,1 };
+	return mat;
+}
+
+Matrix4 GameScene::MatrixRotationZ(Vector3 rotation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ cos(rotation.z),sin(rotation.z),0,0,
+		-sin(rotation.z),cos(rotation.z),0,0,
+		0,0,1,0,
+		0,0,0,1 };
+	return mat;
+}
+
+Matrix4 GameScene::MatrixTranslation(Vector3 translation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		translation.x,translation.y,translation.z,1 };
+	return mat;
+}
+
+Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat *= scale *= rotation *= translation;
+	return mat;
+}
+#pragma endregion
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
