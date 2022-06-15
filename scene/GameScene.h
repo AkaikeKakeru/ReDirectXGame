@@ -34,11 +34,6 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
-	/// worldTransform初期化
-	/// </summary>
-	void WorldTransformIntialize(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
-
-	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
