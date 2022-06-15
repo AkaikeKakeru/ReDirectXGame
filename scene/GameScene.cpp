@@ -109,7 +109,9 @@ void GameScene::Initialize() {
 	////X,Y,Z方向の回転を設定
 	float radian = 45 * PI / 180.0;
 	Vector3 rotation = { radian,radian,0.0f };
-	Matrix4 matRotation = MatrixRotationZ(rotation) *= MatrixRotationX(rotation) *= MatrixRotationY(rotation);
+	Matrix4 matRotation = MatrixRotationZ(rotation);
+	matRotation *= MatrixRotationX(rotation);
+	matRotation *= MatrixRotationY(rotation);
 
 	////translation
 	////X,Y,Z方向の平行移動を設定
