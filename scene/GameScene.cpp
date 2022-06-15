@@ -12,86 +12,67 @@ using namespace DirectX;
 
 #define PI 3.141592
 
-#pragma region Trasform
-Matrix4 GameScene::TransformScale(WorldTransform* worldTransform,Vector3 scale)
+#pragma region Transform
+Matrix4 GameScene::MatrixScale(Vector3 scale)
 {
-	worldTransform->scale_ = scale;
-
-	//拡縮
-	static Matrix4 matScale = MathUtility::Matrix4Identity();
-
-	matScale = 
-	{ worldTransform->scale_.x,0,0,0,
-		0,worldTransform->scale_.y,0,0,
-		0,0,worldTransform->scale_.z,0,
-		0,0,0,1
-	};
-	return matScale;
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ scale.x,0,0,0,
+		0,scale.y,0,0,
+		0,0,scale.z,0,
+		0,0,0,1 };
+	return mat;
 }
 
-Matrix4 GameScene::TransformRotation(WorldTransform* worldTransform,Vector3 rotation)
+Matrix4 GameScene::MatrixRotationX(Vector3 rotation)
 {
-	worldTransform->rotation_ = rotation;
-
-	//z回転
-	static Matrix4 matZ = MathUtility::Matrix4Identity();
-	matZ =
-	{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
-		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
-		0,0,1,0,
-		0,0,0,1 };
-
-	//x回転
-	static Matrix4 matX = MathUtility::Matrix4Identity();
-	matX =
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
 	{ 1,0,0,0,
-		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
-		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
+		0,cos(rotation.x),sin(rotation.x),0,
+		0,-sin(rotation.x),cos(rotation.x),0,
 		0,0,0,1 };
-
-	//y回転
-	static Matrix4 matY = MathUtility::Matrix4Identity();
-	matY =
-	{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
-		0,1,0,0,
-		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
-		0,0,0,1 };
-
-	static Matrix4 matRota = MathUtility::Matrix4Identity();
-
-	matRota *= matZ *= matX *= matY;
-
-	return matRota;
+	return mat;
 }
 
-Matrix4 GameScene::TransformTranslation(WorldTransform* worldTransform,Vector3 translation)
+Matrix4 GameScene::MatrixRotationY(Vector3 rotation)
 {
-	worldTransform->translation_ = translation;
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ cos(rotation.y),0,-sin(rotation.y),0,
+		0,1,0,0,
+		sin(rotation.y),0,cos(rotation.y),0,
+		0,0,0,1 };
+	return mat;
+}
 
-	//平行移動行列を宣言
-	static Matrix4 matTrans = MathUtility::Matrix4Identity();
+Matrix4 GameScene::MatrixRotationZ(Vector3 rotation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ cos(rotation.z),sin(rotation.z),0,0,
+		-sin(rotation.z),cos(rotation.z),0,0,
+		0,0,1,0,
+		0,0,0,1 };
+	return mat;
+}
 
-	matTrans =
-	{ 
-		1,0,0,0,
+Matrix4 GameScene::MatrixTranslation(Vector3 translation)
+{
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat =
+	{ 1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 
-	};
-	return matTrans;
+		translation.x,translation.y,translation.z,1 };
+	return mat;
 }
-#pragma endregion
 
-#pragma region WorldTransformIntialize
-void GameScene::WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
+Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translation)
 {
-	worldTransform->matWorld_ 
-		*= TransformScale(worldTransform, scale)
-		*= TransformRotation(worldTransform, rotation)
-		*= TransformTranslation(worldTransform, translation);
-
-	worldTransform->TransferMatrix();
-
+	Matrix4 mat = MathUtility::Matrix4Identity();
+	mat *= scale *= rotation *= translation;
+	return mat;
 }
 #pragma endregion
 
@@ -150,7 +131,7 @@ void GameScene::Initialize() {
 		//X,Y,Z方向の回転を設定
 		Vector3 rotation = { radian.x,radian.y,radian.z };
 
-		WorldTransformTransfer(&worldTransform, scale, rotation, randomTranslation);
+		//WorldTransformTransfer(&worldTransform, scale, rotation, randomTranslation);
 	}
 
 	//カメラ垂直方向視野を設定
