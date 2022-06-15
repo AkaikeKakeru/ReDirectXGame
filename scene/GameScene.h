@@ -11,6 +11,10 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 
+#include "directxmath.h"
+#include <random>
+using namespace DirectX;
+
 /// <summary>
 /// ゲームシーン
 /// </summary>

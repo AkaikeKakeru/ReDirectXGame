@@ -4,14 +4,6 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#include "directxmath.h"
-#include <math.h>
-#include <random>
-#include <time.h>
-using namespace DirectX;
-
-#define PI 3.141592
-
 #pragma region Transform
 Matrix4 GameScene::MatrixScale(Vector3 scale)
 {
@@ -85,7 +77,12 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
-	srand(time(NULL));
+#pragma region 乱数
+	std::random_device seed_gen;
+	std::mt19937_64 engine(seed_gen());
+	std::uniform_real_distribution<float> rotDist(0.0f, XM_2PI);
+	std::uniform_real_distribution<float> posDist(-10.0f, 10.0f);
+#pragma endregion
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
