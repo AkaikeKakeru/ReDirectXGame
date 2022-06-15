@@ -85,8 +85,6 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
-	srand(time(NULL));
-
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
@@ -99,13 +97,49 @@ void GameScene::Initialize() {
 
 #pragma region ワールドトランスフォーム設定
 		//ワールドトランスフォームの初期化
-		//親(0番)
-		worldTransforms_[0].Initialize();
+		//大元
+		worldTransforms_[PartId::kRoot].Initialize();
 
-		//子(1番)
-		worldTransforms_[1].Initialize();
-		worldTransforms_[1].translation_ = { 0, 4.5f, 0 };
-		worldTransforms_[1].parent_ = &worldTransforms_[0];
+		//脊椎
+		worldTransforms_[PartId::kSpine].Initialize();
+		worldTransforms_[PartId::kSpine].parent_ = &worldTransforms_[PartId::kRoot];
+		worldTransforms_[PartId::kSpine].translation_ = { 0, 4.5f, 0 };
+
+
+		//上半身
+		//胸
+		worldTransforms_[PartId::kChest].Initialize();
+		worldTransforms_[PartId::kChest].parent_ = &worldTransforms_[PartId::kSpine];
+		worldTransforms_[PartId::kChest].translation_ = { 0, 4.0f, 0 };
+		//頭
+		worldTransforms_[PartId::kHead].Initialize();
+		worldTransforms_[PartId::kHead].parent_ = &worldTransforms_[PartId::kChest];
+		worldTransforms_[PartId::kHead].translation_ = { 0, 3.5f, 0 };
+
+		//左腕
+		worldTransforms_[PartId::kArmL].Initialize();
+		worldTransforms_[PartId::kArmL].parent_ = &worldTransforms_[PartId::kChest];
+		worldTransforms_[PartId::kArmL].translation_ = { -1.0f, 4.25f, 0 };
+		//右腕
+		worldTransforms_[PartId::kArmR].Initialize();
+		worldTransforms_[PartId::kArmR].parent_ = &worldTransforms_[PartId::kChest];
+		worldTransforms_[PartId::kArmR].translation_ = { 1.0f, 4.0f, 0 };
+
+
+		//下半身
+		//尻
+		worldTransforms_[PartId::kHip].Initialize();
+		worldTransforms_[PartId::kHip].translation_ = { 0, 5.0f, 0 };
+		worldTransforms_[PartId::kHip].parent_ = &worldTransforms_[PartId::kSpine];
+
+		//左腕
+		worldTransforms_[PartId::kLegL].Initialize();
+		worldTransforms_[PartId::kLegL].parent_ = &worldTransforms_[PartId::kHip];
+		worldTransforms_[PartId::kLegL].translation_ = { -1.0f, 5.25f, 0 };
+		//右腕
+		worldTransforms_[PartId::kLegR].Initialize();
+		worldTransforms_[PartId::kLegR].parent_ = &worldTransforms_[PartId::kHip];
+		worldTransforms_[PartId::kLegR].translation_ = { 1.0f, 5.0f, 0 };
 
 		//scale
 		//X,Y,Z方向のスケーリングを設定
