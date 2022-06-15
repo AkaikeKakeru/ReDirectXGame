@@ -71,7 +71,9 @@ Matrix4 GameScene::MatrixTranslation(Vector3 translation)
 Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translation)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat *= scale *= rotation *= translation;
+	mat *= scale;
+	mat *= rotation;
+	mat *= translation;
 	return mat;
 }
 #pragma endregion
