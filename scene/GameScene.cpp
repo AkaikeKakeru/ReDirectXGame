@@ -110,7 +110,9 @@ void GameScene::Initialize() {
 		//Rote
 		//X,Y,Z方向の回転を設定
 		Vector3 rotation = { rotDist(engine),rotDist(engine),rotDist(engine)};
-		Matrix4 matRotation = MatrixRotationZ(rotation) *= MatrixRotationX(rotation) *= MatrixRotationY(rotation);
+		Matrix4 matRotation = MatrixRotationZ(rotation);
+		matRotation *= MatrixRotationX(rotation);
+		matRotation *= MatrixRotationY(rotation);
 
 		//translation
 		//X,Y,Z方向の平行移動を設定
