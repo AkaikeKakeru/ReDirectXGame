@@ -35,10 +35,12 @@ public: // メンバ関数
 	/// <summary>
 	/// worldTransform初期化
 	/// </summary>
-	Matrix4 TransformScale(WorldTransform* worldTransform,Vector3 scale);
-	Matrix4 TransformRotation(WorldTransform* worldTransform,Vector3 rotation);
-	Matrix4 TransformTranslation(WorldTransform* worldTransform,Vector3 translation);
-	void WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
+	Matrix4 MatrixScale(Vector3 scale);
+	Matrix4 MatrixRotationX(Vector3 rotation);
+	Matrix4 MatrixRotationY(Vector3 rotation);
+	Matrix4 MatrixRotationZ(Vector3 rotation);
+	Matrix4 MatrixTranslation(Vector3 translation);
+	Matrix4 MatrixWorld(Matrix4 scale, Matrix4 rotation, Matrix4 translation);
 
 	/// <summary>
 	/// 毎フレーム処理
