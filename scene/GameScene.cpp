@@ -10,48 +10,82 @@
 
 #define PI 3.141592
 
+#pragma region Trasform
+void GameScene::TransformScale(WorldTransform* worldTransform,Vector3 scale)
+{
+	worldTransform->scale_ = scale;
+
+	//拡縮
+	static Matrix4 matScale = MathUtility::Matrix4Identity();
+
+	matScale = 
+	{ worldTransform->scale_.x,0,0,0,
+		0,worldTransform->scale_.y,0,0,
+		0,0,worldTransform->scale_.z,0,
+		0,0,0,1
+	};
+
+	worldTransform->matWorld_ *= matScale;
+}
+
+void GameScene::TransformRotation(WorldTransform* worldTransform,Vector3 rotation)
+{
+	worldTransform->rotation_ = rotation;
+
+	//z回転
+	static Matrix4 matZ =
+	{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
+		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
+		0,0,1,0,
+		0,0,0,1 };
+
+	//x回転
+	static Matrix4 matX =
+	{ 1,0,0,0,
+		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
+		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
+		0,0,0,1 };
+
+	//y回転
+	static Matrix4 matY =
+	{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
+		0,1,0,0,
+		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
+		0,0,0,1 };
+
+	static Matrix4 matRota = MathUtility::Matrix4Identity();
+
+	matRota *= matZ *= matX *= matY;
+
+	worldTransform->matWorld_ *= matRota;
+}
+
+void GameScene::TransformTranslation(WorldTransform* worldTransform,Vector3 translation)
+{
+	worldTransform->translation_ = translation;
+
+	//平行移動行列を宣言
+	static Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+	matTrans =
+	{ 
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 
+	};
+
+	worldTransform->matWorld_ *= matTrans;
+}
+#pragma endregion
+
 #pragma region WorldTransformIntialize
 void GameScene::WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
 {
-	worldTransform->scale_ = scale;
-	worldTransform->rotation_ = rotation;
-	worldTransform->translation_ = translation;
+	TransformScale(worldTransform, scale);
+	TransformRotation(worldTransform, rotation);
+	TransformTranslation(worldTransform, translation);
 
-	Matrix4 Mat[] =
-	{
-		//拡縮
-		{ worldTransform->scale_.x,0,0,0,
-		0,worldTransform->scale_.y,0,0,
-		0,0,worldTransform->scale_.z,0,
-		0,0,0,1 } ,
-
-		//z回転
-		{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
-		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
-		0,0,1,0,
-		0,0,0,1 },
-		//x回転
-		{ 1,0,0,0,
-		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
-		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
-		0,0,0,1 },
-		//y回転
-		{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
-		0,1,0,0,
-		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
-		0,0,0,1 },
-
-		//平行
-		{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 },
-	};
-
-	for (int i = 0; i < 5; i++)
-	{
-		worldTransform->matWorld_ *= Mat[i];
-	}
 	worldTransform->TransferMatrix();
 }
 #pragma endregion
@@ -114,44 +148,6 @@ void GameScene::Initialize() {
 		//X,Y,Z方向の回転を設定
 		//worldTransform.rotation_ = { radian.x,radian.y,radian.z };
 		Vector3 rotation = { radian.x,radian.y,radian.z };
-
-		//Vector3 transform =
-
-		////平行移動行列を宣言
-		//Matrix4 matTrans = MathUtility::Matrix4Identity();
-
-		//matTrans =
-		//{ 
-		//	1,0,0,0,
-		//	0,1,0,0,
-		//	0,0,1,0,
-		//	worldTransform.translation_.x,worldTransform.translation_.y,worldTransform.translation_.z,1 
-		//};
-
-		//行列の合成
-		//ワールドトランスフォーム行列
-		/*worldTransform.matWorld_ =
-		{ 
-			worldTransform.scale_.x * cos(worldTransform.rotation_.y) * cos(worldTransform.rotation_.z), sin(worldTransform.rotation_.z), -sin(worldTransform.rotation_.y), 0,
-			-sin(worldTransform.rotation_.z), worldTransform.scale_.y * cos(worldTransform.rotation_.x) * cos(worldTransform.rotation_.z), sin(worldTransform.rotation_.x), 0,
-			sin(worldTransform.rotation_.y), -sin(worldTransform.rotation_.x), worldTransform.scale_.z * cos(worldTransform.rotation_.x) * cos(worldTransform.rotation_.y), 0,
-			worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z, 1  
-		};*/
-
-		//worldTransform.matWorld_ =
-		//{
-		//	1,0,0,0,
-		//	0,1,0,0,
-		//	0,0,1,0,
-		//	0,0,0,1,
-		//};
-
-		//worldTransform.matWorld_ *= matScale;
-		//worldTransform.matWorld_ *= matRot;
-		//worldTransform.matWorld_ *= matTrans;
-
-		////行列の転送
-		//worldTransform.TransferMatrix();
 
 		WorldTransformTransfer(&worldTransform, scale, rotation, randomTranslation);
 	}
