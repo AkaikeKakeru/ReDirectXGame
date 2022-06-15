@@ -64,6 +64,8 @@ public: // メンバ関数
 		kNumPartId
 	};
 
+	void PartTransform(WorldTransform* worldTransforms);
+
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>

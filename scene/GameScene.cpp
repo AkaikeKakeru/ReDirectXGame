@@ -76,6 +76,29 @@ Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translati
 }
 #pragma endregion
 
+void GameScene::PartTransform(WorldTransform* worldTransform)
+{
+	//scale
+	//X,Y,Z方向のスケーリングを設定
+	Matrix4 matScale = MatrixScale(worldTransform->scale_);
+
+	//Rote
+	//X,Y,Z方向の回転を設定
+	Matrix4 matRotation = MatrixRotationZ(worldTransform->rotation_);
+	matRotation *= MatrixRotationX(worldTransform->rotation_);
+	matRotation *= MatrixRotationY(worldTransform->rotation_);
+
+	//translation
+	//X,Y,Z方向の平行移動を設定
+	Matrix4 matTranslation = MatrixTranslation(worldTransform->translation_);
+
+	worldTransform->matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
+	if(worldTransform->parent_ != nullptr)
+		worldTransform->matWorld_ *= worldTransform->parent_->matWorld_;
+
+	worldTransform->TransferMatrix();
+}
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -342,28 +365,9 @@ void GameScene::Update() {
 		}
 	}
 
-
 	for (int i = 0; i < PartId::kNumPartId; i++)
 	{
-		//scale
-		//X,Y,Z方向のスケーリングを設定
-		Matrix4 matScale = MatrixScale(worldTransforms_[i].scale_);
-
-		//Rote
-		//X,Y,Z方向の回転を設定
-		Matrix4 matRotation = MatrixRotationZ(worldTransforms_[i].rotation_) *= MatrixRotationX(worldTransforms_[i].rotation_) *= MatrixRotationY(worldTransforms_[i].rotation_);
-
-		//translation
-		//X,Y,Z方向の平行移動を設定
-		Matrix4 matTranslation = MatrixTranslation(worldTransforms_[i].translation_);
-
-
-		worldTransforms_[i].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
-		if(i != 0)
-		{
-		worldTransforms_[i].matWorld_ *= worldTransforms_[i].parent_->matWorld_;
-		}
-		worldTransforms_[i].TransferMatrix();
+		PartTransform(&worldTransforms_[i]);
 	}
 #pragma endregion
 }
