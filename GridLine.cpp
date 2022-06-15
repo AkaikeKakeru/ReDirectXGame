@@ -29,6 +29,7 @@ void GridLine::Draw()
 	}
 }
 
+//gridCoodinate‚ğ‰Šú‰»
 void GridLine::SetCoordinate()
 {
 	for (int i = 0; i < 44; i++)
@@ -83,6 +84,7 @@ void GridLine::SetCoordinate()
 	}
 }
 
+//gridList‚ğ‰Šú‰»
 void GridLine::SetList()
 {
 
@@ -104,6 +106,7 @@ void GridLine::SetList()
 	}
 }
 
+//lineColor‚ğ‰Šú‰»
 void GridLine::SetColor()
 {
 	xColor = 
