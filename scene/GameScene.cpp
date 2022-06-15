@@ -12,6 +12,89 @@ using namespace DirectX;
 
 #define PI 3.141592
 
+#pragma region Trasform
+Matrix4 GameScene::TransformScale(WorldTransform* worldTransform,Vector3 scale)
+{
+	worldTransform->scale_ = scale;
+
+	//拡縮
+	static Matrix4 matScale = MathUtility::Matrix4Identity();
+
+	matScale = 
+	{ worldTransform->scale_.x,0,0,0,
+		0,worldTransform->scale_.y,0,0,
+		0,0,worldTransform->scale_.z,0,
+		0,0,0,1
+	};
+	return matScale;
+}
+
+Matrix4 GameScene::TransformRotation(WorldTransform* worldTransform,Vector3 rotation)
+{
+	worldTransform->rotation_ = rotation;
+
+	//z回転
+	static Matrix4 matZ = MathUtility::Matrix4Identity();
+	matZ =
+	{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
+		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
+		0,0,1,0,
+		0,0,0,1 };
+
+	//x回転
+	static Matrix4 matX = MathUtility::Matrix4Identity();
+	matX =
+	{ 1,0,0,0,
+		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
+		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
+		0,0,0,1 };
+
+	//y回転
+	static Matrix4 matY = MathUtility::Matrix4Identity();
+	matY =
+	{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
+		0,1,0,0,
+		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
+		0,0,0,1 };
+
+	static Matrix4 matRota = MathUtility::Matrix4Identity();
+
+	matRota *= matZ *= matX *= matY;
+
+	return matRota;
+}
+
+Matrix4 GameScene::TransformTranslation(WorldTransform* worldTransform,Vector3 translation)
+{
+	worldTransform->translation_ = translation;
+
+	//平行移動行列を宣言
+	static Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+	matTrans =
+	{ 
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 
+	};
+	return matTrans;
+}
+#pragma endregion
+
+#pragma region WorldTransformIntialize
+void GameScene::WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
+{
+	worldTransform->matWorld_ 
+		*= TransformScale(worldTransform, scale)
+		*= TransformRotation(worldTransform, rotation)
+		*= TransformTranslation(worldTransform, translation);
+
+	worldTransform->TransferMatrix();
+
+}
+#pragma endregion
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
