@@ -35,9 +35,9 @@ public: // メンバ関数
 	/// <summary>
 	/// worldTransform初期化
 	/// </summary>
-	void TransformScale(WorldTransform* worldTransform,Vector3 scale);
-	void TransformRotation(WorldTransform* worldTransform,Vector3 rotation);
-	void TransformTranslation(WorldTransform* worldTransform,Vector3 translation);
+	Matrix4 TransformScale(WorldTransform* worldTransform,Vector3 scale);
+	Matrix4 TransformRotation(WorldTransform* worldTransform,Vector3 rotation);
+	Matrix4 TransformTranslation(WorldTransform* worldTransform,Vector3 translation);
 	void WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
 
 	/// <summary>
