@@ -11,6 +11,10 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 
+#include "directxmath.h"
+#include <random>
+using namespace DirectX;
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -31,6 +35,36 @@ public: // メンバ関数
 	/// 初期化
 	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// worldTransform初期化
+	/// </summary>
+	Matrix4 MatrixScale(Vector3 scale);
+	Matrix4 MatrixRotationX(Vector3 rotation);
+	Matrix4 MatrixRotationY(Vector3 rotation);
+	Matrix4 MatrixRotationZ(Vector3 rotation);
+	Matrix4 MatrixTranslation(Vector3 translation);
+	Matrix4 MatrixWorld(Matrix4 scale, Matrix4 rotation, Matrix4 translation);
+
+	/// <summary>
+	/// パーツID
+	/// </summary>
+	enum PartId
+	{
+		kRoot,	//大元
+		kSpine,	//脊椎
+		kChest,	//胸
+		kHead,	//頭
+		kArmL,	//左腕
+		kArmR,	//右腕
+		kHip,	//尻
+		kLegL,	//左足
+		kLegR,	//右足
+
+		kNumPartId
+	};
+
+	void PartTransform(WorldTransform* worldTransforms);
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -54,7 +88,6 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 
 	//ワールドトランスフォーム
-	//WorldTransform worldTransform_;
 	WorldTransform worldTransforms_[100];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
@@ -64,93 +97,6 @@ private: // メンバ変数
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
-	Vector3 vertex[8] =
-	{
-		{0.0f,0.0f,0.0f},
-		{5.0f,0.0f,0.0f},
-		{5.0f,0.0f,5.0f},
-		{0.0f,0.0f,5.0f},
-		{0.0f,5.0f,0.0f},
-		{5.0f,5.0f,0.0f},
-		{5.0f,5.0f,5.0f},
-		{0.0f,5.0f,5.0f}
-	};
-	
-
-
-	int edgeList[12][2] =
-	{
-		{0,1},
-		{1,2},
-		{2,3},
-		{3,0},
-		{0,4},
-		{1,5},
-		{2,6},
-		{3,7},
-		{4,5},
-		{5,6},
-		{6,7},
-		{7,4}
-	};
-
-	Vector4 vecColor = 
-	{
-		0x00, 0x00, 0x00, 0xFF
-	};
-
-	Vector3 vertexScale[8] =
-	{
-		{0.0f,0.0f,0.0f},
-		{5.0f,0.0f,0.0f},
-		{5.0f,0.0f,5.0f},
-		{0.0f,0.0f,5.0f},
-		{0.0f,5.0f,0.0f},
-		{5.0f,5.0f,0.0f},
-		{5.0f,5.0f,5.0f},
-		{0.0f,5.0f,5.0f}
-	};
-
-	Vector3 vertexRote[8] =
-	{
-		{0.0f,0.0f,0.0f},
-		{5.0f,0.0f,0.0f},
-		{5.0f,0.0f,5.0f},
-		{0.0f,0.0f,5.0f},
-		{0.0f,5.0f,0.0f},
-		{5.0f,5.0f,0.0f},
-		{5.0f,5.0f,5.0f},
-		{0.0f,5.0f,5.0f}
-	};
-
-	Vector3 vertexTransform[8] =
-	{
-		{0.0f,0.0f,0.0f},
-		{5.0f,0.0f,0.0f},
-		{5.0f,0.0f,5.0f},
-		{0.0f,0.0f,5.0f},
-		{0.0f,5.0f,0.0f},
-		{5.0f,5.0f,0.0f},
-		{5.0f,5.0f,5.0f},
-		{0.0f,5.0f,5.0f}
-	};
-
-
-	Vector4 vecScaleColor = 
-	{
-		0x00, 0xFF, 0x00, 0xFF
-	};
-
-	Vector4 vecRoteColor = 
-	{
-		0x00, 0x00, 0xFF, 0xFF
-	};
-
-	Vector4 vecTransformColor = 
-	{
-		0xFF, 0x00, 0x00, 0xFF
-	};
 
 	/// <summary>
 	/// ゲームシーン用
