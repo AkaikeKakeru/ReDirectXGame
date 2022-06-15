@@ -290,41 +290,54 @@ void GameScene::Update() {
 		Vector3 move = { 0,0,0 };
 	
 		if (input_->PushKey(DIK_LEFT)) {
-			move.x += 0.2f;
-		}else if (input_->PushKey(DIK_RIGHT)) {
 			move.x -= 0.2f;
+		}
+		if (input_->PushKey(DIK_RIGHT)) {
+			move.x += 0.2f;
 		}
 	
 		worldTransforms_[0].translation_ += move;
 
 
 		//scale
-		//X,Y,Z方向のスケーリングを設定
-		Vector3 scale = { 1.0f,1.0f,1.0f };
 		Matrix4 matScale = MatrixScale(worldTransforms_[0].scale_);
 
 		//Rote
-		//X,Y,Z方向の回転を設定
-		float radian = 45.0 * PI;
-		Vector3 rotation = { radian,radian,0.0f};
 		Matrix4 matRotation = MatrixRotationZ(worldTransforms_[0].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
 
 		//translation
-		//X,Y,Z方向の平行移動を設定
-		Vector3 translation = {0.0f,0.0f,0.0f};
 		Matrix4 matTranslation = MatrixTranslation(worldTransforms_[0].translation_);
 
 		worldTransforms_[0].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
 		worldTransforms_[0].TransferMatrix();
 
-
-
-					//デバッグ用表示
-					debugText_->SetPos(50, 150);
-			debugText_->Printf(
+		//デバッグ用表示
+		debugText_->SetPos(50, 150);
+		debugText_->Printf(
 			"Root:(%f,%f,%f)", worldTransforms_[0].translation_.x, worldTransforms_[0].translation_.y, worldTransforms_[0].translation_.z);
 	}
+
+	//子の更新
+	{
+		//scale
+		//X,Y,Z方向のスケーリングを設定
+		Matrix4 matScale = MatrixScale(worldTransforms_[1].scale_);
+
+		//Rote
+		//X,Y,Z方向の回転を設定
+		Matrix4 matRotation = MatrixRotationZ(worldTransforms_[1].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
+
+		//translation
+		//X,Y,Z方向の平行移動を設定
+		Matrix4 matTranslation = MatrixTranslation(worldTransforms_[1].translation_);
+
+
+		worldTransforms_[1].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
+		worldTransforms_[1].matWorld_ *= worldTransforms_[0].matWorld_;
+		worldTransforms_[1].TransferMatrix();
+	}
 #pragma endregion
+
 }
 
 void GameScene::Draw() {
@@ -356,7 +369,7 @@ void GameScene::Draw() {
 
 
 	model_->Draw(worldTransforms_[0], viewProjection_, textureHandle_);
-	//model_->Draw(worldTransforms_[1], viewProjection_, textureHandle_);
+	model_->Draw(worldTransforms_[1], viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
