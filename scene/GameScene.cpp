@@ -217,15 +217,16 @@ void GameScene::Draw() {
 
 	for (int i = 0; i < 22; i++)
 	{
+		static Vector4 vecColor;
+
 		if (i < 11)
-			PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], zColor);
-
+			vecColor = xColor;
 		else
-			PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], xColor);
+			vecColor = zColor;
+
+			PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], vecColor);
 	}
-
 #pragma endregion
-
 
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
