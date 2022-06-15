@@ -10,6 +10,11 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
+#include <DirectXMath.h>
+
+using namespace DirectX;
+
+const float PI = XM_PI;
 
 /// <summary>
 /// ゲームシーン
