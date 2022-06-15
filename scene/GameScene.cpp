@@ -100,38 +100,26 @@ void GameScene::Initialize() {
 	//範囲forで全てのワールドトランスフォームを順に処理する
 	for(WorldTransform& worldTransform : worldTransforms_)
 	{
-		Vector3 randomRote = 
-		{
-			static_cast<float>(rand() % 360),//(314 / 100) - PI;// / 180;
-			static_cast<float>(rand() % 360),
-			static_cast<float>(rand() % 360),
-		};
-
-		Vector3 randomTranslation = 
-		{
-			static_cast<float>(rand() % 20 - 10),
-			static_cast<float>(rand() % 20 - 10),
-			static_cast<float>(rand() % 20 - 10),
-		};
-
 		//ワールドトランスフォームの初期化
 		worldTransform.Initialize();
 
 		//scale
+		//X,Y,Z方向のスケーリングを設定
 		Vector3 scale = { 1.0f,1.0f,1.0f };
+		Matrix4 matScale = MatrixScale(scale);
 
 		//Rote
-		Vector3 radian =
-		{
-			static_cast<float>(randomRote.x * PI / 180.0f),
-			static_cast<float>(randomRote.y * PI / 180.0f),
-			static_cast<float>(randomRote.z * PI / 180.0f),
-		};
-
 		//X,Y,Z方向の回転を設定
-		Vector3 rotation = { radian.x,radian.y,radian.z };
+		Vector3 rotation = { rotDist(engine),rotDist(engine),rotDist(engine)};
+		Matrix4 matRotation = MatrixRotationZ(rotation) *= MatrixRotationX(rotation) *= MatrixRotationY(rotation);
 
-		//WorldTransformTransfer(&worldTransform, scale, rotation, randomTranslation);
+		//translation
+		//X,Y,Z方向の平行移動を設定
+		Vector3 translation = {posDist(engine),posDist(engine),posDist(engine)};
+		Matrix4 matTranslation = MatrixTranslation(translation);
+
+		worldTransform.matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
+		worldTransform.TransferMatrix();
 	}
 
 	//カメラ垂直方向視野を設定
