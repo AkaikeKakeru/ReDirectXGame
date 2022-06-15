@@ -87,99 +87,8 @@ void GameScene::Initialize() {
 
 #pragma region Grid
 	{
-
 		//gridを宣言初期化
-		Vector3 grid[44] = {};
-
-		for (int i = 0; i < 44; i++)
-		{
-			//5～-5を代入する
-			static int j = 5;
-
-			//iは22未満か
-			if (i < 22)
-			{
-				//11未満か
-				if (i < 11)
-				{
-					//z座標を-5に
-					grid[i].z = -5.0f;
-				}
-				else
-				{
-					//z座標を5に
-					grid[i].z = 5.0f;
-				}
-				//x座標は5～-5に
-				grid[i].x = static_cast<float>(j);
-			}
-			//上と処理はほぼ同じ
-			else
-			{
-				if (i < 33)
-				{
-					grid[i].x = -5.0f;
-				}
-				else
-				{
-					grid[i].x = 5.0f;
-				}
-				grid[i].z = static_cast<float>(j);
-			}
-			//y座標は一律0に
-			grid[i].y = 0.0f;
-
-			//jは-5を下回ったか
-			if (j <= -5)
-			{
-				//5に戻す
-				j = 5;
-			}
-			else
-			{
-				//jを1減らす
-				j--;
-			}
-		}
-
-		//gridListを宣言初期化
-		int gridList[22][2] = {};
-
-		for (int i = 0; i < 22; i++)
-		{
-			//iは11未満か
-			if (i < 11)
-			{
-				//始点はgridのi番目の頂点
-				gridList[i][0] = i;
-			}
-			else
-			{
-				//始点はgridの(i + 11)番目の頂点
-				gridList[i][0] = i + 11;
-			}
-			//終点はgridの(始点 + 11)番目の頂点
-			gridList[i][1] = gridList[i][0] + 11;
-		}
-
-		Vector4 xColor =
-		{
-			0xFF, 0x00, 0x00, 0xFF
-		};
-
-		Vector4 zColor =
-		{
-			0x00, 0x00, 0xFF, 0xFF
-		};
-
-		Vector4 vecColor[22];
-		for (int i = 0; i < 22; i++)
-		{
-			if (i < 11)
-				vecColor[i] = xColor;
-			else
-				vecColor[i] = zColor;
-		}
+		gridLine_.Intialize();
 	}
 #pragma endregion
 }
@@ -222,10 +131,8 @@ void GameScene::Draw() {
 
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 
-	for (int i = 0; i < 22; i++)
-	{
-		PrimitiveDrawer::GetInstance()->DrawLine3d(grid[gridList[i][0]], grid[gridList[i][1]], vecColor[i]);
-	}
+	gridLine_.Draw();
+
 #pragma endregion
 
 #pragma region 前景スプライト描画

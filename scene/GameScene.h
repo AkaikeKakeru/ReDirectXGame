@@ -10,6 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
+#include "GridLine.h"
 
 /// <summary>
 /// ゲームシーン
@@ -65,6 +66,9 @@ private: // メンバ変数
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+
+	//グリッドライン
+	GridLine gridLine_;
 
 	/// <summary>
 	/// ゲームシーン用
