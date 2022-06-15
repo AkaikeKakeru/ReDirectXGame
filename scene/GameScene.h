@@ -47,6 +47,24 @@ public: // メンバ関数
 	Matrix4 MatrixWorld(Matrix4 scale, Matrix4 rotation, Matrix4 translation);
 
 	/// <summary>
+	/// パーツID
+	/// </summary>
+	enum PartId
+	{
+		kRoot,	//大元
+		kSpine,	//脊椎
+		kChest,	//胸
+		kHead,	//頭
+		kArmL,	//左腕
+		kArmR,	//右腕
+		kHip,	//尻
+		kLegL,	//左足
+		kLegR,	//右足
+
+		kNumPartId
+	};
+
+	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
