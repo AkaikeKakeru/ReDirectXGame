@@ -33,6 +33,14 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
+	/// worldTransform初期化
+	/// </summary>
+	Matrix4 TransformScale(WorldTransform* worldTransform,Vector3 scale);
+	Matrix4 TransformRotation(WorldTransform* worldTransform,Vector3 rotation);
+	Matrix4 TransformTranslation(WorldTransform* worldTransform,Vector3 translation);
+	void WorldTransformTransfer(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
+
+	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
@@ -65,7 +73,7 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	Vector3 vertex[8] =
+	/*Vector3 vertex[8] =
 	{
 		{0.0f,0.0f,0.0f},
 		{5.0f,0.0f,0.0f},
@@ -150,7 +158,7 @@ private: // メンバ変数
 	Vector4 vecTransformColor = 
 	{
 		0xFF, 0x00, 0x00, 0xFF
-	};
+	};*/
 
 	/// <summary>
 	/// ゲームシーン用
