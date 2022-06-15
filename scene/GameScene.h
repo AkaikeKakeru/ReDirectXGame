@@ -42,11 +42,10 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize();
 
-
 	/// <summary>
-	/// 転送
+	/// worldTransform初期化
 	/// </summary>
-	void MyMatrix(WorldTransform* worldTransform);
+	void WorldTransformIntialize(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation);
 
 	/// <summary>
 	/// 毎フレーム処理

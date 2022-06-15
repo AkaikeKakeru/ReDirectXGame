@@ -2,54 +2,51 @@
 
 const float PI = XM_PI;
 
-
-void GameScene::MyMatrix(WorldTransform* worldTransform)
+#pragma region WorldTransformIntialize
+void GameScene::WorldTransformIntialize(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
 {
+	worldTransform->scale_ = scale;
+	worldTransform->rotation_ = rotation;
+	worldTransform->translation_ = translation;
+
 	Matrix4 Mat[] =
 	{
 		//拡縮
-		{ worldTransform->scale_.x,0,0,0,
-		0,worldTransform->scale_.y,0,0,
-		0,0,worldTransform->scale_.z,0,
+		{ scale.x,0,0,0,
+		0,scale.y,0,0,
+		0,0,scale.z,0,
 		0,0,0,1 } ,
 
 		//z回転
-		{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
-		-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
+		{ cos(rotation.z),sin(rotation.z),0,0,
+		-sin(rotation.z),cos(rotation.z),0,0,
 		0,0,1,0,
 		0,0,0,1 },
 		//x回転
 		{ 1,0,0,0,
-		0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
-		0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
+		0,cos(rotation.x),sin(rotation.x),0,
+		0,-sin(rotation.x),cos(rotation.x),0,
 		0,0,0,1 },
 		//y回転
-		{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
+		{ cos(rotation.y),0,-sin(rotation.y),0,
 		0,1,0,0,
-		sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
+		sin(rotation.y),0,cos(rotation.y),0,
 		0,0,0,1 },
 
 		//平行
 		{ 1,0,0,0,
 		0,1,0,0,
 		0,0,1,0,
-		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 },
+		translation.x,translation.y,translation.z,1 },
 	};
-
-	worldTransform->matWorld_ =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1 };
 
 	for (int i = 0; i < 5; i++)
 	{
 		worldTransform->matWorld_ *= Mat[i];
 	}
-
 	worldTransform->TransferMatrix();
 }
-
+#pragma endregion
 
 GameScene::GameScene() {}
 
@@ -86,84 +83,19 @@ void GameScene::Initialize() {
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
 	//scale
-	//X,Y,Z方向のスケーリングを設定
-	worldTransform_.scale_ = { 4.0f,5.0f,5.0f };
+	////X,Y,Z方向のスケーリングを設定
+	Vector3 scale = {3.0f,4.0f,5.0f};
+	////Rote
 
-	////スケーリング行列を宣言
-	Matrix4 matScale;
-
-	/*MyScaleMatrix(matScale, &worldTransform_);*/
-
-	/*matScale =
-	{ worldTransform_.scale_.x,0,0,0,
-		0,worldTransform_.scale_.y,0,0,
-		0,0,worldTransform_.scale_.z,0,
-		0,0,0,1 };*/
-
-
-		//Rote
+	////X,Y,Z方向の回転を設定
 	float radian = 45 * PI / 180.0;
+	Vector3 rotation = {radian,radian,0.0f};
 
-	//X,Y,Z方向の回転を設定
-	worldTransform_.rotation_ = { radian,radian,0.0f };
+	////translation
+	////X,Y,Z方向の平行移動を設定
+	Vector3 translation = {10.0f,10.0f,10.0f};
 
-	////合成用回転行列を宣言
-	//Matrix4 matRot;
-
-	////各軸用回転行列を宣言
-	//Matrix4 matRotX, matRotY, matRotZ;
-
-	//matRotX =
-	//{ 1,0,0,0,
-	//	0,cos(worldTransform_.rotation_.x),sin(worldTransform_.rotation_.x),0,
-	//	0,-sin(worldTransform_.rotation_.x),cos(worldTransform_.rotation_.x),0,
-	//	0,0,0,1 };
-
-	//matRotY =
-	//{ cos(worldTransform_.rotation_.y),0,-sin(worldTransform_.rotation_.y),0,
-	//	0,1,0,0,
-	//	sin(worldTransform_.rotation_.y),0,cos(worldTransform_.rotation_.y),0,
-	//	0,0,0,1 };
-
-	//matRotZ =
-	//{ cos(worldTransform_.rotation_.z),sin(worldTransform_.rotation_.z),0,0,
-	//	-sin(worldTransform_.rotation_.z),cos(worldTransform_.rotation_.z),0,0,
-	//	0,0,1,0,
-	//	0,0,0,1 };
-
-	////各軸の回転行列を合成
-	//matRot = matRotZ *= matRotX *= matRotY;
-
-
-	//translation
-	//X,Y,Z方向の平行移動を設定
-	worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
-
-	////平行移動行列を宣言
-	//Matrix4 matTrans = MathUtility::Matrix4Identity();
-
-	//matTrans =
-	//{ 1,0,0,0,
-	//	0,1,0,0,
-	//	0,0,1,0,
-	//	worldTransform_.translation_.x,worldTransform_.translation_.y,worldTransform_.translation_.z,1 };
-
-	////行列の合成
-	////ワールドトランスフォーム行列
-	/*worldTransform_.matWorld_ =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1 };*/
-
-		//worldTransform_.matWorld_ *= matScale;
-		//worldTransform_.matWorld_ *= matRot;
-		//worldTransform_.matWorld_ *= matTrans;
-
-		//行列の転送
-		//worldTransform_.TransferMatrix();
-
-	MyMatrix(&worldTransform_);
+	WorldTransformIntialize(&worldTransform_,scale,rotation,translation);
 }
 
 void GameScene::Update() {
