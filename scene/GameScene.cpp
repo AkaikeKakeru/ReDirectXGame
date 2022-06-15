@@ -35,9 +35,11 @@ void GameScene::Initialize() {
 
 #pragma region ワールドトランスフォーム設定
 
+	
+
 	//範囲forで全てのワールドトランスフォームを順に処理する
-	for(WorldTransform& worldTransform : worldTransforms_)
-	{
+	/*for(WorldTransform& worldTransform : worldTransforms_)
+	{*/
 		Vector3 randomRote = 
 		{
 			static_cast<float>(rand() % 360),//(314 / 100) - PI;// / 180;
@@ -53,127 +55,117 @@ void GameScene::Initialize() {
 		};
 
 		//ワールドトランスフォームの初期化
-		worldTransform.Initialize();
+		//親(0番)
+		worldTransforms_[0].Initialize();
 
-		//scale
-		//X,Y,Z方向のスケーリングを設定
-		worldTransform.scale_ = { 1.0f,1.0f,1.0f };
+		//子(1番)
+		worldTransforms_[1].Initialize();
+		worldTransforms_[1].translation_ = { 0, 4.5f, 0 };
+		worldTransforms_[1].parent_ = &worldTransforms_[0];
 
-		//スケーリング行列を宣言
-		Matrix4 matScale;
+		////scale
+		////X,Y,Z方向のスケーリングを設定
+		//worldTransform.scale_ = { 1.0f,1.0f,1.0f };
 
-		matScale =
-		{
-			worldTransform.scale_.x,0,0,0,
-			0,worldTransform.scale_.y,0,0,
-			0,0,worldTransform.scale_.z,0,
-			0,0,0,1 
-		};
+		////スケーリング行列を宣言
+		//Matrix4 matScale;
 
-
-		//Rote
-		//float radian = 45 * PI / 180.0;
-		Vector3 radian =
-		{
-			static_cast<float>(randomRote.x * PI / 180.0f),
-			static_cast<float>(randomRote.y * PI / 180.0f),
-			static_cast<float>(randomRote.z * PI / 180.0f),
-		};
-
-		//X,Y,Z方向の回転を設定
-		worldTransform.rotation_ = { radian.x,radian.y,radian.z };
-
-		//合成用回転行列を宣言
-		Matrix4 matRot;
-
-		//各軸用回転行列を宣言
-		Matrix4 matRotX, matRotY, matRotZ;
-
-		matRotX =
-		{ 
-			1,0,0,0,
-			0,cos(worldTransform.rotation_.x),sin(worldTransform.rotation_.x),0,
-			0,-sin(worldTransform.rotation_.x),cos(worldTransform.rotation_.x),0,
-			0,0,0,1 
-		};
-
-		matRotY =
-		{ 
-			cos(worldTransform.rotation_.y),0,-sin(worldTransform.rotation_.y),0,
-			0,1,0,0,
-			sin(worldTransform.rotation_.y),0,cos(worldTransform.rotation_.y),0,
-			0,0,0,1 
-		};
-
-		matRotZ =
-		{ 
-			cos(worldTransform.rotation_.z),sin(worldTransform.rotation_.z),0,0,
-			-sin(worldTransform.rotation_.z),cos(worldTransform.rotation_.z),0,0,
-			0,0,1,0,
-			0,0,0,1 
-		};
-
-		//各軸の回転行列を合成
-		matRot = matRotZ *= matRotX *= matRotY;
+		//matScale =
+		//{
+		//	worldTransform.scale_.x,0,0,0,
+		//	0,worldTransform.scale_.y,0,0,
+		//	0,0,worldTransform.scale_.z,0,
+		//	0,0,0,1 
+		//};
 
 
-		//translation
-		//X,Y,Z方向の平行移動を設定
-		worldTransform.translation_ = 
-		{ 
-			randomTranslation.x,
-			randomTranslation.y,
-			randomTranslation.z,
-		};
+		////Rote
+		////float radian = 45 * PI / 180.0;
+		//Vector3 radian =
+		//{
+		//	static_cast<float>(randomRote.x * PI / 180.0f),
+		//	static_cast<float>(randomRote.y * PI / 180.0f),
+		//	static_cast<float>(randomRote.z * PI / 180.0f),
+		//};
 
-		//平行移動行列を宣言
-		Matrix4 matTrans = MathUtility::Matrix4Identity();
+		////X,Y,Z方向の回転を設定
+		//worldTransform.rotation_ = { radian.x,radian.y,radian.z };
 
-		matTrans =
-		{ 
-			1,0,0,0,
-			0,1,0,0,
-			0,0,1,0,
-			worldTransform.translation_.x,worldTransform.translation_.y,worldTransform.translation_.z,1 
-		};
+		////合成用回転行列を宣言
+		//Matrix4 matRot;
 
-		//行列の合成
-		//ワールドトランスフォーム行列
-		/*worldTransform.matWorld_ =
-		{ 
-			worldTransform.scale_.x * cos(worldTransform.rotation_.y) * cos(worldTransform.rotation_.z), sin(worldTransform.rotation_.z), -sin(worldTransform.rotation_.y), 0,
-			-sin(worldTransform.rotation_.z), worldTransform.scale_.y * cos(worldTransform.rotation_.x) * cos(worldTransform.rotation_.z), sin(worldTransform.rotation_.x), 0,
-			sin(worldTransform.rotation_.y), -sin(worldTransform.rotation_.x), worldTransform.scale_.z * cos(worldTransform.rotation_.x) * cos(worldTransform.rotation_.y), 0,
-			worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z, 1  
-		};*/
+		////各軸用回転行列を宣言
+		//Matrix4 matRotX, matRotY, matRotZ;
 
-		worldTransform.matWorld_ =
-		{
-			1,0,0,0,
-			0,1,0,0,
-			0,0,1,0,
-			0,0,0,1,
-		};
+		//matRotX =
+		//{ 
+		//	1,0,0,0,
+		//	0,cos(worldTransform.rotation_.x),sin(worldTransform.rotation_.x),0,
+		//	0,-sin(worldTransform.rotation_.x),cos(worldTransform.rotation_.x),0,
+		//	0,0,0,1 
+		//};
 
-		worldTransform.matWorld_ *= matScale;
-		worldTransform.matWorld_ *= matRot;
-		worldTransform.matWorld_ *= matTrans;
+		//matRotY =
+		//{ 
+		//	cos(worldTransform.rotation_.y),0,-sin(worldTransform.rotation_.y),0,
+		//	0,1,0,0,
+		//	sin(worldTransform.rotation_.y),0,cos(worldTransform.rotation_.y),0,
+		//	0,0,0,1 
+		//};
 
-		//行列の転送
-		worldTransform.TransferMatrix();
-	}
+		//matRotZ =
+		//{ 
+		//	cos(worldTransform.rotation_.z),sin(worldTransform.rotation_.z),0,0,
+		//	-sin(worldTransform.rotation_.z),cos(worldTransform.rotation_.z),0,0,
+		//	0,0,1,0,
+		//	0,0,0,1 
+		//};
+
+		////各軸の回転行列を合成
+		//matRot = matRotZ *= matRotX *= matRotY;
+
+
+		////translation
+		////X,Y,Z方向の平行移動を設定
+		//worldTransform.translation_ = 
+		//{ 
+		//	randomTranslation.x,
+		//	randomTranslation.y,
+		//	randomTranslation.z,
+		//};
+
+		////平行移動行列を宣言
+		//Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+		//matTrans =
+		//{ 
+		//	1,0,0,0,
+		//	0,1,0,0,
+		//	0,0,1,0,
+		//	worldTransform.translation_.x,worldTransform.translation_.y,worldTransform.translation_.z,1 
+		//};
+
+		////行列の合成
+		////ワールドトランスフォーム行列
+
+		//worldTransform.matWorld_ =
+		//{
+		//	1,0,0,0,
+		//	0,1,0,0,
+		//	0,0,1,0,
+		//	0,0,0,1,
+		//};
+
+		//worldTransform.matWorld_ *= matScale;
+		//worldTransform.matWorld_ *= matRot;
+		//worldTransform.matWorld_ *= matTrans;
+
+		////行列の転送
+		//worldTransform.TransferMatrix();
+	//}
 #pragma endregion
 
 #pragma region カメラ設定
-
-	//カメラ視点座標を設定
-	//viewProjection_.eye = {0,0,-10};
-
-	//カメラ注視点座標を設定
-	//viewProjection_.target = {10,0,0};
-
-	//カメラ上方向ベクトルを設定 (右上45度)
-	//viewProjection_.up = { cosf(PI / 4.0f), sinf(PI / 4.0f), 0.0f };
 
 	//カメラ垂直方向視野を設定
 	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
@@ -201,13 +193,7 @@ void GameScene::Initialize() {
 
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 
-	//親(0番)
-	worldTransforms_[0].Initialize();
-
-	//子(1番)
-	worldTransforms_[1].Initialize();
-	worldTransforms_[1].translation_ = { 0, 4.5f, 0 };
-	worldTransforms_[1].parent_ = &worldTransforms_[0];
+	
 }
 
 void GameScene::Update() {
@@ -353,20 +339,78 @@ void GameScene::Update() {
 	
 		worldTransforms_[0].translation_ += move;
 
-		worldTransforms_[0].matWorld_ =
-		{
-			1,0,0,0,
-			0,1,0,0,
-			0,0,1,0,
-			0,0,0,1,
-		};
 
-		//ここから再開
-		//worldTransforms_[0].matWorld_ = worldTransforms_[0].;//*= worldTransforms_[0].scale_;
-		//ここから再開
+			//scale
+			//X,Y,Z方向のスケーリングを設定
+			worldTransforms_[0].scale_ = {1.0f,1.0f,1.0f};
 
-					//行列の再計算
-				//	worldTransforms_[0]
+			//スケーリング行列を宣言
+			Matrix4 matScale;
+
+			matScale =
+			{
+				worldTransforms_[0].scale_.x,0,0,0,
+				0,worldTransforms_[0].scale_.y,0,0,
+				0,0,worldTransforms_[0].scale_.z,0,
+				0,0,0,1 
+			};
+
+			//Rote
+			float radian = 45 * PI / 180.0;
+
+			//X,Y,Z方向の回転を設定
+			worldTransforms_[0].rotation_ = {radian,radian,radian};
+
+			//合成用回転行列を宣言
+			Matrix4 matRot;
+
+			//各軸用回転行列を宣言
+			Matrix4 matRotX, matRotY, matRotZ;
+
+			matRotX =
+			{ 
+				1,0,0,0,
+				0,cos(worldTransforms_[0].rotation_.x),sin(worldTransforms_[0].rotation_.x),0,
+				0,-sin(worldTransforms_[0].rotation_.x),cos(worldTransforms_[0].rotation_.x),0,
+				0,0,0,1 
+			};
+
+			matRotY =
+			{ 
+				cos(worldTransforms_[0].rotation_.y),0,-sin(worldTransforms_[0].rotation_.y),0,
+				0,1,0,0,
+				sin(worldTransforms_[0].rotation_.y),0,cos(worldTransforms_[0].rotation_.y),0,
+				0,0,0,1 
+			};
+
+			matRotZ =
+			{ 
+				cos(worldTransforms_[0].rotation_.z),sin(worldTransforms_[0].rotation_.z),0,0,
+				-sin(worldTransforms_[0].rotation_.z),cos(worldTransforms_[0].rotation_.z),0,0,
+				0,0,1,0,
+				0,0,0,1 
+			};
+
+			//各軸の回転行列を合成
+			matRot = matRotZ *= matRotX *= matRotY;
+
+
+		//平行移動行列を宣言
+			Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+			matTrans =
+			{ 
+				1,0,0,0,
+				0,1,0,0,
+				0,0,1,0,
+				worldTransforms_[0].translation_.x,worldTransforms_[0].translation_.y,worldTransforms_[0].translation_.z,1 
+			};
+
+		worldTransforms_[0].matWorld_ = MathUtility::Matrix4Identity();
+
+		worldTransforms_[0].matWorld_ *= matScale;
+		worldTransforms_[0].matWorld_ *= matRot;
+		worldTransforms_[0].matWorld_ *= matTrans;
 		
 		worldTransforms_[0].TransferMatrix();
 
@@ -374,11 +418,7 @@ void GameScene::Update() {
 					debugText_->SetPos(50, 150);
 			debugText_->Printf(
 			"Root:(%f,%f,%f)", worldTransforms_[0].translation_.x, worldTransforms_[0].translation_.y, worldTransforms_[0].translation_.z);
-
-
 	}
-
-
 #pragma endregion
 
 }
@@ -417,17 +457,12 @@ void GameScene::Draw() {
 	//}
 
 	model_->Draw(worldTransforms_[0], viewProjection_, textureHandle_);
-	model_->Draw(worldTransforms_[1], viewProjection_, textureHandle_);
+	//model_->Draw(worldTransforms_[1], viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
-
-	//for (int i = 0; i < 12; i++)
-	//{
-	//	PrimitiveDrawer::GetInstance()->DrawLine3d(vertex[edgeList[i][0]], vertex[edgeList[i][1]], vecColor);
-	//}
 
 #pragma endregion
 
