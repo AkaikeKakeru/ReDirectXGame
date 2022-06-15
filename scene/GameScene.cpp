@@ -139,25 +139,6 @@ void GameScene::Initialize() {
 		worldTransforms_[PartId::kLegR].Initialize();
 		worldTransforms_[PartId::kLegR].parent_ = &worldTransforms_[PartId::kHip];
 		worldTransforms_[PartId::kLegR].translation_ = { 2.5f, -2.5f, 0 };
-
-		////scale
-		////X,Y,Z方向のスケーリングを設定
-		//Vector3 scale = { 1.0f,1.0f,1.0f };
-		//Matrix4 matScale = MatrixScale(scale);
-
-		////Rote
-		////X,Y,Z方向の回転を設定
-		//float radian = 45.0 * PI;
-		//Vector3 rotation = { radian,radian,0.0f};
-		//Matrix4 matRotation = MatrixRotationZ(rotation) *= MatrixRotationX(rotation) *= MatrixRotationY(rotation);
-
-		////translation
-		////X,Y,Z方向の平行移動を設定
-		//Vector3 translation = {0.0f,0.0f,0.0f};
-		//Matrix4 matTranslation = MatrixTranslation(translation);
-
-		//worldTransforms_[0].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
-		//worldTransforms_[0].TransferMatrix();
 #pragma endregion
 
 #pragma region カメラ設定
@@ -331,44 +312,36 @@ void GameScene::Update() {
 	
 		worldTransforms_[PartId::kRoot].translation_ += move;
 
-
-		////scale
-		//Matrix4 matScale = MatrixScale(worldTransforms_[0].scale_);
-
-		////Rote
-		//Matrix4 matRotation = MatrixRotationZ(worldTransforms_[0].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
-
-		////translation
-		//Matrix4 matTranslation = MatrixTranslation(worldTransforms_[0].translation_);
-
-		//worldTransforms_[0].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
-		//worldTransforms_[0].TransferMatrix();
-
 		//デバッグ用表示
 		debugText_->SetPos(50, 150);
 		debugText_->Printf(
 			"Root:(%f,%f,%f)", worldTransforms_[PartId::kRoot].translation_.x, worldTransforms_[PartId::kRoot].translation_.y, worldTransforms_[PartId::kRoot].translation_.z);
 	}
 
-	////子の更新
-	//{
-	//	//scale
-	//	//X,Y,Z方向のスケーリングを設定
-	//	Matrix4 matScale = MatrixScale(worldTransforms_[1].scale_);
+	//上半身回転
+	{
+		if(input_->PushKey(DIK_U))
+		{
+			worldTransforms_[PartId::kChest].rotation_.y -= 0.05f;
+		}
+		else if(input_->PushKey(DIK_I))
+		{
+			worldTransforms_[PartId::kChest].rotation_.y += 0.05f;
+		}
+	}
 
-	//	//Rote
-	//	//X,Y,Z方向の回転を設定
-	//	Matrix4 matRotation = MatrixRotationZ(worldTransforms_[1].rotation_) *= MatrixRotationX(worldTransforms_[0].rotation_) *= MatrixRotationY(worldTransforms_[0].rotation_);
+	//下半身回転
+	{
+		if(input_->PushKey(DIK_J))
+		{
+			worldTransforms_[PartId::kHip].rotation_.y -= 0.05f;
+		}
+		else if(input_->PushKey(DIK_K))
+		{
+			worldTransforms_[PartId::kHip].rotation_.y += 0.05f;
+		}
+	}
 
-	//	//translation
-	//	//X,Y,Z方向の平行移動を設定
-	//	Matrix4 matTranslation = MatrixTranslation(worldTransforms_[1].translation_);
-
-
-	//	worldTransforms_[1].matWorld_ = MatrixWorld(matScale, matRotation, matTranslation);
-	//	worldTransforms_[1].matWorld_ *= worldTransforms_[0].matWorld_;
-	//	worldTransforms_[1].TransferMatrix();
-	//}
 
 	for (int i = 0; i < PartId::kNumPartId; i++)
 	{
@@ -392,9 +365,7 @@ void GameScene::Update() {
 		}
 		worldTransforms_[i].TransferMatrix();
 	}
-
 #pragma endregion
-
 }
 
 void GameScene::Draw() {
