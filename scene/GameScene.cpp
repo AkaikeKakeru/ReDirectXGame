@@ -10,6 +10,52 @@
 
 #define PI 3.141592
 
+#pragma region WorldTransformIntialize
+void GameScene::WorldTransformIntialize(WorldTransform* worldTransform,Vector3 scale,Vector3 rotation,Vector3 translation)
+{
+	worldTransform->scale_ = scale;
+	worldTransform->rotation_ = rotation;
+	worldTransform->translation_ = translation;
+
+	Matrix4 Mat[] =
+	{
+		//拡縮
+		{ worldTransform->scale_.x,0,0,0,
+		0,worldTransform->scale_.y,0,0,
+		0,0,worldTransform->scale_.z,0,
+		0,0,0,1 } ,
+
+		//z回転
+		{ cos(worldTransform->rotation_.z),sin(worldTransform->rotation_.z),0,0,
+		-sin(worldTransform->rotation_.z),cos(worldTransform->rotation_.z),0,0,
+		0,0,1,0,
+		0,0,0,1 },
+		//x回転
+		{ 1,0,0,0,
+		0,cos(worldTransform->rotation_.x),sin(worldTransform->rotation_.x),0,
+		0,-sin(worldTransform->rotation_.x),cos(worldTransform->rotation_.x),0,
+		0,0,0,1 },
+		//y回転
+		{ cos(worldTransform->rotation_.y),0,-sin(worldTransform->rotation_.y),0,
+		0,1,0,0,
+		sin(worldTransform->rotation_.y),0,cos(worldTransform->rotation_.y),0,
+		0,0,0,1 },
+
+		//平行
+		{ 1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		worldTransform->translation_.x,worldTransform->translation_.y,worldTransform->translation_.z,1 },
+	};
+
+	for (int i = 0; i < 5; i++)
+	{
+		worldTransform->matWorld_ *= Mat[i];
+	}
+	worldTransform->TransferMatrix();
+}
+#pragma endregion
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
