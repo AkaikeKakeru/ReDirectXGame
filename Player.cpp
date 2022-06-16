@@ -15,7 +15,7 @@ Player::~Player()
 ///<summary>
 void Player::Intialize(Model*model,uint32_t textureHandle){
 
-	//まさかnullじゃないよね???
+	//nullチェック
 	assert(model);
 
 	//メンバ変数に記録
@@ -36,6 +36,15 @@ void Player::Intialize(Model*model,uint32_t textureHandle){
 void Player::Update(){
 	//キャラクター移動処理
 	{
+		//matrix
+		static Matrix4 scale;
+		static  Matrix4 rot;
+		static  Matrix4 translation;
+
+		//limit
+		const float kMoveLimitX = 35.5f;
+		const float kMoveLimitY = 18.5f;
+
 		//キャラクターの移動ベクトル
 		Vector3 move = { 0,0,0 };
 
@@ -53,16 +62,26 @@ void Player::Update(){
 			move.y -= 0.2f;
 		}
 
+		//移動ベクトルを加算
 		worldTransform_.translation_ += move;
 
-		Matrix4 scale = myMatrix_.MatrixScale(worldTransform_.scale_);
-		Matrix4 rot = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
+		//移動時の限界点を超えられなくする
+		worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+		worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+
+		worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+		worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+
+		//行列更新
+		scale = myMatrix_.MatrixScale(worldTransform_.scale_);
+		rot = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
 		rot *= myMatrix_.MatrixRotationX(worldTransform_.rotation_);
 		rot *= myMatrix_.MatrixRotationY(worldTransform_.rotation_);
-		Matrix4 translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
+		translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
 		worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rot, translation);
 
+		//転送
 		worldTransform_.TransferMatrix();
 
 		//デバッグ用表示

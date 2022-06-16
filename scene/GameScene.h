@@ -42,16 +42,6 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
-	/// worldTransform初期化
-	/// </summary>
-	/*Matrix4 MatrixScale(Vector3 scale);
-	Matrix4 MatrixRotationX(Vector3 rotation);
-	Matrix4 MatrixRotationY(Vector3 rotation);
-	Matrix4 MatrixRotationZ(Vector3 rotation);
-	Matrix4 MatrixTranslation(Vector3 translation);
-	Matrix4 MatrixWorld(Matrix4 scale, Matrix4 rotation, Matrix4 translation);*/
-
-	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
@@ -72,9 +62,6 @@ private: // メンバ変数
 	//モデル
 	Model* model_ = nullptr;
 
-	//ワールドトランスフォーム
-	//WorldTransform worldTransform;
-
 	//自キャラ
 	Player* player_ = nullptr;
 
@@ -86,6 +73,9 @@ private: // メンバ変数
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+
+	//デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
 
 	/// <summary>
 	/// ゲームシーン用

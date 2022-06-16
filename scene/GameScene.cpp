@@ -4,7 +4,8 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#pragma region Transform関数/*
+#pragma region Transform関数
+/*
 Matrix4 GameScene::MatrixScale(Vector3 scale)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
@@ -116,7 +117,7 @@ void GameScene::Initialize() {
 #pragma endregion
 
 	//デバッグカメラの生成
-	//debugCamera_ = new DebugCamera(1280, 800);
+	debugCamera_ = new DebugCamera(1280, 800);
 
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -127,8 +128,46 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+#pragma region デバッグ
+#ifdef  _DEBUG
+	if(input_->TriggerKey(DIK_R)){
+		isDebugCameraActive_ = !isDebugCameraActive_;
+	}
+#endif //  _DEBUG
+
+	if(isDebugCameraActive_){
 	//デバッグカメラの更新
-	//debugCamera_->Update();
+	debugCamera_->Update();
+
+	//ビュー行列とプロジェクション行列を取得
+	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+
+	//転送
+	viewProjection_.TransferMatrix();
+
+	//デバッグ用表示
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+		"ON");
+	}else{
+		//再計算と転送
+		viewProjection_.UpdateMatrix();
+		viewProjection_.TransferMatrix();
+
+		//デバッグ用表示
+		debugText_->SetPos(50, 70);
+		debugText_->Printf(
+			"OFF");
+	}
+
+	//デバッグ用表示
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+		"Rkey -> ON:OFFswitch");
+#pragma endregion
+
 #pragma region 視点処理
 	//	{
 	//	//視点移動処理
