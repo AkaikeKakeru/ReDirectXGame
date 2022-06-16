@@ -14,7 +14,9 @@ public:
 	///<summary>
 	///初期化
 	///<summary>
-	void Intialize();
+	/// <param name="model">モデル</param>
+	/// <param name="model">テクスチャハンドル</param>
+	void Intialize(Model*mode,uint32_t textureHandle);
 
 	///<summary>
 	///更新
