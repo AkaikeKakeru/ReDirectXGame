@@ -133,8 +133,23 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_R)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
 	}
-#endif //  _DEBUG
 
+	if (isDebugCameraActive_) {
+		//デバッグ用表示
+		debugText_->SetPos(50, 70);
+		debugText_->Printf(
+			"ON");
+	}else{
+		//デバッグ用表示
+		debugText_->SetPos(50, 70);
+		debugText_->Printf(
+			"OFF");
+	}
+	//デバッグ用表示
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+		"Rkey -> ON:OFFswitch");
+#endif //  _DEBUG
 	if (isDebugCameraActive_) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
@@ -145,27 +160,12 @@ void GameScene::Update() {
 
 		//転送
 		viewProjection_.TransferMatrix();
-
-		//デバッグ用表示
-		debugText_->SetPos(50, 70);
-		debugText_->Printf(
-			"ON");
 	}
 	else {
 		//再計算と転送
 		viewProjection_.UpdateMatrix();
 		viewProjection_.TransferMatrix();
-
-		//デバッグ用表示
-		debugText_->SetPos(50, 70);
-		debugText_->Printf(
-			"OFF");
 	}
-
-	//デバッグ用表示
-	debugText_->SetPos(50, 50);
-	debugText_->Printf(
-		"Rkey -> ON:OFFswitch");
 #pragma endregion
 
 #pragma region 視点処理
