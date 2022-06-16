@@ -11,6 +11,8 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 
+#include "Player.h"
+
 #include "directxmath.h"
 #include <random>
 using namespace DirectX;
@@ -69,6 +71,10 @@ private: // メンバ変数
 
 	//ワールドトランスフォーム
 	//WorldTransform worldTransform;
+
+	//自キャラ
+	Player* player_ = nullptr;
+
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
