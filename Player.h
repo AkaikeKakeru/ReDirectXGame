@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include "DebugText.h"
 #include "Input.h"
+#include "MyMatrix.h"
 
 ///<summary>
 ///Ž©ƒLƒƒƒ‰
@@ -39,4 +40,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
 	DebugText* debugText_ = nullptr;
+
+	MyMatrix myMatrix_;
 };

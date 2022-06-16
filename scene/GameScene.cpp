@@ -4,7 +4,7 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#pragma region Transform関数
+#pragma region Transform関数/*
 Matrix4 GameScene::MatrixScale(Vector3 scale)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
@@ -67,7 +67,7 @@ Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translati
 	mat *= rotation;
 	mat *= translation;
 	return mat;
-}
+}*/
 #pragma endregion
 
 GameScene::GameScene() {}
@@ -257,26 +257,7 @@ void GameScene::Update() {
 #pragma region Player
 player_->Update();
 #pragma endregion
-//	//キャラクター移動処理
-//	{
-//		//キャラクターの移動ベクトル
-//		Vector3 move = { 0,0,0 };
-//	
-//		if (input_->PushKey(DIK_LEFT)) {
-//			move.x -= 0.2f;
-//		}
-//		if (input_->PushKey(DIK_RIGHT)) {
-//			move.x += 0.2f;
-//		}
-//	
-//		worldTransform.translation_ += move;
-//
-//		//デバッグ用表示
-//		debugText_->SetPos(50, 150);
-//		debugText_->Printf(
-//			"Root:(%f,%f,%f)", worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
-//	}
-//
+
 #pragma region 半身回転
 //	//上半身回転
 //	{
