@@ -29,7 +29,8 @@ public:
 	///<summary>
 	///描画
 	///<summary>
-	void Draw();
+	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
+	void Draw(ViewProjection viewProjection);
 
 private:
 	//ワールド変換データ
@@ -38,8 +39,12 @@ private:
 	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+	//インプット
 	Input* input_ = nullptr;
+	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
-
+	////ビュープロジェクション
+	//ViewProjection viewProjection_;
+	//ワールド変換行列
 	MyMatrix myMatrix_;
 };

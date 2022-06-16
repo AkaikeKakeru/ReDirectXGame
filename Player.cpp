@@ -47,10 +47,10 @@ void Player::Update(){
 		}
 
 		if (input_->PushKey(DIK_UP)) {
-			move.y -= 0.2f;
+			move.y += 0.2f;
 		}
 		if (input_->PushKey(DIK_DOWN)) {
-			move.y += 0.2f;
+			move.y -= 0.2f;
 		}
 
 		worldTransform_.translation_ += move;
@@ -70,11 +70,11 @@ void Player::Update(){
 		debugText_->Printf(
 			"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
 	}
-
 }
 
 ///<summary>
 ///•`‰æ
 ///<summary>
-void Player::Draw(){
+void Player::Draw(ViewProjection viewProjection){
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }

@@ -319,9 +319,8 @@ void GameScene::Draw() {
 	/// </summary>
 
 #pragma region キャラクター
-	player_->Draw();
+	player_->Draw(viewProjection_);
 #pragma endregion
-	//model_->Draw(worldTransform, viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
