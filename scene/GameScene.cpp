@@ -94,7 +94,7 @@ void GameScene::Initialize() {
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
-	player_->Intialize();
+	player_->Intialize(model_,textureHandle_);
 #pragma endregion
 
 #pragma region カメラ設定

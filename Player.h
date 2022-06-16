@@ -1,6 +1,8 @@
 #pragma once
 #include "Model.h"
 #include "WorldTransform.h"
+#include "DebugText.h"
+#include "Input.h"
 
 ///<summary>
 ///自キャラ
@@ -35,4 +37,6 @@ private:
 	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+	Input* input_ = nullptr;
+	DebugText* debugText_ = nullptr;
 };
