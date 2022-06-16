@@ -95,7 +95,7 @@ void GameScene::Initialize() {
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
-	player_->Intialize(model_,textureHandle_);
+	player_->Intialize(model_, textureHandle_);
 #pragma endregion
 
 #pragma region カメラ設定
@@ -128,30 +128,30 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-
 #pragma region デバッグ
 #ifdef  _DEBUG
-	if(input_->TriggerKey(DIK_R)){
+	if (input_->TriggerKey(DIK_R)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
 	}
 #endif //  _DEBUG
 
-	if(isDebugCameraActive_){
-	//デバッグカメラの更新
-	debugCamera_->Update();
+	if (isDebugCameraActive_) {
+		//デバッグカメラの更新
+		debugCamera_->Update();
 
-	//ビュー行列とプロジェクション行列を取得
-	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//ビュー行列とプロジェクション行列を取得
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 
-	//転送
-	viewProjection_.TransferMatrix();
+		//転送
+		viewProjection_.TransferMatrix();
 
-	//デバッグ用表示
-	debugText_->SetPos(50, 70);
-	debugText_->Printf(
-		"ON");
-	}else{
+		//デバッグ用表示
+		debugText_->SetPos(50, 70);
+		debugText_->Printf(
+			"ON");
+	}
+	else {
 		//再計算と転送
 		viewProjection_.UpdateMatrix();
 		viewProjection_.TransferMatrix();
@@ -294,38 +294,38 @@ void GameScene::Update() {
 #pragma region キャラクター
 
 #pragma region Player
-player_->Update();
+	player_->Update();
 #pragma endregion
 
 #pragma region 半身回転
-//	//上半身回転
-//	{
-//		if(input_->PushKey(DIK_U))
-//		{
-//			worldTransform[PartId::kChest].rotation_.y -= 0.05f;
-//		}
-//		else if(input_->PushKey(DIK_I))
-//		{
-//			worldTransform[PartId::kChest].rotation_.y += 0.05f;
-//		}
-//	}
-//
-//	//下半身回転
-//	{
-//		if(input_->PushKey(DIK_J))
-//		{
-//			worldTransform[PartId::kHip].rotation_.y -= 0.05f;
-//		}
-//		else if(input_->PushKey(DIK_K))
-//		{
-//			worldTransform[PartId::kHip].rotation_.y += 0.05f;
-//		}
-//	}
-//
-//	for (int i = 0; i < PartId::kNumPartId; i++)
-//	{
-//		PartTransform(&worldTransform[i]);
-//	}
+	//	//上半身回転
+	//	{
+	//		if(input_->PushKey(DIK_U))
+	//		{
+	//			worldTransform[PartId::kChest].rotation_.y -= 0.05f;
+	//		}
+	//		else if(input_->PushKey(DIK_I))
+	//		{
+	//			worldTransform[PartId::kChest].rotation_.y += 0.05f;
+	//		}
+	//	}
+	//
+	//	//下半身回転
+	//	{
+	//		if(input_->PushKey(DIK_J))
+	//		{
+	//			worldTransform[PartId::kHip].rotation_.y -= 0.05f;
+	//		}
+	//		else if(input_->PushKey(DIK_K))
+	//		{
+	//			worldTransform[PartId::kHip].rotation_.y += 0.05f;
+	//		}
+	//	}
+	//
+	//	for (int i = 0; i < PartId::kNumPartId; i++)
+	//	{
+	//		PartTransform(&worldTransform[i]);
+	//	}
 #pragma endregion
 #pragma endregion
 }

@@ -1,7 +1,6 @@
 #include <Player.h>
 #include <cassert>
 
-
 Player::Player()
 {
 }
@@ -13,7 +12,7 @@ Player::~Player()
 ///<summary>
 ///初期化
 ///<summary>
-void Player::Intialize(Model*model,uint32_t textureHandle){
+void Player::Intialize(Model* model, uint32_t textureHandle) {
 
 	//nullチェック
 	assert(model);
@@ -22,7 +21,7 @@ void Player::Intialize(Model*model,uint32_t textureHandle){
 	this->model_ = model;
 	this->textureHandle_ = textureHandle;
 
-	//アイングルトンインスタンス
+	//シングルトンインスタンス
 	input_ = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
 
@@ -33,7 +32,7 @@ void Player::Intialize(Model*model,uint32_t textureHandle){
 ///<summary>
 ///更新
 ///<summary>
-void Player::Update(){
+void Player::Update() {
 	//キャラクター移動処理
 	{
 		//matrix
@@ -94,6 +93,6 @@ void Player::Update(){
 ///<summary>
 ///描画
 ///<summary>
-void Player::Draw(ViewProjection viewProjection){
+void Player::Draw(ViewProjection viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }

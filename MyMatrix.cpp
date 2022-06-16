@@ -54,7 +54,7 @@ Matrix4 MyMatrix::MatrixTranslation(Vector3 translation)
 	return mat;
 }
 
-Matrix4 MyMatrix::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translation)
+Matrix4 MyMatrix::MatrixWorld(Matrix4 scale, Matrix4 rotation, Matrix4 translation)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
 	mat *= scale;
