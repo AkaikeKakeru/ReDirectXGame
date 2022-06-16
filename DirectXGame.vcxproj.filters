@@ -49,6 +49,18 @@
     <Filter Include="ヘッダー ファイル\math">
       <UniqueIdentifier>{647f4977-924a-4954-923f-5619e5afc9a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{56a4ccd3-9f6d-4d31-a87d-41ef2ba78b32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{9ebad715-e48b-4b04-a2ed-37dfc7f9352e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MyMatrix">
+      <UniqueIdentifier>{c028f0a8-e348-4084-92a0-e3b3651471a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyMatrix">
+      <UniqueIdentifier>{4c724307-dbe6-4b20-84ad-4e35bcb51fe2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,10 +79,10 @@
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
     <ClCompile Include="MyMatrix.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\MyMatrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,10 +168,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="MyMatrix.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\MyMatrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
