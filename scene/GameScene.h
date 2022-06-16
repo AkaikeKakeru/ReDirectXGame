@@ -17,6 +17,8 @@
 #include <random>
 using namespace DirectX;
 
+#define PI = XM_PI
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -74,7 +76,6 @@ private: // メンバ変数
 
 	//自キャラ
 	Player* player_ = nullptr;
-
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;

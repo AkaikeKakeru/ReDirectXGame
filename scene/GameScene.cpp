@@ -4,15 +4,7 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#include "directxmath.h"
-#include <math.h>
-#include <random>
-#include <time.h>
-using namespace DirectX;
-
-#define PI 3.141592
-
-#pragma region Transform
+#pragma region Transform関数
 Matrix4 GameScene::MatrixScale(Vector3 scale)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
@@ -83,6 +75,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -97,9 +90,11 @@ void GameScene::Initialize() {
 	//モデルの生成
 	model_ = Model::Create();
 
-#pragma region ワールドトランスフォーム設定
-		//ワールドトランスフォームの初期化
-		//worldTransform.Initialize();
+#pragma region Player
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Intialize();
 #pragma endregion
 
 #pragma region カメラ設定
@@ -258,7 +253,10 @@ void GameScene::Update() {
 #pragma endregion
 
 #pragma region キャラクター
-//
+
+#pragma region Player
+player_->Update();
+#pragma endregion
 //	//キャラクター移動処理
 //	{
 //		//キャラクターの移動ベクトル
@@ -339,6 +337,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+#pragma region キャラクター
+	player_->Draw();
+#pragma endregion
 	//model_->Draw(worldTransform, viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
