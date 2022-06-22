@@ -35,10 +35,15 @@ void Player::Update() {
 	Rotate();
 	
 	Move();
-	
+
+	Attack();
+
+	//’eXV
+	if (bullet_) {
+		bullet_->Update();
+	}
 
 	Transfer(worldTransform_,myMatrix_);
-
 
 	//ƒfƒoƒbƒO—p•\¦
 	debugText_->SetPos(50, 150);
@@ -144,4 +149,19 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 
 	//“]‘—
 	worldTransform.TransferMatrix();
+}
+
+///<summary>
+///UŒ‚
+///<summary>
+void Player::Attack(){
+	if (input_->PushKey(DIK_SPACE))
+	{
+		//’e‚ğ¶¬‚µA‰Šú‰»
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Intialize(model_, this->worldTransform_.translation_);
+
+		//’e‚ğ“o˜^
+		bullet_ = newBullet;
+	}
 }
