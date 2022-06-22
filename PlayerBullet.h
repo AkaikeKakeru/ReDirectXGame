@@ -4,25 +4,23 @@
 #include "WorldTransform.h"
 #include "DebugText.h"
 #include "Input.h"
-
-#include "PlayerBullet.h"
 #include "MyMatrix.h"
 
 ///<summary>
-///自キャラ
-///<summary>
-class Player
-{
+///自キャラの弾
+/// </summary>
+class PlayerBullet {
 public:
-	Player();
-	~Player();
+	PlayerBullet();
+	~PlayerBullet();
 
 	///<summary>
 	///初期化
 	///<summary>
 	/// <param name="model">モデル</param>
+	/// <param name="position">初期座標</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Intialize(Model* model, uint32_t textureHandle);
+	void Intialize(Model* mode, const Vector3& position/*uint32_t textureHandle*/);
 
 	///<summary>
 	///更新
@@ -33,25 +31,9 @@ public:
 	///描画
 	///<summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Draw(const ViewProjection&  viewProjection);
+	void Draw(const ViewProjection& viewProjection);
 
-	///<summary>
-	///移動
-	///<summary>
-	void Move();
-	///<summary>
-	///旋回
-	///<summary>
-	void Rotate();
-	///<summary>
-	///転送
-	///<summary>
 	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
-
-	///<summary>
-	///攻撃
-	///<summary>
-	void Attack();
 
 private:
 	//ワールド変換データ
@@ -68,8 +50,4 @@ private:
 	//ViewProjection viewProjection_;
 	//ワールド変換行列
 	MyMatrix myMatrix_;
-
-
-	//弾
-	PlayerBullet* bullet_ = nullptr;
 };

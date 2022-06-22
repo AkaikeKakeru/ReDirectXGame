@@ -13,13 +13,12 @@ Player::~Player()
 ///初期化
 ///<summary>
 void Player::Intialize(Model* model, uint32_t textureHandle) {
-
 	//nullチェック
 	assert(model);
 
 	//メンバ変数に記録
-	this->model_ = model;
-	this->textureHandle_ = textureHandle;
+	model_ = model;
+	textureHandle_ = textureHandle;
 
 	//シングルトンインスタンス
 	input_ = Input::GetInstance();
@@ -29,6 +28,34 @@ void Player::Intialize(Model* model, uint32_t textureHandle) {
 	worldTransform_.Initialize();
 }
 
+///<summary>
+///更新
+///<summary>
+void Player::Update() {
+	Rotate();
+	
+	Move();
+	
+
+	Transfer(worldTransform_,myMatrix_);
+
+
+	//デバッグ用表示
+	debugText_->SetPos(50, 150);
+	debugText_->Printf(
+		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+}
+
+///<summary>
+///描画
+///<summary>
+void Player::Draw(const ViewProjection& viewProjection) {
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+///<summary>
+///移動
+///<summary>
 void Player::Move()
 {
 	//キャラクター移動処理
@@ -64,6 +91,9 @@ void Player::Move()
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 }
 
+///<summary>
+///旋回
+///<summary>
 void Player::Rotate()
 {
 #pragma region 半身回転
@@ -93,6 +123,9 @@ void Player::Rotate()
 #pragma endregion
 }
 
+///<summary>
+///転送
+///<summary>
 void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 {
 	//matrix
@@ -111,25 +144,4 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 
 	//転送
 	worldTransform.TransferMatrix();
-}
-
-///<summary>
-///更新
-///<summary>
-void Player::Update() {
-	Move();
-	Rotate();
-	Transfer(worldTransform_,myMatrix_);
-
-	//デバッグ用表示
-	debugText_->SetPos(50, 150);
-	debugText_->Printf(
-		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
-}
-
-///<summary>
-///描画
-///<summary>
-void Player::Draw(ViewProjection viewProjection) {
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
