@@ -163,6 +163,7 @@ void Player::Attack(){
 		newBullet->Intialize(model_,worldTransform_.translation_);
 
 		//’e‚ð“o˜^
-		bullet_ = newBullet;
+		//bullet_ = newBullet;
+		bullet_.reset(newBullet);
 	}
 }

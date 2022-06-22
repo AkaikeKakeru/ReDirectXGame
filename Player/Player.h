@@ -6,6 +6,7 @@
 #include "Input.h"
 
 #include "PlayerBullet.h"
+#include <memory>
 #include "MyMatrix.h"
 
 ///<summary>
@@ -73,5 +74,5 @@ private:
 
 
 	//’e
-	PlayerBullet* bullet_ = nullptr;
+	std::unique_ptr<PlayerBullet> bullet_;
 };
