@@ -22,10 +22,14 @@ public:
 	/// <param name="model">テクスチャハンドル</param>
 	void Intialize(Model* mode, uint32_t textureHandle);
 
+	void Move(/*Matrix4 scale,Matrix4 rot,Matrix4 translation*/);
+	void Rotate(/*Matrix4 scale,Matrix4 rot,Matrix4 translation*/);
+	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix/*,Matrix4 scale,Matrix4 rot,Matrix4 translation*/);
+
 	///<summary>
 	///更新
 	///<summary>
-	void Update();
+	void Update(/*MyMatrix myMatrix*/);
 
 	///<summary>
 	///描画

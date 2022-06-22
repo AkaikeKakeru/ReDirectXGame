@@ -4,73 +4,6 @@
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
 
-#pragma region Transform関数
-/*
-Matrix4 GameScene::MatrixScale(Vector3 scale)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat =
-	{ scale.x,0,0,0,
-		0,scale.y,0,0,
-		0,0,scale.z,0,
-		0,0,0,1 };
-	return mat;
-}
-
-Matrix4 GameScene::MatrixRotationX(Vector3 rotation)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat =
-	{ 1,0,0,0,
-		0,cos(rotation.x),sin(rotation.x),0,
-		0,-sin(rotation.x),cos(rotation.x),0,
-		0,0,0,1 };
-	return mat;
-}
-
-Matrix4 GameScene::MatrixRotationY(Vector3 rotation)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat =
-	{ cos(rotation.y),0,-sin(rotation.y),0,
-		0,1,0,0,
-		sin(rotation.y),0,cos(rotation.y),0,
-		0,0,0,1 };
-	return mat;
-}
-
-Matrix4 GameScene::MatrixRotationZ(Vector3 rotation)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat =
-	{ cos(rotation.z),sin(rotation.z),0,0,
-		-sin(rotation.z),cos(rotation.z),0,0,
-		0,0,1,0,
-		0,0,0,1 };
-	return mat;
-}
-
-Matrix4 GameScene::MatrixTranslation(Vector3 translation)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		translation.x,translation.y,translation.z,1 };
-	return mat;
-}
-
-Matrix4 GameScene::MatrixWorld(Matrix4 scale,Matrix4 rotation, Matrix4 translation)
-{
-	Matrix4 mat = MathUtility::Matrix4Identity();
-	mat *= scale;
-	mat *= rotation;
-	mat *= translation;
-	return mat;
-}*/
-#pragma endregion
-
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -297,36 +230,6 @@ void GameScene::Update() {
 	player_->Update();
 #pragma endregion
 
-#pragma region 半身回転
-	//	//上半身回転
-	//	{
-	//		if(input_->PushKey(DIK_U))
-	//		{
-	//			worldTransform[PartId::kChest].rotation_.y -= 0.05f;
-	//		}
-	//		else if(input_->PushKey(DIK_I))
-	//		{
-	//			worldTransform[PartId::kChest].rotation_.y += 0.05f;
-	//		}
-	//	}
-	//
-	//	//下半身回転
-	//	{
-	//		if(input_->PushKey(DIK_J))
-	//		{
-	//			worldTransform[PartId::kHip].rotation_.y -= 0.05f;
-	//		}
-	//		else if(input_->PushKey(DIK_K))
-	//		{
-	//			worldTransform[PartId::kHip].rotation_.y += 0.05f;
-	//		}
-	//	}
-	//
-	//	for (int i = 0; i < PartId::kNumPartId; i++)
-	//	{
-	//		PartTransform(&worldTransform[i]);
-	//	}
-#pragma endregion
 #pragma endregion
 }
 
