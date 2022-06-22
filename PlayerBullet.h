@@ -2,8 +2,6 @@
 
 #include "Model.h"
 #include "WorldTransform.h"
-#include "DebugText.h"
-#include "Input.h"
 #include "MyMatrix.h"
 
 ///<summary>
@@ -19,8 +17,7 @@ public:
 	///<summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
-	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Intialize(Model* mode, const Vector3& position/*uint32_t textureHandle*/);
+	void Intialize(Model* mode, const Vector3& position);
 
 	///<summary>
 	///更新
@@ -32,8 +29,11 @@ public:
 	///<summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(const ViewProjection& viewProjection);
+	///<summary>
 
-	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
+	///転送
+	///<summary>
+	/// void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
 
 private:
 	//ワールド変換データ
@@ -42,12 +42,6 @@ private:
 	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
-	//インプット
-	Input* input_ = nullptr;
-	//デバッグテキスト
-	DebugText* debugText_ = nullptr;
-	////ビュープロジェクション
-	//ViewProjection viewProjection_;
 	//ワールド変換行列
 	MyMatrix myMatrix_;
 };

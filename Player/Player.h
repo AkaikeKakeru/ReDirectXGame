@@ -33,16 +33,18 @@ public:
 	///描画
 	///<summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Draw(const ViewProjection&  viewProjection);
+	void Draw(/*const */ViewProjection&  viewProjection);
 
 	///<summary>
 	///移動
 	///<summary>
 	void Move();
+
 	///<summary>
 	///旋回
 	///<summary>
 	void Rotate();
+
 	///<summary>
 	///転送
 	///<summary>

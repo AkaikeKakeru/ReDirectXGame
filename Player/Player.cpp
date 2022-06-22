@@ -45,7 +45,7 @@ void Player::Update() {
 
 	Transfer(worldTransform_,myMatrix_);
 
-	//ƒfƒoƒbƒO—p•\Ž¦
+	//Ž©ƒLƒƒƒ‰ƒfƒoƒbƒO—p•\Ž¦
 	debugText_->SetPos(50, 150);
 	debugText_->Printf(
 		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
@@ -54,8 +54,13 @@ void Player::Update() {
 ///<summary>
 ///•`‰æ
 ///<summary>
-void Player::Draw(const ViewProjection& viewProjection) {
+void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	//’e•`‰æ
+	if(bullet_){
+		bullet_->Draw(viewProjection);
+	}
 }
 
 ///<summary>
@@ -103,7 +108,6 @@ void Player::Rotate()
 {
 #pragma region ”¼g‰ñ“]
 	//ã”¼g‰ñ“]
-
 	if (input_->PushKey(DIK_U))
 	{
 		worldTransform_.rotation_.y -= 0.05f;
@@ -113,9 +117,7 @@ void Player::Rotate()
 		worldTransform_.rotation_.y += 0.05f;
 	}
 
-
 	//‰º”¼g‰ñ“]
-
 	if (input_->PushKey(DIK_J))
 	{
 		worldTransform_.rotation_.y -= 0.05f;
@@ -124,7 +126,6 @@ void Player::Rotate()
 	{
 		worldTransform_.rotation_.y += 0.05f;
 	}
-
 #pragma endregion
 }
 
@@ -159,7 +160,7 @@ void Player::Attack(){
 	{
 		//’e‚ð¶¬‚µA‰Šú‰»
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Intialize(model_, this->worldTransform_.translation_);
+		newBullet->Intialize(model_,worldTransform_.translation_);
 
 		//’e‚ð“o˜^
 		bullet_ = newBullet;

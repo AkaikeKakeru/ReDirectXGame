@@ -9,19 +9,13 @@ PlayerBullet::~PlayerBullet(){}
 ///<summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
-/// <param name="textureHandle">テクスチャハンドル</param>
-void PlayerBullet::Intialize(Model* model, const Vector3& position/*uint32_t textureHandle*/){
+void PlayerBullet::Intialize(Model* model, const Vector3& position){
 	//nullチェック
 	assert(model);
 
 	//メンバ変数に記録
 	model_ = model;
 	textureHandle_ = TextureManager::Load("player_bullet.png");
-	//textureHandle_ = textureHandle;
-
-	////シングルトンインスタンス
-	//input_ = Input::GetInstance();
-	//debugText_ = DebugText::GetInstance();
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -34,12 +28,6 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position/*uint32_t tex
 ///<summary>
 void PlayerBullet::Update(){
 	Transfer(worldTransform_,myMatrix_);
-
-	//デバッグ用表示
-	debugText_->SetPos(50, 150);
-	debugText_->Printf(
-		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
-
 }
 
 ///<summary>
