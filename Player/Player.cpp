@@ -158,12 +158,16 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 void Player::Attack(){
 	if (input_->PushKey(DIK_SPACE))
 	{
+		//Ž©ƒLƒƒƒ‰‚ÌÀ•W‚ðƒRƒs[
+		Vector3 position = worldTransform_.translation_;
+
 		//’e‚ð¶¬‚µA‰Šú‰»
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Intialize(model_,worldTransform_.translation_);
+		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Intialize(model_,position);
 
 		//’e‚ð“o˜^
 		//bullet_ = newBullet;
-		bullet_.reset(newBullet);
+		/*bullets_.reset(newBullet);*/
+		bullets_.push_back(std::move(newBullet));
 	}
 }

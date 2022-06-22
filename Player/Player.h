@@ -7,6 +7,7 @@
 
 #include "PlayerBullet.h"
 #include <memory>
+#include <List>
 #include "MyMatrix.h"
 
 ///<summary>
@@ -74,5 +75,5 @@ private:
 
 
 	//’e
-	std::unique_ptr<PlayerBullet> bullet_;
+	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 };
