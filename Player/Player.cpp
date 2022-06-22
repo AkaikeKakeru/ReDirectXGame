@@ -157,7 +157,7 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 ///攻撃
 ///<summary>
 void Player::Attack(){
-	if (input_->PushKey(DIK_SPACE))
+	if (input_->TriggerKey(DIK_SPACE))
 	{
 		//自キャラの座標をコピー
 		Vector3 position = worldTransform_.translation_;
