@@ -39,8 +39,9 @@ void Player::Update() {
 	Attack();
 
 	//’eXV
-	if (bullet_) {
-		bullet_->Update();
+	//if (bullet_) {
+	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
+		bullet->Update();
 	}
 
 	Transfer(worldTransform_,myMatrix_);
