@@ -29,11 +29,11 @@ public:
 	///<summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(const ViewProjection& viewProjection);
-	///<summary>
 
+	///<summary>
 	///転送
 	///<summary>
-	/// void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
+	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
 
 private:
 	//ワールド変換データ
