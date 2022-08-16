@@ -9,7 +9,7 @@ PlayerBullet::~PlayerBullet(){}
 ///<summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
-void PlayerBullet::Intialize(Model* model, const Vector3& position){
+void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector3& velocity){
 	//nullチェック
 	assert(model);
 
