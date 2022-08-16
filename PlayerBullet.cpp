@@ -21,6 +21,9 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector
 	worldTransform_.Initialize();
 
 	worldTransform_.translation_ = position;
+
+	//ó‚¯‚Æ‚Á‚½‘¬“x‚ğƒƒ“ƒo•Ï”‚É‘ã“ü
+	velocity_ = velocity;
 }
 
 ///<summary>

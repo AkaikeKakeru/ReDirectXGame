@@ -164,7 +164,7 @@ void Player::Attack(){
 
 		//’e‚ğ¶¬‚µA‰Šú‰»
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Intialize(model_,position,velocity_);
+		newBullet->Intialize(model_,position,/*velocity_*/);
 
 		//’e‚ğ“o˜^
 		//bullet_ = newBullet;
