@@ -37,6 +37,8 @@ public:
 	///<summary>
 	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
 
+	bool IsDead() const { return isDead_; }
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
