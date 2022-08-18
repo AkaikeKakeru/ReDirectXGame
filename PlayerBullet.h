@@ -52,4 +52,13 @@ private:
 
 	//速度
 	Vector3 velocity_;
+
+	//寿命<frm>
+	static const int32_t kLifeTime = 60 * 5;
+
+	//デスタイマー
+	int32_t deathtimer_ = kLifeTime;
+
+	//デスフラグ
+	bool isDead_ = false;
 };

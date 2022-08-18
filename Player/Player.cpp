@@ -163,7 +163,7 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 ///UŒ‚
 ///<summary>
 void Player::Attack(){
-	const float kBulletSpeed = 1.0f;
+	
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	if (input_->TriggerKey(DIK_SPACE))
