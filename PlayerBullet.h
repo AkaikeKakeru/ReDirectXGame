@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include "MyMatrix.h"
+#include "DebugText.h"
 
 ///<summary>
 ///自キャラの弾
@@ -45,6 +46,9 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//ワールド変換行列
 	MyMatrix myMatrix_;
+
+	//デバッグテキスト
+	DebugText* debugText_ = nullptr;
 
 	//速度
 	Vector3 velocity_;

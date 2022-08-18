@@ -32,6 +32,10 @@ void Player::Intialize(Model* model, uint32_t textureHandle) {
 ///更新
 ///<summary>
 void Player::Update() {
+
+#ifdef  _DEBUG
+#endif //  _DEBUG
+
 	Rotate();
 	
 	Move();
@@ -39,7 +43,6 @@ void Player::Update() {
 	Attack();
 
 	//弾更新
-	//if (bullet_) {
 	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Update();
 	}
@@ -49,7 +52,11 @@ void Player::Update() {
 	//自キャラデバッグ用表示
 	debugText_->SetPos(50, 150);
 	debugText_->Printf(
-		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+		"trans:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+
+	debugText_->SetPos(50, 180);
+	debugText_->Printf(
+		"rota:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
 }
 
 ///<summary>
@@ -137,17 +144,16 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 {
 	//matrix
 	static Matrix4 scale;
-	static  Matrix4 rot;
+	static  Matrix4 rota;
 	static  Matrix4 translation;
 
-	//行列更新
 	scale = myMatrix.MatrixScale(worldTransform.scale_);
-	rot = myMatrix.MatrixRotationZ(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationX(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationY(worldTransform.rotation_);
+	rota = myMatrix.MatrixRotationZ(worldTransform.rotation_);
+	rota *= myMatrix.MatrixRotationX(worldTransform.rotation_);
+	rota *= myMatrix.MatrixRotationY(worldTransform.rotation_);
 	translation = myMatrix.MatrixTranslation(worldTransform.translation_);
 
-	worldTransform.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
+	worldTransform_.matWorld_ = myMatrix.MatrixWorld(scale, rota, translation);
 
 	//転送
 	worldTransform.TransferMatrix();
@@ -157,18 +163,17 @@ void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 ///攻撃
 ///<summary>
 void Player::Attack(){
+	const float kBulletSpeed = 1.0f;
+	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
+
 	if (input_->TriggerKey(DIK_SPACE))
 	{
-		//自キャラの座標をコピー
-		//Vector3 position = worldTransform_.translation_;
-
-		//弾の速度
-		const float kBulletSpeed = 1.0f;
-		Vector3 velocity(0, 0, kBulletSpeed);
+		//速度ベクトルを自機の向きにあわせる
+		bulletVelocity_ = myMatrix_.CrossVector(bulletVelocity_, worldTransform_.matWorld_);
 
 		//弾を生成し、初期化
-		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Intialize(model_,worldTransform_.translation_,velocity);
+ 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Intialize(model_,worldTransform_.translation_,bulletVelocity_);
 
 		//弾を登録
 		//bullet_ = newBullet;

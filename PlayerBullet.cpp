@@ -34,6 +34,11 @@ void PlayerBullet::Update(){
 	worldTransform_.translation_ += velocity_;
 
 	Transfer(worldTransform_,myMatrix_);
+
+	/*debugText_->SetPos(50, 210);
+	debugText_->Printf(
+		"BulletRota:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);*/
+
 }
 
 ///<summary>

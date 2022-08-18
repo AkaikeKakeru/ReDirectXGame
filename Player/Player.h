@@ -73,7 +73,6 @@ private:
 	//ƒ[ƒ‹ƒh•ÏŠ·s—ñ
 	MyMatrix myMatrix_;
 
-
 	//’e
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 };
