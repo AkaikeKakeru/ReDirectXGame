@@ -83,6 +83,24 @@ void GameScene::Update() {
 	debugText_->Printf(
 		"Rkey -> ON:OFFswitch");
 #endif //  _DEBUG
+
+	//デバッグ用表示
+	debugText_->SetPos(50, 300);
+	debugText_->Printf(
+		"ARROWkey -> Move");
+
+	debugText_->SetPos(50, 320);
+	debugText_->Printf(
+		"UorJkey -> leftRota");
+
+	debugText_->SetPos(50, 340);
+	debugText_->Printf(
+		"IorKkey -> RightRota");
+
+	debugText_->SetPos(50, 360);
+	debugText_->Printf(
+		"SPACEkey -> Shot");
+
 	if (isDebugCameraActive_) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
