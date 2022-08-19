@@ -28,7 +28,7 @@ void Enemy::Intialize(Model* model/*, const Vector3& position,*//* const Vector3
 /// <summary>
 /// çXêV
 /// </summary>
-void Enemy:: UpDate() {
+void Enemy:: Update() {
 	Transfer(worldTransform_,myMatrix_);
 };
 

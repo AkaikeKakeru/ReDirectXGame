@@ -264,6 +264,10 @@ void GameScene::Update() {
 	player_->Update();
 #pragma endregion
 
+#pragma region Enemy
+	enemy_->Update();
+#pragma endregion
+
 #pragma endregion
 }
 
@@ -296,6 +300,8 @@ void GameScene::Draw() {
 
 #pragma region キャラクター
 	player_->Draw(viewProjection_);
+
+	enemy_->Draw(viewProjection_);
 #pragma endregion
 
 	// 3Dオブジェクト描画後処理
