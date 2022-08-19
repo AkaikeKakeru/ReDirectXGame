@@ -10,7 +10,7 @@ Enemy::~Enemy(){}
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
 /// /// <param name="velocity">速度</param>
-void Enemy::Intialize(Model* model/*, const Vector3& position,*//* const Vector3& velocity*/) {
+void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	//nullチェック
 	assert(model);
 
@@ -21,14 +21,19 @@ void Enemy::Intialize(Model* model/*, const Vector3& position,*//* const Vector3
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 
-	//worldTransform_.translation_ = position;
+	worldTransform_.translation_ = position;
 
+	//受けとった速度をメンバ変数に代入
+	velocity_ = velocity;
 };
 
 /// <summary>
 /// 更新
 /// </summary>
 void Enemy:: Update() {
+	//座標を移動させる(1フレーム分の移動量を足しこむ)
+	worldTransform_.translation_ -= velocity_;
+
 	Transfer(worldTransform_,myMatrix_);
 };
 

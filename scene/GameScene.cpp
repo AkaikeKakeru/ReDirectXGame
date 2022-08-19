@@ -20,31 +20,22 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 
-	////ファイル名を指定してテクスチャを読み込む
-	//textureHandle_ = TextureManager::Load("mario.jpg");
 	//モデルの生成
 	model_ = Model::Create();
-
 #pragma region Player
 	//自キャラの生成
-	//Player* player_ = new Player();
 	player_ = new Player;
 
 	//自キャラの初期化
 	player_->Intialize(model_);
-
-	//player_.reset(new Player);
 #pragma endregion
 
 #pragma region Enemy
 	//敵キャラの生成
-	//std::unique_ptr<Enemy> enemy_/* = new Enemy()*/;
 	enemy_ = new Enemy;
 
 	//敵キャラの初期化
-	enemy_->Intialize(model_);
-
-	//enemy_.reset(new Enemy);
+	enemy_->Intialize(model_, Vector3(0, 5.0f, 0), Vector3(0, 0, 0.1f));
 #pragma endregion
 
 #pragma region カメラ設定
@@ -88,7 +79,8 @@ void GameScene::Update() {
 		debugText_->SetPos(50, 70);
 		debugText_->Printf(
 			"ON");
-	}else{
+	}
+	else {
 		//デバッグ用表示
 		debugText_->SetPos(50, 70);
 		debugText_->Printf(

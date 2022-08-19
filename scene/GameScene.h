@@ -64,11 +64,9 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 
 	//自キャラ
-	//std::unique_ptr<Player> player_ = nullptr;
 	Player* player_ = nullptr;
 
-	////敵キャラ
-	//std::unique_ptr<Enemy> enemy_ = nullptr;
+	//敵キャラ
 	Enemy* enemy_ = nullptr;
 
 	//ビュープロジェクション
