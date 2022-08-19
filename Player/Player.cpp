@@ -7,18 +7,19 @@ Player::Player()
 
 Player::~Player()
 {
+
 }
 
 ///<summary>
 ///初期化
 ///<summary>
-void Player::Intialize(Model* model, uint32_t textureHandle) {
+void Player::Intialize(Model* model) {
 	//nullチェック
 	assert(model);
 
 	//メンバ変数に記録
 	model_ = model;
-	textureHandle_ = textureHandle;
+	textureHandle_ = TextureManager::Load("mario.jpg");
 
 	//シングルトンインスタンス
 	input_ = Input::GetInstance();

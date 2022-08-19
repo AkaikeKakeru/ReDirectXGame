@@ -24,7 +24,7 @@ public:
 	///<summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Intialize(Model* model, uint32_t textureHandle);
+	void Intialize(Model* model/*, uint32_t textureHandle*/);
 
 	///<summary>
 	///更新

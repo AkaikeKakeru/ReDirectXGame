@@ -10,6 +10,7 @@ GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
 	delete player_;
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -19,16 +20,31 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 
-	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("mario.jpg");
+	////ファイル名を指定してテクスチャを読み込む
+	//textureHandle_ = TextureManager::Load("mario.jpg");
 	//モデルの生成
 	model_ = Model::Create();
 
 #pragma region Player
 	//自キャラの生成
-	player_ = new Player();
+	//Player* player_ = new Player();
+	player_ = new Player;
+
 	//自キャラの初期化
-	player_->Intialize(model_, textureHandle_);
+	player_->Intialize(model_);
+
+	//player_.reset(new Player);
+#pragma endregion
+
+#pragma region Enemy
+	//敵キャラの生成
+	//std::unique_ptr<Enemy> enemy_/* = new Enemy()*/;
+	enemy_ = new Enemy;
+
+	//敵キャラの初期化
+	enemy_->Intialize(model_);
+
+	//enemy_.reset(new Enemy);
 #pragma endregion
 
 #pragma region カメラ設定

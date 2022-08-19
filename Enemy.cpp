@@ -10,7 +10,7 @@ Enemy::~Enemy(){}
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
 /// /// <param name="velocity">速度</param>
-void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& velocity) {
+void Enemy::Intialize(Model* model/*, const Vector3& position,*//* const Vector3& velocity*/) {
 	//nullチェック
 	assert(model);
 
@@ -21,7 +21,7 @@ void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& velo
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 
-	worldTransform_.translation_ = position;
+	//worldTransform_.translation_ = position;
 
 };
 

@@ -114,10 +114,13 @@ void DirectXCommon::PostDraw() {
 	// コマンドリストの実行完了を待つ
 	commandQueue_->Signal(fence_.Get(), ++fenceVal_);
 	if (fence_->GetCompletedValue() != fenceVal_) {
-		HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+		_Post_ HANDLE event = CreateEvent(nullptr, false, false, nullptr);
+	
+		if(event != 0){
 		fence_->SetEventOnCompletion(fenceVal_, event);
 		WaitForSingleObject(event, INFINITE);
 		CloseHandle(event);
+		}
 	}
 
 	commandAllocator_->Reset(); // キューをクリア
