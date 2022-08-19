@@ -5,6 +5,12 @@
 #include "MyMatrix.h"
 #include "DebugText.h"
 
+//行動フェーズ
+enum class Phase {
+	Approach, //接近する
+	Leave, //離脱する
+};
+
 /// <summary>
 /// 敵
 /// </summary>
@@ -39,6 +45,11 @@ public:
 
 
 private:
+	
+
+	//フェーズ
+	Phase phase_ =  Phase::Approach;
+
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//モデル
