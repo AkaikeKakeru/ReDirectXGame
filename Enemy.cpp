@@ -10,7 +10,7 @@ Enemy::~Enemy(){}
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
 /// /// <param name="velocity">速度</param>
-void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& velocity) {
+void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& approachVelocity,const Vector3& leaveVelocity) {
 	//nullチェック
 	assert(model);
 
@@ -24,15 +24,26 @@ void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& velo
 	worldTransform_.translation_ = position;
 
 	//受けとった速度をメンバ変数に代入
-	velocity_ = velocity;
+	approachVelocity_ = approachVelocity;
+	leaveVelocity_ = leaveVelocity;
 };
 
 /// <summary>
 /// 更新
 /// </summary>
 void Enemy:: Update() {
-	//座標を移動させる(1フレーム分の移動量を足しこむ)
-	worldTransform_.translation_ -= velocity_;
+	switch (phase_){
+	case Phase::Approach:
+	default:
+		ApproachMove();
+		break;
+	case Phase::Leave:
+		LeaveMove();
+		break;
+	}
+
+	////座標を移動させる(1フレーム分の移動量を足しこむ)
+	//worldTransform_.translation_ -= velocity_;
 
 	Transfer(worldTransform_,myMatrix_);
 };
@@ -43,6 +54,24 @@ void Enemy:: Update() {
 /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+};
+
+/// <summary>
+/// 移動
+/// </summary>
+void Enemy::ApproachMove() {
+	//移動(ベクトルを加算)
+	worldTransform_.translation_ += approachVelocity_;
+
+	//規定の位置に到達したら離脱
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
+};
+
+void Enemy::LeaveMove() {
+	//移動(ベクトルを加算)
+	worldTransform_.translation_ += leaveVelocity_;
 };
 
 void Enemy::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)

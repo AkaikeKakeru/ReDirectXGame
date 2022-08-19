@@ -35,7 +35,7 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy;
 
 	//敵キャラの初期化
-	enemy_->Intialize(model_, Vector3(0, 5.0f, 0), Vector3(0, 0, 0.1f));
+	enemy_->Intialize(model_, Vector3(0, 5.0f, 10.0f), Vector3(0, 0, -0.1f), Vector3(-0.1f, 0.1f, 0));
 #pragma endregion
 
 #pragma region カメラ設定

@@ -25,7 +25,7 @@ public:
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
 	/// <param name="velocity">速度</param>
-	void Intialize(Model* model, const Vector3& position, const Vector3& velocity);
+	void Intialize(Model* model, const Vector3& position, const Vector3& ApproachVelocity,const Vector3& LeaveVelocity);
 
 	/// <summary>
 	/// 更新
@@ -43,10 +43,14 @@ public:
 	///<summary>
 	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
 
+	/// <summary>
+	/// 移動
+	/// </summary>
+	void ApproachMove() ;
+	void LeaveMove() ;
 
 private:
 	
-
 	//フェーズ
 	Phase phase_ =  Phase::Approach;
 
@@ -64,6 +68,7 @@ private:
 	DebugText* debugText_ = nullptr;
 
 	//速度
-	Vector3 velocity_;
+	Vector3 approachVelocity_;
+	Vector3 leaveVelocity_;
 };
 
