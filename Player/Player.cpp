@@ -58,11 +58,11 @@ void Player::Update() {
 	//自キャラデバッグ用表示
 	debugText_->SetPos(50, 150);
 	debugText_->Printf(
-		"trans:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+		"PlaTrans:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
 
 	debugText_->SetPos(50, 180);
 	debugText_->Printf(
-		"rota:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
+		"PlaRota:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
 }
 
 ///<summary>

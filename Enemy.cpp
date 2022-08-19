@@ -18,6 +18,10 @@ void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& appr
 	model_ = model;
 	textureHandle_ = TextureManager::Load("player.png");
 
+	//シングルトンインスタンス
+	input_ = Input::GetInstance();
+	debugText_ = DebugText::GetInstance();
+
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 
@@ -26,26 +30,25 @@ void Enemy::Intialize(Model* model, const Vector3& position, const Vector3& appr
 	//受けとった速度をメンバ変数に代入
 	approachVelocity_ = approachVelocity;
 	leaveVelocity_ = leaveVelocity;
+
+	
 };
 
 /// <summary>
 /// 更新
 /// </summary>
 void Enemy:: Update() {
-	switch (phase_){
-	case Phase::Approach:
-	default:
-		ApproachMove();
-		break;
-	case Phase::Leave:
-		LeaveMove();
-		break;
-	}
 
-	////座標を移動させる(1フレーム分の移動量を足しこむ)
-	//worldTransform_.translation_ -= velocity_;
+	//メンバ関数ポインタに入っている関数を呼び出す
+	(this->*spPhaseTable[static_cast <size_t>(phase_)])();
 
 	Transfer(worldTransform_,myMatrix_);
+
+	//キャラデバッグ用表示
+	debugText_->SetPos(50, 210);
+	debugText_->Printf(
+		"EneTrans:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+
 };
 
 /// <summary>
@@ -93,3 +96,9 @@ void Enemy::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 	//転送
 	worldTransform.TransferMatrix();
 }
+
+//フェーズの関数テーブル
+void (Enemy::* Enemy::spPhaseTable[])() = {
+	&Enemy::ApproachMove, //接近
+	&Enemy::LeaveMove //離脱
+};

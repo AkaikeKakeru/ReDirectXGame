@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "MyMatrix.h"
 #include "DebugText.h"
+#include "Input.h"
 
 //行動フェーズ
 enum class Phase {
@@ -50,9 +51,12 @@ public:
 	void LeaveMove() ;
 
 private:
-	
+	//メンバ関数ポインタのテーブル
+	static void (Enemy::* spPhaseTable[])();
+
 	//フェーズ
 	Phase phase_ =  Phase::Approach;
+	
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -61,11 +65,13 @@ private:
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
-	//ワールド変換行列
-	MyMatrix myMatrix_;
-
+	//インプット
+	Input* input_ = nullptr;
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
+
+	//ワールド変換行列
+	MyMatrix myMatrix_;
 
 	//速度
 	Vector3 approachVelocity_;
