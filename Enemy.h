@@ -12,6 +12,29 @@ enum class Phase {
 	Leave, //離脱する
 };
 
+class Enemy; //Enemyクラス前方宣言
+
+class BaseEnemyState 
+{
+protected:
+	Enemy* enemy_;
+public:
+	 void Update();
+};
+
+class EnemyStateApproach : public BaseEnemyState
+{
+public:
+	void Update();
+};
+
+class EnemyStateLeave : public BaseEnemyState
+{
+public:
+	void Update();
+};
+
+
 /// <summary>
 /// 敵
 /// </summary>
@@ -47,17 +70,29 @@ public:
 	/// <summary>
 	/// 移動
 	/// </summary>
+	void Move(Vector3 position,Vector3 velocity);
 	void ApproachMove() ;
 	void LeaveMove() ;
 
+	/// <summary>
+	/// ステート変更
+	/// </summary>
+	void ChangeState(BaseEnemyState*);
+
+	/// <summary>
+	/// 座標のゲッター
+	/// </summary>
+	Vector3 GetPosition();
+
 private:
+	BaseEnemyState* state_;
+
 	//メンバ関数ポインタのテーブル
 	static void (Enemy::* spPhaseTable[])();
 
 	//フェーズ
 	Phase phase_ =  Phase::Approach;
 	
-
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//モデル
