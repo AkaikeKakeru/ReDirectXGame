@@ -14,24 +14,30 @@ enum class Phase {
 
 class Enemy; //Enemyクラス前方宣言
 
-class BaseEnemyState 
-{
+/// <summary>
+/// 基底
+/// </summary>
+class BaseEnemyState {
 protected:
-	Enemy* enemy_;
+	Enemy* enemy_ = nullptr;
 public:
-	 void Update();
+	virtual void Update(Enemy* pEnemy) = 0;
 };
 
-class EnemyStateApproach : public BaseEnemyState
-{
+/// <summary>
+/// 接近
+/// </summary>
+class EnemyStateApproach : public BaseEnemyState{
 public:
-	void Update();
+	void Update(Enemy* pEnemy);
 };
 
-class EnemyStateLeave : public BaseEnemyState
-{
+/// <summary>
+/// 離脱
+/// </summary>
+class EnemyStateLeave : public BaseEnemyState{
 public:
-	void Update();
+	void Update(Enemy* pEnemy);
 };
 
 
@@ -48,8 +54,13 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
-	/// <param name="velocity">速度</param>
-	void Intialize(Model* model, const Vector3& position, const Vector3& ApproachVelocity,const Vector3& LeaveVelocity);
+	///  <param name="approachVelocity">接近速度</param>
+	/// <param name="leaveVelocity">離脱速度</param>
+	void Intialize(
+		Model* model,
+		const Vector3& position,
+		const Vector3& approachVelocity,
+		const Vector3& leaveVelocity);
 
 	/// <summary>
 	/// 更新
@@ -65,33 +76,52 @@ public:
 	///<summary>
 	///転送
 	///<summary>
+	///  <param name="worldTransform">ワールドトランスフォーム</param>
+	/// <param name="myMatrix">座標変換のまとめ</param>
 	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
 
 	/// <summary>
 	/// 移動
 	/// </summary>
+	/// <param name="position">初期座標</param>
+	/// <param name="velocity">速度</param> 
 	void Move(Vector3 position,Vector3 velocity);
-	void ApproachMove() ;
-	void LeaveMove() ;
+	//void ApproachMove() ;
+	//void LeaveMove() ;
 
 	/// <summary>
 	/// ステート変更
 	/// </summary>
-	void ChangeState(BaseEnemyState*);
+	/// <param name="newState">新しい状態</param>  
+	void ChangeState(BaseEnemyState* newState);
 
 	/// <summary>
-	/// 座標のゲッター
+	/// ゲッター
 	/// </summary>
-	Vector3 GetPosition();
+	Vector3 GetPosition() {
+		return this->worldTransform_.translation_;};
+
+	Vector3 GetApproachSpeed(){
+		return this->approachVelocity_;}
+
+	Vector3 GetLeaveSpeed(){
+		return this->leaveVelocity_;}
+
+	/// <summary>
+	/// セッター
+	/// </summary>
+	/// <param name="position">座標</param>
+	void SetPosition(Vector3 position);
 
 private:
-	BaseEnemyState* state_;
+	//状態
+	BaseEnemyState* state_ = nullptr;
 
 	//メンバ関数ポインタのテーブル
-	static void (Enemy::* spPhaseTable[])();
+	//static void (Enemy::* spPhaseTable[])();
 
 	//フェーズ
-	Phase phase_ =  Phase::Approach;
+	//Phase phase_ =  Phase::Approach;
 	
 	//ワールド変換データ
 	WorldTransform worldTransform_;
