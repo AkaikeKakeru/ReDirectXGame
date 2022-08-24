@@ -14,7 +14,8 @@ public:
 	///<summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標</param>
-	void Intialize(Model* mode, const Vector3& position);
+	/// <param name="velocity">速度</param>
+	void Intialize(Model* mode, const Vector3& position, const Vector3& velocity);
 
 	///<summary>
 	///更新
@@ -43,4 +44,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//ワールド変換行列
 	MyMatrix myMatrix_;
+	//速度
+	Vector3 velocity_;
 };

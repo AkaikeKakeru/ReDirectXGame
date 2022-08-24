@@ -89,13 +89,19 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 };
 
 void Enemy::Attack() {
+	if(isFire_ != true){
 		Fire();
+		isFire_ = true;
+	}
 };
 
 void Enemy::Fire() {
+	const float kBulletSpeed = -0.5f;
+	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
+
 	//’e¶¬
 	EnemyBullet* newBullet = new EnemyBullet();
-	newBullet->Intialize(model_, worldTransform_.translation_);
+	newBullet->Intialize(model_, worldTransform_.translation_,bulletVelocity_);
 	
 	//’e‚ð“o˜^
 	bullet_.reset(newBullet);

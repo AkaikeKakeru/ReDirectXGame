@@ -118,4 +118,5 @@ private:
 
 	//’e
 	std::unique_ptr<EnemyBullet> bullet_ ;
+	bool isFire_ = false;
 };
