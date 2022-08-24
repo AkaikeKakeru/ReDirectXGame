@@ -35,6 +35,8 @@ public:
 	/// <param name="myMatrix">座標変換のまとめ</param>
 	void Transfer(WorldTransform worldTransform, MyMatrix myMatrix);
 
+	bool IsDead() const { return isDead_; }
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -46,4 +48,11 @@ private:
 	MyMatrix myMatrix_;
 	//速度
 	Vector3 velocity_;
+
+	//寿命<frm>
+	static const int32_t kLifeTime = 60 * 5;
+	//デスタイマー
+	int32_t deathtimer_ = kLifeTime;
+	//デスフラグ
+	bool isDead_ = false;
 };

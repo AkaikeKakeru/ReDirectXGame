@@ -38,6 +38,11 @@ void EnemyBullet::Update(){
 	worldTransform_.translation_ += velocity_;
 
 	Transfer(worldTransform_, myMatrix_);
+
+	//ŽžŠÔŒo‰ß‚Å‹€‚¿‚é
+	if (--deathtimer_ <= 0) {
+		isDead_ = true;
+	}
 }
 
 ///<summary>

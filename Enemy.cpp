@@ -42,6 +42,11 @@ void Enemy::Intialize(
 /// </summary>
 void Enemy::Update() {
 
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->IsDead();
+		});
+
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
 
@@ -96,7 +101,7 @@ void Enemy::Attack() {
 };
 
 void Enemy::Fire() {
-	const float kBulletSpeed = -0.5f;
+	const float kBulletSpeed = -0.2f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	//弾生成
