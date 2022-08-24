@@ -34,9 +34,11 @@ void GameScene::Initialize() {
 	//敵キャラの生成
 	enemy_ = new Enemy;
 
+	Vector3 enePos(2.0f, 5.0f, 10.0f);
+
 	//敵キャラの初期化
 	enemy_->Intialize(model_,
-		Vector3(0, 5.0f, 10.0f),
+		enePos,
 		Vector3(0, 0, -0.1f),
 		Vector3(-0.1f, 0.1f, 0));
 #pragma endregion

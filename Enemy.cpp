@@ -52,8 +52,8 @@ void Enemy::Update() {
 	Attack();
 
 	//íeçXêV
-	for(std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Update();
+	if (bullet_) {
+		bullet_->Update();
 	}
 
 	//ÉLÉÉÉâÉfÉoÉbÉOópï\é¶
@@ -72,8 +72,8 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	//íeï`âÊ
-	for(std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Draw(viewProjection);
+	if (bullet_) {
+		bullet_->Draw(viewProjection);
 	}
 };
 
@@ -89,15 +89,16 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 };
 
 void Enemy::Attack() {
-	if (true) {
 		Fire();
-	}
 };
 
 void Enemy::Fire() {
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	//íeê∂ê¨
+	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Intialize(model_, worldTransform_.translation_);
-	bullets_.push_back(std::move(newBullet));
+	
+	//íeÇìoò^
+	bullet_.reset(newBullet);
 };
 
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {

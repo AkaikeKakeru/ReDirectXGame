@@ -117,5 +117,5 @@ private:
 	Vector3 leaveVelocity_;
 
 	//’e
-	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
+	std::unique_ptr<EnemyBullet> bullet_ ;
 };
