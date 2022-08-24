@@ -95,6 +95,10 @@ public:
 	void SetPosition(Vector3 position);
 
 public:
+	//接近フェーズ初期化
+	void IntializeApproachPhase();
+
+public:
 	//発射間隔<frm>
 	static const int kFireInterval = 60;
 
@@ -125,5 +129,4 @@ private:
 	
 	//発射タイマー
 	int32_t kFireTimer_ = 0;
-	bool isFire_ = false;
 };

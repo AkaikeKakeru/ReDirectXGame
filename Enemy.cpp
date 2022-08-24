@@ -35,6 +35,9 @@ void Enemy::Intialize(
 	//受けとった速度をメンバ変数に代入
 	approachVelocity_ = approachVelocity;
 	leaveVelocity_ = leaveVelocity;
+
+	//攻撃
+	Attack();
 };
 
 /// <summary>
@@ -53,8 +56,7 @@ void Enemy::Update() {
 	//ワールド座標の更新と転送
 	Transfer(worldTransform_, myMatrix_);
 
-	//攻撃
-	Attack();
+	
 
 	//弾更新
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
@@ -94,10 +96,7 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 };
 
 void Enemy::Attack() {
-	if (isFire_ != true) {
 		Fire();
-		isFire_ = true;
-	}
 };
 
 void Enemy::Fire() {
@@ -138,6 +137,11 @@ void Enemy::ChangeState(BaseEnemyState* newState) {
 	delete state_;
 	state_ = newState;
 };
+
+void Enemy::IntializeApproachPhase() {
+	//発射タイマーを初期化
+	kFireTimer_ = kFireInterval;
+}
 
 /// <summary>
 /// セッター
