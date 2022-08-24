@@ -2,6 +2,7 @@
 
 #include "Model.h"
 #include "WorldTransform.h"
+#include "MyMatrix.h"
 
 class EnemyBullet{
 public:
@@ -33,4 +34,6 @@ private:
 	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+	//ワールド変換行列
+	MyMatrix myMatrix_;
 };

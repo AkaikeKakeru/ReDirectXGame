@@ -21,7 +21,7 @@ void Enemy::Intialize(
 
 	//メンバ変数に記録
 	model_ = model;
-	textureHandle_ = TextureManager::Load("player.png");
+	textureHandle_ = TextureManager::Load("enemy.png");
 
 	//シングルトンインスタンス
 	input_ = Input::GetInstance();
