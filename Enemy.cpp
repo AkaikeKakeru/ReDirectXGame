@@ -51,6 +51,11 @@ void Enemy::Update() {
 	//攻撃
 	Attack();
 
+	//弾更新
+	for(std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Update();
+	}
+
 	//キャラデバッグ用表示
 	debugText_->SetPos(50, 210);
 	debugText_->Printf(
