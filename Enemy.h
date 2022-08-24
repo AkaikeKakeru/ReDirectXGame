@@ -94,6 +94,10 @@ public:
 	/// <param name="position">座標</param>
 	void SetPosition(Vector3 position);
 
+public:
+	//発射間隔<frm>
+	static const int kFireInterval = 60;
+
 private:
 	//状態
 	BaseEnemyState* state_ = nullptr;
@@ -118,5 +122,8 @@ private:
 
 	//弾
 	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
+	
+	//発射タイマー
+	int32_t kFireTimer_ = 0;
 	bool isFire_ = false;
 };
