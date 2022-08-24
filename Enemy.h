@@ -7,6 +7,8 @@
 #include "Input.h"
 
 #include "EnemyBullet.h"
+#include <memory>
+#include <List>
 
 #include "BaseEnemyState.h"
 #include "EnemyApproach.h"
@@ -59,6 +61,11 @@ public:
 	void Move(Vector3 position,Vector3 velocity);
 
 	/// <summary>
+	/// 攻撃
+	/// </summary>
+	void Attack();
+
+	/// <summary>
 	/// ステート変更
 	/// </summary>
 	/// <param name="newState">新しい状態</param>  
@@ -105,5 +112,5 @@ private:
 	Vector3 leaveVelocity_;
 
 	//弾
-	EnemyBullet* enemyBullet_ = nullptr;
+	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 };

@@ -75,6 +75,14 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 	SetPosition(position);
 };
 
+void Enemy::Attack() {
+	if (true) {
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Intialize(model_, worldTransform_.translation_);
+	bullets_.push_back(std::move(newBullet));
+	}
+};
+
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;
