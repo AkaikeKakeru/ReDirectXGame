@@ -29,22 +29,7 @@ void EnemyBullet::Intialize(
 ///更新
 ///<summary>
 void EnemyBullet::Update(){
-	//matrix
-	static Matrix4 scale;
-	static  Matrix4 rot;
-	static  Matrix4 translation;
-
-	//行列更新
-	scale = myMatrix_.MatrixScale(worldTransform_.scale_);
-	rot = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
-	rot *= myMatrix_.MatrixRotationX(worldTransform_.rotation_);
-	rot *= myMatrix_.MatrixRotationY(worldTransform_.rotation_);
-	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
-
-	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rot, translation);
-
-	//転送
-	worldTransform_.TransferMatrix();
+	Transfer(worldTransform_, myMatrix_);
 }
 
 ///<summary>
@@ -54,4 +39,24 @@ void EnemyBullet::Update(){
 void EnemyBullet::Draw(const ViewProjection& viewProjection){
 	//モデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+void EnemyBullet::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
+{
+	//matrix
+	static Matrix4 scale;
+	static  Matrix4 rot;
+	static  Matrix4 translation;
+
+	//行列更新
+	scale = myMatrix.MatrixScale(worldTransform.scale_);
+	rot = myMatrix.MatrixRotationZ(worldTransform.rotation_);
+	rot *= myMatrix.MatrixRotationX(worldTransform.rotation_);
+	rot *= myMatrix.MatrixRotationY(worldTransform.rotation_);
+	translation = myMatrix.MatrixTranslation(worldTransform.translation_);
+
+	worldTransform.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
+
+	//転送
+	worldTransform.TransferMatrix();
 }

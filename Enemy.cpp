@@ -83,6 +83,9 @@ void Enemy::Attack() {
 	}
 };
 
+void Enemy::Fire() {
+};
+
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;

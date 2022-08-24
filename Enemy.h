@@ -66,6 +66,11 @@ public:
 	void Attack();
 
 	/// <summary>
+	/// 弾発射
+	/// </summary>
+	void Fire();
+
+	/// <summary>
 	/// ステート変更
 	/// </summary>
 	/// <param name="newState">新しい状態</param>  
