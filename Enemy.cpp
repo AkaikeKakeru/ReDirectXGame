@@ -94,7 +94,7 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 };
 
 void Enemy::Fire() {
-	const float kBulletSpeed = -0.2f;
+	const float kBulletSpeed = -0.5f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	//íeê∂ê¨
