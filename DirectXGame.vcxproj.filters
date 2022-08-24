@@ -67,6 +67,12 @@
     <Filter Include="ソース ファイル\scene\Enemy">
       <UniqueIdentifier>{4a122b41-1de0-40f5-9049-9d1baabd1e89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scene\Enemy\state">
+      <UniqueIdentifier>{1022530f-7c6d-4841-9f7a-2dbcb6e2e8df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\Enemy\state">
+      <UniqueIdentifier>{6d613a2c-a6c9-4b3d-be10-fbb68cc08a71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,16 +99,16 @@
     <ClCompile Include="PlayerBullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\scene\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="BaseEnemyState.cpp">
-      <Filter>ソース ファイル\scene\Enemy</Filter>
+      <Filter>ソース ファイル\scene\Enemy\state</Filter>
     </ClCompile>
     <ClCompile Include="EnemyApproach.cpp">
-      <Filter>ソース ファイル\scene\Enemy</Filter>
+      <Filter>ソース ファイル\scene\Enemy\state</Filter>
     </ClCompile>
     <ClCompile Include="EnemyLeave.cpp">
+      <Filter>ソース ファイル\scene\Enemy\state</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\scene\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,14 +206,14 @@
     <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル\scene\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyLeave.h">
+      <Filter>ヘッダー ファイル\scene\Enemy\state</Filter>
+    </ClInclude>
     <ClInclude Include="BaseEnemyState.h">
-      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
+      <Filter>ヘッダー ファイル\scene\Enemy\state</Filter>
     </ClInclude>
     <ClInclude Include="EnemyApproach.h">
-      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyLeave.h">
-      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
+      <Filter>ヘッダー ファイル\scene\Enemy\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
