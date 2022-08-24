@@ -52,8 +52,8 @@ void Enemy::Update() {
 	Attack();
 
 	//’eXV
-	if (bullet_) {
-		bullet_->Update();
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Update();
 	}
 
 	//ƒLƒƒƒ‰ƒfƒoƒbƒO—p•\Ž¦
@@ -72,8 +72,8 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	//’e•`‰æ
-	if (bullet_) {
-		bullet_->Draw(viewProjection);
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 };
 
@@ -89,7 +89,7 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 };
 
 void Enemy::Attack() {
-	if(isFire_ != true){
+	if (isFire_ != true) {
 		Fire();
 		isFire_ = true;
 	}
@@ -100,11 +100,11 @@ void Enemy::Fire() {
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	//’e¶¬
-	EnemyBullet* newBullet = new EnemyBullet();
-	newBullet->Intialize(model_, worldTransform_.translation_,bulletVelocity_);
-	
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique< EnemyBullet>();
+	newBullet->Intialize(model_, worldTransform_.translation_, bulletVelocity_);
+
 	//’e‚ð“o˜^
-	bullet_.reset(newBullet);
+	bullets_.push_back(std::move(newBullet));
 };
 
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {

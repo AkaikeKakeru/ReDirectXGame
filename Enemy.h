@@ -117,6 +117,6 @@ private:
 	Vector3 leaveVelocity_;
 
 	//’e
-	std::unique_ptr<EnemyBullet> bullet_ ;
+	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 	bool isFire_ = false;
 };
