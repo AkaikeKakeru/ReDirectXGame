@@ -48,6 +48,9 @@ void Enemy::Update() {
 	//ワールド座標の更新と転送
 	Transfer(worldTransform_, myMatrix_);
 
+	//攻撃
+	Attack();
+
 	//キャラデバッグ用表示
 	debugText_->SetPos(50, 210);
 	debugText_->Printf(
@@ -77,13 +80,14 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 
 void Enemy::Attack() {
 	if (true) {
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Intialize(model_, worldTransform_.translation_);
-	bullets_.push_back(std::move(newBullet));
+		Fire();
 	}
 };
 
 void Enemy::Fire() {
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Intialize(model_, worldTransform_.translation_);
+	bullets_.push_back(std::move(newBullet));
 };
 
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
