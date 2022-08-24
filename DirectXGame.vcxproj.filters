@@ -96,6 +96,15 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\scene\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="BaseEnemyState.cpp">
+      <Filter>ソース ファイル\scene\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyApproach.cpp">
+      <Filter>ソース ファイル\scene\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyLeave.cpp">
+      <Filter>ソース ファイル\scene\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -189,6 +198,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemyState.h">
+      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyApproach.h">
+      <Filter>ヘッダー ファイル\scene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLeave.h">
       <Filter>ヘッダー ファイル\scene\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

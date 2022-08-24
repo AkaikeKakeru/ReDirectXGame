@@ -6,40 +6,15 @@
 #include "DebugText.h"
 #include "Input.h"
 
+#include "BaseEnemyState.h"
+#include "EnemyApproach.h"
+#include "EnemyLeave.h"
+
 //行動フェーズ
 enum class Phase {
 	Approach, //接近する
 	Leave, //離脱する
 };
-
-class Enemy; //Enemyクラス前方宣言
-
-/// <summary>
-/// 基底
-/// </summary>
-class BaseEnemyState {
-protected:
-	Enemy* enemy_ = nullptr;
-public:
-	virtual void Update(Enemy* pEnemy) = 0;
-};
-
-/// <summary>
-/// 接近
-/// </summary>
-class EnemyStateApproach : public BaseEnemyState{
-public:
-	void Update(Enemy* pEnemy);
-};
-
-/// <summary>
-/// 離脱
-/// </summary>
-class EnemyStateLeave : public BaseEnemyState{
-public:
-	void Update(Enemy* pEnemy);
-};
-
 
 /// <summary>
 /// 敵
@@ -86,8 +61,6 @@ public:
 	/// <param name="position">初期座標</param>
 	/// <param name="velocity">速度</param> 
 	void Move(Vector3 position,Vector3 velocity);
-	//void ApproachMove() ;
-	//void LeaveMove() ;
 
 	/// <summary>
 	/// ステート変更
@@ -116,13 +89,6 @@ public:
 private:
 	//状態
 	BaseEnemyState* state_ = nullptr;
-
-	//メンバ関数ポインタのテーブル
-	//static void (Enemy::* spPhaseTable[])();
-
-	//フェーズ
-	//Phase phase_ =  Phase::Approach;
-	
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//モデル
@@ -142,4 +108,3 @@ private:
 	Vector3 approachVelocity_;
 	Vector3 leaveVelocity_;
 };
-

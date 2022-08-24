@@ -1,10 +1,10 @@
 #include "Enemy.h"
 #include <cassert>
 
-Enemy::Enemy(){
+Enemy::Enemy() {
 	state_ = new EnemyStateApproach();
 }
-Enemy::~Enemy(){
+Enemy::~Enemy() {
 	delete state_;
 }
 
@@ -12,8 +12,8 @@ Enemy::~Enemy(){
 /// 初期化
 /// </summary>
 void Enemy::Intialize(
-	Model* model, 
-	const Vector3& position, 
+	Model* model,
+	const Vector3& position,
 	const Vector3& approachVelocity,
 	const Vector3& leaveVelocity) {
 	//nullチェック
@@ -40,22 +40,20 @@ void Enemy::Intialize(
 /// <summary>
 /// 更新
 /// </summary>
-void Enemy:: Update() {
-	//メンバ関数ポインタに入っている関数を呼び出す
-	//(this->*spPhaseTable[static_cast <size_t>(phase_)])();
+void Enemy::Update() {
 
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
 
 	//ワールド座標の更新と転送
-	Transfer(worldTransform_,myMatrix_);
+	Transfer(worldTransform_, myMatrix_);
 
 	//キャラデバッグ用表示
 	debugText_->SetPos(50, 210);
 	debugText_->Printf(
 		"EneTrans:(%f,%f,%f)",
-		worldTransform_.translation_.x, 
-		worldTransform_.translation_.y, 
+		worldTransform_.translation_.x,
+		worldTransform_.translation_.y,
 		worldTransform_.translation_.z);
 };
 
@@ -69,7 +67,7 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 /// <summary>
 /// 移動
 /// </summary>
-void Enemy::Move(Vector3 position,Vector3 velocity) {
+void Enemy::Move(Vector3 position, Vector3 velocity) {
 	//移動(ベクトルを加算)
 	position += velocity;
 
@@ -77,24 +75,7 @@ void Enemy::Move(Vector3 position,Vector3 velocity) {
 	SetPosition(position);
 };
 
-/*
-void Enemy::ApproachMove() {
-	////移動(ベクトルを加算)
-	//worldTransform_.translation_ += approachVelocity_;
-
-	////規定の位置に到達したら離脱
-	//if (worldTransform_.translation_.z < 0.0f) {
-	//	phase_ = Phase::Leave;
-	//}
-};
-
-void Enemy::LeaveMove() {
-	////移動(ベクトルを加算)
-	//worldTransform_.translation_ += leaveVelocity_;
-};
-*/
-
-void Enemy::Transfer(WorldTransform worldTransform,MyMatrix myMatrix){
+void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;
 	static  Matrix4 rot;
@@ -116,7 +97,7 @@ void Enemy::Transfer(WorldTransform worldTransform,MyMatrix myMatrix){
 /// <summary>
 /// ステート変更
 /// </summary>
-void Enemy::ChangeState(BaseEnemyState* newState){
+void Enemy::ChangeState(BaseEnemyState* newState) {
 	delete state_;
 	state_ = newState;
 };
@@ -124,33 +105,6 @@ void Enemy::ChangeState(BaseEnemyState* newState){
 /// <summary>
 /// セッター
 /// </summary>
-void Enemy::SetPosition(Vector3 position){
+void Enemy::SetPosition(Vector3 position) {
 	this->worldTransform_.translation_ = position;
 };
-
-//フェーズの関数テーブル
-//void (Enemy::* Enemy::spPhaseTable[])() = {
-//	&Enemy::ApproachMove, //接近
-//	&Enemy::LeaveMove //離脱
-//};
-
-//----子クラスの実装
-void EnemyStateApproach::Update(Enemy* pEnemy) {
-	Vector3 position = pEnemy->GetPosition();
-
-	//移動(ベクトルを加算)
-	pEnemy->Move(position, pEnemy->GetApproachSpeed());
-
-	//規定の位置に到達したら離脱
-	if (position.z < 0.0f) {
-		//phase_ = Phase::Leave;
-		pEnemy->ChangeState(new EnemyStateLeave);
-	}
-}
-
-void EnemyStateLeave::Update(Enemy* pEnemy) {
-	Vector3 position = pEnemy->GetPosition();
-
-	//移動(ベクトルを加算)
-	pEnemy->Move(position, pEnemy->GetLeaveSpeed());
-}
