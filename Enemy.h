@@ -61,11 +61,6 @@ public:
 	void Move(Vector3 position,Vector3 velocity);
 
 	/// <summary>
-	/// 攻撃
-	/// </summary>
-	void Attack();
-
-	/// <summary>
 	/// 弾発射
 	/// </summary>
 	void Fire();
@@ -88,15 +83,23 @@ public:
 	Vector3 GetLeaveSpeed(){
 		return this->leaveVelocity_;}
 
+	int32_t GetFireTimer(){
+		return this->kFireTimer_;}
+
 	/// <summary>
 	/// セッター
 	/// </summary>
 	/// <param name="position">座標</param>
 	void SetPosition(Vector3 position);
+	void SetFireTimer(int32_t timer);
+	void SetIsFire(bool isFire);
 
-public:
+public://接近フェーズ
 	//接近フェーズ初期化
 	void IntializeApproachPhase();
+
+	//接近フェーズ更新
+	void UpdateApproachPhase();
 
 public:
 	//発射間隔<frm>
@@ -126,7 +129,7 @@ private:
 
 	//弾
 	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
-	
+
 	//発射タイマー
 	int32_t kFireTimer_ = 0;
 };

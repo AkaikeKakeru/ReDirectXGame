@@ -36,8 +36,8 @@ void Enemy::Intialize(
 	approachVelocity_ = approachVelocity;
 	leaveVelocity_ = leaveVelocity;
 
-	//攻撃
-	Attack();
+	//接近フェーズ初期化
+	IntializeApproachPhase();
 };
 
 /// <summary>
@@ -52,11 +52,6 @@ void Enemy::Update() {
 
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
-
-	//ワールド座標の更新と転送
-	Transfer(worldTransform_, myMatrix_);
-
-	
 
 	//弾更新
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
@@ -93,10 +88,9 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 
 	//位置座標を上書き
 	SetPosition(position);
-};
 
-void Enemy::Attack() {
-		Fire();
+	//ワールド座標の更新と転送
+	Transfer(worldTransform_, myMatrix_);
 };
 
 void Enemy::Fire() {
@@ -104,8 +98,9 @@ void Enemy::Fire() {
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	//弾生成
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique< EnemyBullet>();
-	newBullet->Intialize(model_, worldTransform_.translation_, bulletVelocity_);
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+
+	newBullet->Intialize(model_,worldTransform_.translation_, bulletVelocity_);
 
 	//弾を登録
 	bullets_.push_back(std::move(newBullet));
@@ -138,14 +133,33 @@ void Enemy::ChangeState(BaseEnemyState* newState) {
 	state_ = newState;
 };
 
+//接近フェーズ
 void Enemy::IntializeApproachPhase() {
 	//発射タイマーを初期化
 	kFireTimer_ = kFireInterval;
-}
+};
+
+void Enemy::UpdateApproachPhase(){
+	//発射タイマーカウントダウン
+	kFireTimer_--;
+
+	//指定時間に達した
+	if (kFireTimer_ <= 0) {
+		//弾を発射
+		Fire();
+
+		//発射タイマーを初期化
+		kFireTimer_ = kFireInterval;
+	}
+};
 
 /// <summary>
 /// セッター
 /// </summary>
 void Enemy::SetPosition(Vector3 position) {
 	this->worldTransform_.translation_ = position;
+};
+
+void Enemy::SetFireTimer(int32_t timer) {
+	this->kFireTimer_ = timer;
 };
