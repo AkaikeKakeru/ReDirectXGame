@@ -6,15 +6,11 @@
 #include "DebugText.h"
 #include "Input.h"
 
+#include "EnemyBullet.h"
+
 #include "BaseEnemyState.h"
 #include "EnemyApproach.h"
 #include "EnemyLeave.h"
-
-//行動フェーズ
-enum class Phase {
-	Approach, //接近する
-	Leave, //離脱する
-};
 
 /// <summary>
 /// 敵
@@ -107,4 +103,7 @@ private:
 	//速度
 	Vector3 approachVelocity_;
 	Vector3 leaveVelocity_;
+
+	//弾
+	EnemyBullet* enemyBullet_ = nullptr;
 };
