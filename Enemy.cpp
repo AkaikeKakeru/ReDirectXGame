@@ -70,6 +70,11 @@ void Enemy::Update() {
 /// </summary>
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	//’e•`‰æ
+	for(std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 };
 
 /// <summary>
