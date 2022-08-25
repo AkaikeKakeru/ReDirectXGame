@@ -106,6 +106,14 @@ void Enemy::Fire() {
 	bullets_.push_back(std::move(newBullet));
 };
 
+void Enemy::FireAndResetTimer() {
+	//弾を発射
+	Fire();
+
+	//発射タイマーをセット
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireAndResetTimer, this), kFireTimer_));
+};
+
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;
