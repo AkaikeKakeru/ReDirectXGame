@@ -14,6 +14,8 @@
 #include "EnemyApproach.h"
 #include "EnemyLeave.h"
 
+#include "TimedCall.h"
+
 /// <summary>
 /// 敵
 /// </summary>
@@ -64,6 +66,11 @@ public:
 	/// 弾発射
 	/// </summary>
 	void Fire();
+
+	/// <summary>
+	/// 弾を発射し、タイマーをリセットするコールバック関数
+	/// </summary>
+	void FireAndResetTimer();
 
 	/// <summary>
 	/// ステート変更
@@ -132,4 +139,7 @@ private:
 
 	//発射タイマー
 	int32_t kFireTimer_ = 0;
+
+	//時限発動のリスト
+	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
 };
