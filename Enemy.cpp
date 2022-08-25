@@ -50,6 +50,16 @@ void Enemy::Update() {
 		return bullet->IsDead();
 		});
 
+	//完了フラグの立ったタイマーを削除
+	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& timedCall) {
+		return timedCall->IsFinished();
+		});
+
+	//タイマー更新
+	for (std::unique_ptr<TimedCall>& timedCall : timedCalls_) {
+		timedCall->Update();
+	}
+
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
 
@@ -93,6 +103,9 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 	Transfer(worldTransform_, myMatrix_);
 };
 
+/// <summary>
+/// 発射
+/// </summary>
 void Enemy::Fire() {
 	const float kBulletSpeed = -0.5f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
@@ -106,6 +119,9 @@ void Enemy::Fire() {
 	bullets_.push_back(std::move(newBullet));
 };
 
+/// <summary>
+/// 発射とタイマ－のリセット
+/// </summary>
 void Enemy::FireAndResetTimer() {
 	//弾を発射
 	Fire();
@@ -114,6 +130,9 @@ void Enemy::FireAndResetTimer() {
 	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireAndResetTimer, this), kFireTimer_));
 };
 
+/// <summary>
+/// 転送
+/// </summary>
 void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;
@@ -148,16 +167,18 @@ void Enemy::IntializeApproachPhase() {
 };
 
 void Enemy::UpdateApproachPhase(){
+
 	//発射タイマーカウントダウン
 	kFireTimer_--;
 
 	//指定時間に達した
 	if (kFireTimer_ <= 0) {
 		//弾を発射
-		Fire();
-
+		//Fire();
 		//発射タイマーを初期化
-		kFireTimer_ = kFireInterval;
+		//kFireTimer_ = kFireInterval;
+
+		FireAndResetTimer();
 	}
 };
 

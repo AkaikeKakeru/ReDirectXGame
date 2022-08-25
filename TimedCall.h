@@ -8,17 +8,17 @@
 class TimedCall {
 public:
 	//コンストラクタ
-	TimedCall(std::function<int(void)> f,uint32_t time);
+	TimedCall(std::function<void(void)> f,uint32_t time);
 
 	//更新
 	void Update();
 
 	//完了ならtrueを返す
-	bool IsFinished() { return true; };
+	bool IsFinished() const { return isFinished_; };
 
 private:
 	//コールバック
-	std::function<int(void)> f_;
+	std::function<void(void)> f_;
 
 	//残り時間
 	uint32_t time_;
