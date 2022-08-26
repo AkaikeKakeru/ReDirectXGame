@@ -4,6 +4,10 @@
 #include "WorldTransform.h"
 #include "MyMatrix.h"
 
+#include "Player.h"
+
+class Player;
+
 class EnemyBullet{
 public:
 	EnemyBullet();
@@ -31,10 +35,14 @@ public:
 	///<summary>
 	///転送
 	///<summary>
-
 	void Transfer();
 
 	bool IsDead() const { return isDead_; }
+
+	/// <summary>
+	/// セッター
+	/// </summary>
+	void SetPlayer(Player* player) { player_ = player; }
 
 private:
 	//ワールド変換データ
@@ -47,6 +55,9 @@ private:
 	MyMatrix myMatrix_;
 	//速度
 	Vector3 velocity_;
+
+	//自機ポインタ
+	Player* player_ = nullptr;
 
 	//寿命<frm>
 	static const int32_t kLifeTime = 60 * 5;
