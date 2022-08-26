@@ -35,20 +35,8 @@ void EnemyBullet::Intialize(
 	//速度初期化
 	velocity_ = velocity;
 
-	//--弾の初期角度を変える--//
-	//y軸まわり周り角度(θy)
-	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
-
-	//velocity_からY成分を0にしたベクトルを求める
-	Vector3 velocityNotY(velocity_.x, 0.0f, velocity_.z);
-
-	//velocityNotYから、3Dベクトルとしての長さを求めて、
-	//velocity_の横軸方向として扱う
-	float velocityXZ = Vector3Length(velocityNotY);
-
-	//x軸まわり周り角度(θx)
-	worldTransform_.rotation_.x = std::atan2(-velocity_.y,velocityXZ);
-	//--弾の初期角度変え。ここまで--//
+	//弾の初期角度を変える
+	MatchRotationAppearance();
 }
 
 ///<summary>
@@ -61,6 +49,7 @@ void EnemyBullet::Update(){
 	//座標を移動させる(1フレーム分の移動量を足しこむ)
 	worldTransform_.translation_ += velocity_;
 
+	//転送
 	Transfer();
 
 	//時間経過で朽ちる
@@ -77,6 +66,22 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection){
 	//モデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
+
+// 弾の見た目の進行方向を回転
+void EnemyBullet::MatchRotationAppearance() {
+	//y軸まわり周り角度(θy)
+	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
+
+	//velocity_からY成分を0にしたベクトルを求める
+	Vector3 velocityNotY(velocity_.x, 0.0f, velocity_.z);
+
+	//velocityNotYから、3Dベクトルとしての長さを求めて、
+	//velocity_の横軸方向として扱う
+	float velocityXZ = Vector3Length(velocityNotY);
+
+	//x軸まわり周り角度(θx)
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y,velocityXZ);
+};
 
 //ホーミング
 void EnemyBullet::Homing() {
@@ -100,20 +105,7 @@ void EnemyBullet::Homing() {
 	velocity_ = myVector3_.Slerp(velocity_, toPlayer, kHomingAccuracy) * kBulletSpeed;
 
 	//進行方向に見た目の回転を合わせる。
-	//--弾の角度を変える--//
-	//y軸まわり周り角度(θy)
-	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
-
-	//velocity_からY成分を0にしたベクトルを求める
-	Vector3 velocityNotY(velocity_.x, 0.0f, velocity_.z);
-
-	//velocityNotYから、3Dベクトルとしての長さを求めて、
-	//velocity_の横軸方向として扱う
-	float velocityXZ = Vector3Length(velocityNotY);
-
-	//x軸まわり周り角度(θx)
-	worldTransform_.rotation_.x = std::atan2(-velocity_.y,velocityXZ);
-	//--弾の角度変え。ここまで--//
+	MatchRotationAppearance();
 };
 
 //転送

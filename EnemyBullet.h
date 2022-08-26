@@ -34,6 +34,11 @@ public:
 	void Draw(const ViewProjection& viewProjection);
 
 	/// <summary>
+	/// 弾の見た目の進行方向を回転
+	/// </summary>
+	void MatchRotationAppearance();
+
+	/// <summary>
 	/// ホーミング
 	/// </summary>
 	void Homing();
