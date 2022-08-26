@@ -55,6 +55,9 @@ void EnemyBullet::Intialize(
 ///更新
 ///<summary>
 void EnemyBullet::Update(){
+	//ホーミング
+	Homing();
+
 	//座標を移動させる(1フレーム分の移動量を足しこむ)
 	worldTransform_.translation_ += velocity_;
 
@@ -75,6 +78,45 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection){
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
+//ホーミング
+void EnemyBullet::Homing() {
+	//弾速さ
+	float kBulletSpeed = 1.0f;
+	//弾のホーミング精度
+	float kHomingAccuracy = 0.06f;
+
+	//自機と敵弾の位置座標を取得
+	Vector3 plPos = player_->GetWorldPosition();
+	Vector3 blPos = GetWorldPosition();
+
+	//敵弾から自キャラへのベクトルを計算
+	Vector3 toPlayer = plPos - blPos;
+
+	//ベクトルを正規化する
+	Vector3Normalize(toPlayer);
+	Vector3Normalize(velocity_);
+
+	//球面線形補間により、今の速度と自キャラへのベクトルを内挿し、新たな速度とする。
+	velocity_ = myVector3_.Slerp(velocity_, toPlayer, kHomingAccuracy) * kBulletSpeed;
+
+	//進行方向に見た目の回転を合わせる。
+	//--弾の角度を変える--//
+	//y軸まわり周り角度(θy)
+	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
+
+	//velocity_からY成分を0にしたベクトルを求める
+	Vector3 velocityNotY(velocity_.x, 0.0f, velocity_.z);
+
+	//velocityNotYから、3Dベクトルとしての長さを求めて、
+	//velocity_の横軸方向として扱う
+	float velocityXZ = Vector3Length(velocityNotY);
+
+	//x軸まわり周り角度(θx)
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y,velocityXZ);
+	//--弾の角度変え。ここまで--//
+};
+
+//転送
 void EnemyBullet::Transfer()
 {
 	//matrix
@@ -94,3 +136,18 @@ void EnemyBullet::Transfer()
 	//転送
 	worldTransform_.TransferMatrix();
 }
+
+/// <summary>
+/// ゲッター
+/// </summary>
+Vector3 EnemyBullet::GetWorldPosition() {
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+
+	//ワールド行列の平行移動成分を取得
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+
+	return worldPos;
+};

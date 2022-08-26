@@ -65,6 +65,7 @@ void Enemy::Update() {
 
 	//弾更新
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->SetPlayer(player_);
 		bullet->Update();
 	}
 
@@ -201,6 +202,9 @@ void Enemy::SetPosition(Vector3 position) {
 	this->worldTransform_.translation_ = position;
 };
 
+/// <summary>
+/// ゲッター
+/// </summary>
 Vector3 Enemy::GetWorldPosition() {
 	//ワールド座標を入れる変数
 	Vector3 worldPos;

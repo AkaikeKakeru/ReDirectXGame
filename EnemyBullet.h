@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include "MyMatrix.h"
+#include "MyVector3.h"
 
 #include "Player.h"
 
@@ -32,6 +33,11 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(const ViewProjection& viewProjection);
 
+	/// <summary>
+	/// ホーミング
+	/// </summary>
+	void Homing();
+
 	///<summary>
 	///転送
 	///<summary>
@@ -40,9 +46,15 @@ public:
 	bool IsDead() const { return isDead_; }
 
 	/// <summary>
+	/// ゲッター
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWorldPosition();
+
+	/// <summary>
 	/// セッター
 	/// </summary>
-	void SetPlayer(Player* player) { player_ = player; }
+	void SetPlayer(Player* player) { this->player_ = player; }
 
 private:
 	//ワールド変換データ
@@ -53,6 +65,8 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//ワールド変換行列
 	MyMatrix myMatrix_;
+	//Vector3による特殊な計算の関数まとめ
+	MyVector3 myVector3_;
 	//速度
 	Vector3 velocity_;
 
