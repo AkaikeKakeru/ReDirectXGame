@@ -60,6 +60,12 @@ public:
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
 
+	/// <summary>
+	/// コールバック
+	/// </summary>
+	//衝突したら呼び出される
+	void OnCollision();
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;

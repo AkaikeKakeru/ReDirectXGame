@@ -44,7 +44,7 @@ void EnemyBullet::Intialize(
 ///<summary>
 void EnemyBullet::Update(){
 	//ホーミング
-	Homing();
+	//Homing();
 
 	//座標を移動させる(1フレーム分の移動量を足しこむ)
 	worldTransform_.translation_ += velocity_;
@@ -142,4 +142,12 @@ Vector3 EnemyBullet::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+/// <summary>
+/// コールバック
+/// </summary>
+//衝突したら呼び出される
+void EnemyBullet::OnCollision() {
+	isDead_ = true;
 };

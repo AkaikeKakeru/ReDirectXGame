@@ -71,11 +71,6 @@ public:
 	void Fire();
 
 	/// <summary>
-	/// 弾を発射し、タイマーをリセットするコールバック関数
-	/// </summary>
-	void FireAndResetTimer();
-
-	/// <summary>
 	/// 弾のタイマーを全削除
 	/// </summary>
 	void TimerClear();
@@ -85,7 +80,6 @@ public:
 	/// </summary>
 	/// <param name="newState">新しい状態</param>  
 	void ChangeState(BaseEnemyState* newState);
-
 
 	/// <summary>
 	/// ゲッター
@@ -109,6 +103,14 @@ public:
 	void SetIsFire(bool isFire);
 
 	void SetPlayer(Player* player) { this->player_ = player; }
+
+	/// <summary>
+	/// コールバック
+	/// </summary>
+	/// 弾を発射し、タイマーをリセットする
+	void FireAndResetTimer();
+	//衝突したら呼び出される
+	void OnCollision();
 
 public://接近フェーズ
 	//接近フェーズ初期化

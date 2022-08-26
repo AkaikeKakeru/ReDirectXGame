@@ -68,3 +68,11 @@ void PlayerBullet::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 	//転送
 	worldTransform.TransferMatrix();
 }
+
+/// <summary>
+/// コールバック
+/// </summary>
+//衝突したら呼び出される
+void PlayerBullet::OnCollision() {
+	isDead_ = true;
+};

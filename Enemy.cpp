@@ -139,19 +139,6 @@ void Enemy::Fire() {
 	bullets_.push_back(std::move(newBullet));
 };
 
-/// <summary>
-/// 発射とタイマ－のリセット
-/// </summary>
-void Enemy::FireAndResetTimer() {
-		//弾を発射
-		Fire();
-
-		//発射タイマーをセット
-		timedCalls_.push_back(std::make_unique<TimedCall>(
-			std::bind(&Enemy::FireAndResetTimer, this),
-			kFireInterval));
-};
-
 /// 弾のタイマーを全削除
 void Enemy::TimerClear() {
 	timedCalls_.clear();
@@ -215,4 +202,22 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+/// <summary>
+/// コールバック
+/// </summary>
+// 発射とタイマ－のリセット
+void Enemy::FireAndResetTimer() {
+	//弾を発射
+	Fire();
+
+	//発射タイマーをセット
+	timedCalls_.push_back(std::make_unique<TimedCall>(
+		std::bind(&Enemy::FireAndResetTimer, this),
+		kFireInterval));
+};
+//衝突したら呼び出される
+void Enemy::OnCollision() {
+
 };

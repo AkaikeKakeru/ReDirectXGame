@@ -51,6 +51,12 @@ public:
 	bool IsDead() const { return isDead_; }
 
 	/// <summary>
+	/// コールバック
+	/// </summary>
+	//衝突したら呼び出される
+	void OnCollision();
+
+	/// <summary>
 	/// ゲッター
 	/// </summary>
 	/// <returns></returns>
