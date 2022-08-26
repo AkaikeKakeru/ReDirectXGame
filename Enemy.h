@@ -16,6 +16,9 @@
 
 #include "TimedCall.h"
 
+//自機クラスの前方宣言
+class Player;
+
 /// <summary>
 /// 敵
 /// </summary>
@@ -136,4 +139,8 @@ private:
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
+
+
+	//自キャラ
+	Player* player_ = nullptr;
 };
