@@ -104,6 +104,7 @@
     <ClCompile Include="EnemyLeave.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyMatrix\MyMatrix.cpp" />
+    <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="MyMatrix\MyMatrix.h" />
+    <ClInclude Include="MyVector3.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="scene\GameScene.h" />
