@@ -52,11 +52,13 @@ void Enemy::Update() {
 
 	//完了フラグの立ったタイマーを削除
 	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& timedCall) {
+		
 		return timedCall->IsFinished();
 		});
 
 	//タイマー更新
 	for (std::unique_ptr<TimedCall>& timedCall : timedCalls_) {
+
 		timedCall->Update();
 	}
 
@@ -123,11 +125,13 @@ void Enemy::Fire() {
 /// 発射とタイマ－のリセット
 /// </summary>
 void Enemy::FireAndResetTimer() {
-	//弾を発射
-	Fire();
+		//弾を発射
+		Fire();
 
-	//発射タイマーをセット
-	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireAndResetTimer, this), kFireTimer_));
+		//発射タイマーをセット
+		timedCalls_.push_back(std::make_unique<TimedCall>(
+			std::bind(&Enemy::FireAndResetTimer, this),
+			kFireInterval));
 };
 
 /// <summary>
@@ -160,26 +164,12 @@ void Enemy::ChangeState(BaseEnemyState* newState) {
 	state_ = newState;
 };
 
-//接近フェーズ
+//接近フェーズ初期化
 void Enemy::IntializeApproachPhase() {
-	//発射タイマーを初期化
-	kFireTimer_ = kFireInterval;
-};
-
-void Enemy::UpdateApproachPhase(){
-
-	//発射タイマーカウントダウン
-	kFireTimer_--;
-
-	//指定時間に達した
-	if (kFireTimer_ <= 0) {
-		//弾を発射
-		//Fire();
-		//発射タイマーを初期化
-		//kFireTimer_ = kFireInterval;
-
-		FireAndResetTimer();
-	}
+	//発射タイマーをセット
+	timedCalls_.push_back(std::make_unique<TimedCall>(
+		std::bind(&Enemy::FireAndResetTimer, this),
+		kFireInterval));
 };
 
 /// <summary>
@@ -189,6 +179,6 @@ void Enemy::SetPosition(Vector3 position) {
 	this->worldTransform_.translation_ = position;
 };
 
-void Enemy::SetFireTimer(int32_t timer) {
-	this->kFireTimer_ = timer;
-};
+//void Enemy::SetFireTimer(int32_t timer) {
+//	this->kFireTimer_ = timer;
+//};
