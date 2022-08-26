@@ -52,13 +52,11 @@ void Enemy::Update() {
 
 	//完了フラグの立ったタイマーを削除
 	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& timedCall) {
-		
 		return timedCall->IsFinished();
 		});
 
 	//タイマー更新
 	for (std::unique_ptr<TimedCall>& timedCall : timedCalls_) {
-
 		timedCall->Update();
 	}
 
@@ -102,15 +100,34 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 	SetPosition(position);
 
 	//ワールド座標の更新と転送
-	Transfer(worldTransform_, myMatrix_);
+	Transfer(myMatrix_);
 };
 
 /// <summary>
 /// 発射
 /// </summary>
 void Enemy::Fire() {
-	const float kBulletSpeed = -0.5f;
-	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
+	assert(player_);
+
+	//弾速度
+	const float kBulletSpeed = 1.0f;
+	//弾のベクトル
+	Vector3 bulletVelocity_;
+
+#pragma region 自機狙い
+	//自機と敵の位置座標を取得
+	Vector3 plPos = player_->GetWorldPosition();
+	Vector3 enPos = GetWorldPosition();
+
+	//移動方向(差分ベクトル)を出す
+	bulletVelocity_ = plPos - enPos;
+
+	//移動方向を正規化(１にする)
+	Vector3Normalize(bulletVelocity_);
+
+	//移動方向を1フレーム当たりの速さにする
+	bulletVelocity_ *= kBulletSpeed;
+#pragma endregion
 
 	//弾生成
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
@@ -142,23 +159,23 @@ void Enemy::TimerClear() {
 /// <summary>
 /// 転送
 /// </summary>
-void Enemy::Transfer(WorldTransform worldTransform, MyMatrix myMatrix) {
+void Enemy::Transfer(MyMatrix myMatrix) {
 	//matrix
 	static Matrix4 scale;
 	static  Matrix4 rot;
 	static  Matrix4 translation;
 
 	//行列更新
-	scale = myMatrix.MatrixScale(worldTransform.scale_);
-	rot = myMatrix.MatrixRotationZ(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationX(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationY(worldTransform.rotation_);
-	translation = myMatrix.MatrixTranslation(worldTransform.translation_);
+	scale = myMatrix.MatrixScale(worldTransform_.scale_);
+	rot = myMatrix.MatrixRotationZ(worldTransform_.rotation_);
+	rot *= myMatrix.MatrixRotationX(worldTransform_.rotation_);
+	rot *= myMatrix.MatrixRotationY(worldTransform_.rotation_);
+	translation = myMatrix.MatrixTranslation(worldTransform_.translation_);
 
-	worldTransform.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
+	worldTransform_.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
 
 	//転送
-	worldTransform.TransferMatrix();
+	worldTransform_.TransferMatrix();
 }
 
 /// <summary>

@@ -50,7 +50,7 @@ public:
 	///<summary>
 	///“]‘—
 	///<summary>
-	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
+	void Transfer(MyMatrix myMatrix);
 
 	///<summary>
 	///UŒ‚

@@ -16,6 +16,8 @@
 
 #include "TimedCall.h"
 
+#include "Player.h"
+
 //自機クラスの前方宣言
 class Player;
 
@@ -56,7 +58,7 @@ public:
 	///<summary>
 	///  <param name="worldTransform">ワールドトランスフォーム</param>
 	/// <param name="myMatrix">座標変換のまとめ</param>
-	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
+	void Transfer(MyMatrix myMatrix);
 
 	/// <summary>
 	/// 移動
@@ -108,7 +110,7 @@ public:
 	void SetPosition(Vector3 position);
 	void SetIsFire(bool isFire);
 
-	void SetPlayer(Player* player) { player_ = player; }
+	void SetPlayer(Player* player) { this->player_ = player; }
 
 public://接近フェーズ
 	//接近フェーズ初期化
@@ -144,7 +146,6 @@ private:
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
-
 
 	//自キャラ
 	Player* player_ = nullptr;

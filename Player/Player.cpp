@@ -53,7 +53,7 @@ void Player::Update() {
 		bullet->Update();
 	}
 
-	Transfer(worldTransform_,myMatrix_);
+	Transfer(myMatrix_);
 
 	//自キャラデバッグ用表示
 	debugText_->SetPos(50, 150);
@@ -146,23 +146,23 @@ void Player::Rotate()
 ///<summary>
 ///転送
 ///<summary>
-void Player::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
+void Player::Transfer(MyMatrix myMatrix)
 {
 	//matrix
 	static Matrix4 scale;
 	static  Matrix4 rota;
 	static  Matrix4 translation;
 
-	scale = myMatrix.MatrixScale(worldTransform.scale_);
-	rota = myMatrix.MatrixRotationZ(worldTransform.rotation_);
-	rota *= myMatrix.MatrixRotationX(worldTransform.rotation_);
-	rota *= myMatrix.MatrixRotationY(worldTransform.rotation_);
-	translation = myMatrix.MatrixTranslation(worldTransform.translation_);
+	scale = myMatrix.MatrixScale(worldTransform_.scale_);
+	rota = myMatrix.MatrixRotationZ(worldTransform_.rotation_);
+	rota *= myMatrix.MatrixRotationX(worldTransform_.rotation_);
+	rota *= myMatrix.MatrixRotationY(worldTransform_.rotation_);
+	translation = myMatrix.MatrixTranslation(worldTransform_.translation_);
 
 	worldTransform_.matWorld_ = myMatrix.MatrixWorld(scale, rota, translation);
 
 	//転送
-	worldTransform.TransferMatrix();
+	worldTransform_.TransferMatrix();
 }
 
 ///<summary>
