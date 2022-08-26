@@ -105,6 +105,8 @@ public:
 	void SetPosition(Vector3 position);
 	void SetIsFire(bool isFire);
 
+	void SetPlayer(Player* player) { player_ = player; }
+
 public://接近フェーズ
 	//接近フェーズ初期化
 	void IntializeApproachPhase();

@@ -41,6 +41,9 @@ void GameScene::Initialize() {
 		enePos,
 		Vector3(0, 0, -0.1f),
 		Vector3(-0.1f, 0.1f, 0));
+
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
 #pragma endregion
 
 #pragma region カメラ設定
