@@ -24,6 +24,12 @@ void EnemyBullet::Intialize(
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
+	
+	//Z方向に伸びた形状
+	worldTransform_.scale_.x = 0.5f;
+	worldTransform_.scale_.y = 0.5f;
+	worldTransform_.scale_.z = 3.0f;
+
 	worldTransform_.translation_ = position;
 
 	//速度初期化
