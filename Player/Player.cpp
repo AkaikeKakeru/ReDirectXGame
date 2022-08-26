@@ -53,7 +53,7 @@ void Player::Update() {
 		bullet->Update();
 	}
 
-	Transfer(myMatrix_);
+	Transfer();
 
 	//Ž©ƒLƒƒƒ‰ƒfƒoƒbƒO—p•\Ž¦
 	debugText_->SetPos(50, 150);
@@ -68,7 +68,7 @@ void Player::Update() {
 ///<summary>
 ///•`‰æ
 ///<summary>
-void Player::Draw(ViewProjection& viewProjection) {
+void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	//’e•`‰æ
@@ -146,20 +146,20 @@ void Player::Rotate()
 ///<summary>
 ///“]‘—
 ///<summary>
-void Player::Transfer(MyMatrix myMatrix)
+void Player::Transfer()
 {
 	//matrix
 	static Matrix4 scale;
 	static  Matrix4 rota;
 	static  Matrix4 translation;
 
-	scale = myMatrix.MatrixScale(worldTransform_.scale_);
-	rota = myMatrix.MatrixRotationZ(worldTransform_.rotation_);
-	rota *= myMatrix.MatrixRotationX(worldTransform_.rotation_);
-	rota *= myMatrix.MatrixRotationY(worldTransform_.rotation_);
-	translation = myMatrix.MatrixTranslation(worldTransform_.translation_);
+	scale = myMatrix_.MatrixScale(worldTransform_.scale_);
+	rota = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
+	rota *= myMatrix_.MatrixRotationX(worldTransform_.rotation_);
+	rota *= myMatrix_.MatrixRotationY(worldTransform_.rotation_);
+	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
-	worldTransform_.matWorld_ = myMatrix.MatrixWorld(scale, rota, translation);
+	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
 
 	//“]‘—
 	worldTransform_.TransferMatrix();

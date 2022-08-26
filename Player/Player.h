@@ -35,7 +35,7 @@ public:
 	///描画
 	///<summary>
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
-	void Draw(/*const */ViewProjection&  viewProjection);
+	void Draw(const ViewProjection&  viewProjection);
 
 	///<summary>
 	///移動
@@ -50,7 +50,7 @@ public:
 	///<summary>
 	///転送
 	///<summary>
-	void Transfer(MyMatrix myMatrix);
+	void Transfer(/*MyMatrix myMatrix*/);
 
 	///<summary>
 	///攻撃

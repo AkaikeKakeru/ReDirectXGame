@@ -34,6 +34,21 @@ void EnemyBullet::Intialize(
 
 	//速度初期化
 	velocity_ = velocity;
+
+	//--弾の初期角度を変える--//
+	//y軸まわり周り角度(θy)
+	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
+
+	//velocity_からY成分を0にしたベクトルを求める
+	Vector3 velocityNotY(velocity_.x, 0.0f, velocity_.z);
+
+	//velocityNotYから、3Dベクトルとしての長さを求めて、
+	//velocity_の横軸方向として扱う
+	float velocityXZ = Vector3Length(velocityNotY);
+
+	//x軸まわり周り角度(θx)
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y,velocityXZ);
+	//--弾の初期角度変え。ここまで--//
 }
 
 ///<summary>
@@ -43,7 +58,7 @@ void EnemyBullet::Update(){
 	//座標を移動させる(1フレーム分の移動量を足しこむ)
 	worldTransform_.translation_ += velocity_;
 
-	Transfer(worldTransform_, myMatrix_);
+	Transfer();
 
 	//時間経過で朽ちる
 	if (--deathtimer_ <= 0) {
@@ -60,7 +75,7 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection){
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-void EnemyBullet::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
+void EnemyBullet::Transfer()
 {
 	//matrix
 	static Matrix4 scale;
@@ -68,14 +83,14 @@ void EnemyBullet::Transfer(WorldTransform worldTransform,MyMatrix myMatrix)
 	static  Matrix4 translation;
 
 	//行列更新
-	scale = myMatrix.MatrixScale(worldTransform.scale_);
-	rot = myMatrix.MatrixRotationZ(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationX(worldTransform.rotation_);
-	rot *= myMatrix.MatrixRotationY(worldTransform.rotation_);
-	translation = myMatrix.MatrixTranslation(worldTransform.translation_);
+	scale = myMatrix_.MatrixScale(worldTransform_.scale_);
+	rot = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
+	rot *= myMatrix_.MatrixRotationX(worldTransform_.rotation_);
+	rot *= myMatrix_.MatrixRotationY(worldTransform_.rotation_);
+	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
-	worldTransform.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
+	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rot, translation);
 
 	//転送
-	worldTransform.TransferMatrix();
+	worldTransform_.TransferMatrix();
 }

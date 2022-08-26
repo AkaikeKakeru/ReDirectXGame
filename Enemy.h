@@ -56,9 +56,7 @@ public:
 	///<summary>
 	///転送
 	///<summary>
-	///  <param name="worldTransform">ワールドトランスフォーム</param>
-	/// <param name="myMatrix">座標変換のまとめ</param>
-	void Transfer(MyMatrix myMatrix);
+	void Transfer();
 
 	/// <summary>
 	/// 移動

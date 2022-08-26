@@ -31,9 +31,8 @@ public:
 	///<summary>
 	///転送
 	///<summary>
-	///  <param name="worldTransform">ワールドトランスフォーム</param>
-	/// <param name="myMatrix">座標変換のまとめ</param>
-	void Transfer(WorldTransform worldTransform, MyMatrix myMatrix);
+
+	void Transfer();
 
 	bool IsDead() const { return isDead_; }
 

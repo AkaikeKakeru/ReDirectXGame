@@ -100,7 +100,7 @@ void Enemy::Move(Vector3 position, Vector3 velocity) {
 	SetPosition(position);
 
 	//ワールド座標の更新と転送
-	Transfer(myMatrix_);
+	Transfer();
 };
 
 /// <summary>
@@ -159,20 +159,20 @@ void Enemy::TimerClear() {
 /// <summary>
 /// 転送
 /// </summary>
-void Enemy::Transfer(MyMatrix myMatrix) {
+void Enemy::Transfer() {
 	//matrix
 	static Matrix4 scale;
 	static  Matrix4 rot;
 	static  Matrix4 translation;
 
 	//行列更新
-	scale = myMatrix.MatrixScale(worldTransform_.scale_);
-	rot = myMatrix.MatrixRotationZ(worldTransform_.rotation_);
-	rot *= myMatrix.MatrixRotationX(worldTransform_.rotation_);
-	rot *= myMatrix.MatrixRotationY(worldTransform_.rotation_);
-	translation = myMatrix.MatrixTranslation(worldTransform_.translation_);
+	scale = myMatrix_.MatrixScale(worldTransform_.scale_);
+	rot = myMatrix_.MatrixRotationZ(worldTransform_.rotation_);
+	rot *= myMatrix_.MatrixRotationX(worldTransform_.rotation_);
+	rot *= myMatrix_.MatrixRotationY(worldTransform_.rotation_);
+	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
-	worldTransform_.matWorld_ = myMatrix.MatrixWorld(scale, rot, translation);
+	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rot, translation);
 
 	//転送
 	worldTransform_.TransferMatrix();
