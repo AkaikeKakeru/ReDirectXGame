@@ -86,9 +86,12 @@ public:
 	/// <param name="newState">新しい状態</param>  
 	void ChangeState(BaseEnemyState* newState);
 
+
 	/// <summary>
 	/// ゲッター
 	/// </summary>
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
 	Vector3 GetPosition() {
 		return this->worldTransform_.translation_;};
 
