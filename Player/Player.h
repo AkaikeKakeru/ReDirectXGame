@@ -57,8 +57,14 @@ public:
 	///<summary>
 	void Attack();
 
+	/// <summary>
+	/// ゲッター
+	/// </summary>
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
+	//弾リストを取得
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() {
+		return bullets_;}
 
 	/// <summary>
 	/// コールバック

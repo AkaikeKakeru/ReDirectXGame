@@ -88,6 +88,9 @@ public:
 	Vector3 GetWorldPosition();
 	Vector3 GetPosition() {
 		return this->worldTransform_.translation_;};
+	//’eƒŠƒXƒg‚ğæ“¾
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
+		return bullets_;}
 
 	Vector3 GetApproachSpeed(){
 		return this->approachVelocity_;}
