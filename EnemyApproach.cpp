@@ -8,6 +8,8 @@ void EnemyStateApproach::Update(Enemy* pEnemy) {
 
 	//‹K’è‚ÌˆÊ’u‚É“ž’B‚µ‚½‚ç—£’E
 	if (position.z < 0.0f) {
+		pEnemy->TimerClear();
+
 		pEnemy->ChangeState(new EnemyStateLeave);
 	}
 }

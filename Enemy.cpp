@@ -134,6 +134,11 @@ void Enemy::FireAndResetTimer() {
 			kFireInterval));
 };
 
+/// 弾のタイマーを全削除
+void Enemy::TimerClear() {
+	timedCalls_.clear();
+};
+
 /// <summary>
 /// 転送
 /// </summary>
@@ -178,7 +183,3 @@ void Enemy::IntializeApproachPhase() {
 void Enemy::SetPosition(Vector3 position) {
 	this->worldTransform_.translation_ = position;
 };
-
-//void Enemy::SetFireTimer(int32_t timer) {
-//	this->kFireTimer_ = timer;
-//};

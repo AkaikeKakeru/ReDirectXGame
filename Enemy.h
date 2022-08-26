@@ -73,6 +73,11 @@ public:
 	void FireAndResetTimer();
 
 	/// <summary>
+	/// 弾のタイマーを全削除
+	/// </summary>
+	void TimerClear();
+		
+	/// <summary>
 	/// ステート変更
 	/// </summary>
 	/// <param name="newState">新しい状態</param>  
@@ -90,15 +95,11 @@ public:
 	Vector3 GetLeaveSpeed(){
 		return this->leaveVelocity_;}
 
-	//int32_t GetFireTimer(){
-	//	return this->kFireTimer_;}
-
 	/// <summary>
 	/// セッター
 	/// </summary>
 	/// <param name="position">座標</param>
 	void SetPosition(Vector3 position);
-	//void SetFireTimer(int32_t timer);
 	void SetIsFire(bool isFire);
 
 public://接近フェーズ
@@ -132,9 +133,6 @@ private:
 
 	//弾
 	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
-
-	//発射タイマー
-	//int32_t kFireTimer_ = 0;
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
