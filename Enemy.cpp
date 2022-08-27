@@ -38,9 +38,6 @@ void Enemy::Intialize(
 
 	//接近フェーズ初期化
 	IntializeApproachPhase();
-
-	//半径
-	kRadius_ = 0.5f;
 };
 
 /// <summary>
@@ -205,6 +202,10 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+float Enemy::GetRadius() {
+	return kRadius_;
 };
 
 /// <summary>

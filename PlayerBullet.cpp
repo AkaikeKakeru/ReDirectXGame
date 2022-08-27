@@ -24,9 +24,6 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector
 
 	//ó‚¯‚Æ‚Á‚½‘¬“x‚ğƒƒ“ƒo•Ï”‚É‘ã“ü
 	velocity_ = velocity;
-
-	//”¼Œa
-	kRadius_ = 0.5f;
 }
 
 ///<summary>
@@ -84,6 +81,10 @@ Vector3 PlayerBullet::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+float PlayerBullet::GetRadius() {
+	return kRadius_;
 };
 
 /// <summary>

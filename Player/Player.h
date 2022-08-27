@@ -69,6 +69,8 @@ public:
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() {
 		return bullets_;}
 
+	float GetRadius() override;
+
 	/// <summary>
 	/// コールバック
 	/// </summary>
@@ -95,5 +97,5 @@ private:
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
 	//半径
-	static float kRadius_;
+	 float kRadius_ = 0.5f;
 };

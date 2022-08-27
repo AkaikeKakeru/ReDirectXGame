@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector3.h"
 
 /// <summary>
 /// 衝突判定オブジェクト
@@ -11,7 +12,7 @@ public:
 	//ワールド座標を取得
 	virtual Vector3 GetWorldPosition() = 0;
 	//半径を取得
-	float GetRadius();
+	virtual float GetRadius() = 0;
 
 	//半径を設定
 	void SetRadius(float r) {this->radius_ = r; };

@@ -94,6 +94,8 @@ public:
 	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
 		return bullets_;}
 
+	float GetRadius() override;
+
 	Vector3 GetApproachSpeed(){
 		return this->approachVelocity_;}
 
@@ -147,7 +149,7 @@ private:
 	Vector3 leaveVelocity_;
 
 	//”¼Œa
-	static float kRadius_;
+	float kRadius_ = 0.5f;
 
 	//’e
 	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;

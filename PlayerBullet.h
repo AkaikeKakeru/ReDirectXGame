@@ -53,6 +53,7 @@ public:
 	/// <returns></returns>
 	//衝突時に呼ばれる関数
 	Vector3 GetWorldPosition() override;
+	float GetRadius() override;
 
 private:
 	//ワールド変換データ
@@ -71,7 +72,7 @@ private:
 	Vector3 velocity_;
 
 	//半径
-	static float kRadius_;
+	float kRadius_ = 0.5f;
 
 	//寿命<frm>
 	static const int32_t kLifeTime = 60 * 5;

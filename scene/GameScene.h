@@ -24,6 +24,8 @@ using namespace DirectX;
 
 #define PI = XM_PI
 
+class Collider;
+
 /// <summary>
 /// ゲームシーン
 /// </summary>

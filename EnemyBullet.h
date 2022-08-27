@@ -63,6 +63,7 @@ public:
 	/// <returns></returns>
 	//衝突時に呼ばれる関数
 	Vector3 GetWorldPosition() override;
+	float GetRadius() override;
 
 	/// <summary>
 	/// セッター
@@ -82,7 +83,7 @@ private:
 	MyVector3 myVector3_;
 
 	//半径
-	static float kRadius_;
+	float kRadius_ = 0.5f;
 
 	//速度
 	Vector3 velocity_;

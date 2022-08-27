@@ -37,9 +37,6 @@ void EnemyBullet::Intialize(
 
 	//’e‚Ì‰ŠúŠp“x‚ğ•Ï‚¦‚é
 	MatchRotationAppearance();
-
-	//”¼Œa
-	kRadius_ = 0.5f;
 }
 
 ///<summary>
@@ -145,6 +142,10 @@ Vector3 EnemyBullet::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+float EnemyBullet::GetRadius() {
+	return kRadius_;
 };
 
 /// <summary>

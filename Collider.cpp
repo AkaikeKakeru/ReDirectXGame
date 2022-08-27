@@ -1,4 +1,6 @@
 #include "Collider.h"
+void Collider::OnCollision() {
+};
 
 //”¼Œa‚ðŽæ“¾
 float Collider::GetRadius() {

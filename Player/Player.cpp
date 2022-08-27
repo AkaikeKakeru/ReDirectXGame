@@ -27,9 +27,6 @@ void Player::Intialize(Model* model) {
 
 	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
 	worldTransform_.Initialize();
-
-	//”¼Œa
-	kRadius_ = 0.5f;
 }
 
 ///<summary>
@@ -202,6 +199,10 @@ Vector3 Player::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+};
+
+float Player::GetRadius() {
+	return kRadius_;
 };
 
 /// <summary>
