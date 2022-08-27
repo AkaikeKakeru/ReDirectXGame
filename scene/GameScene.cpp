@@ -332,6 +332,7 @@ void GameScene::Draw() {
 
 // 衝突判定と応答
 void GameScene::CheckAllCollision() {
+/*
 	//衝突対象AとBの座標
 	Vector3 posA, posB;
 
@@ -411,4 +412,22 @@ void GameScene::CheckAllCollision() {
 		}
 	}
 #pragma endregion
+*/
+};
+
+// コライダー2つの衝突判定と応答
+void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+	//コライダーのワールド座標を取得
+	Vector3 posA = colliderA->GetWorldPosition();
+	Vector3 posB = colliderB->GetWorldPosition();
+
+	float rA = colliderA->GetRadius();
+	float rB = colliderB->GetRadius();
+
+	if (myVector3_.CollisionAlgorithm(posA, rA, posB, rB) == true) {
+		//自弾の衝突時コールバックを呼び出す
+		colliderA->OnCollision();
+		//敵弾の衝突時コールバックを呼び出す
+		colliderB->OnCollision();
+	}
 };

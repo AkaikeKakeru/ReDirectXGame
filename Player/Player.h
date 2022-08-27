@@ -93,4 +93,7 @@ private:
 
 	//’e
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
+
+	//”¼Œa
+	static float kRadius_;
 };

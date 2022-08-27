@@ -146,6 +146,9 @@ private:
 	Vector3 approachVelocity_;
 	Vector3 leaveVelocity_;
 
+	//”¼Œa
+	static float kRadius_;
+
 	//’e
 	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 

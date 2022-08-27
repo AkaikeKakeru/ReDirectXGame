@@ -27,6 +27,9 @@ void Player::Intialize(Model* model) {
 
 	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
 	worldTransform_.Initialize();
+
+	//”¼Œa
+	kRadius_ = 0.5f;
 }
 
 ///<summary>

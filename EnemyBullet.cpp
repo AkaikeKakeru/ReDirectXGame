@@ -37,6 +37,9 @@ void EnemyBullet::Intialize(
 
 	//’e‚Ì‰ŠúŠp“x‚ğ•Ï‚¦‚é
 	MatchRotationAppearance();
+
+	//”¼Œa
+	kRadius_ = 0.5f;
 }
 
 ///<summary>

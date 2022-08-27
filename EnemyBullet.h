@@ -80,6 +80,10 @@ private:
 	MyMatrix myMatrix_;
 	//Vector3‚É‚æ‚é“Áê‚ÈŒvZ‚ÌŠÖ”‚Ü‚Æ‚ß
 	MyVector3 myVector3_;
+
+	//”¼Œa
+	static float kRadius_;
+
 	//‘¬“x
 	Vector3 velocity_;
 

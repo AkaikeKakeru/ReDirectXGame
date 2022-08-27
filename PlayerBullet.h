@@ -70,6 +70,9 @@ private:
 	//‘¬“x
 	Vector3 velocity_;
 
+	//”¼Œa
+	static float kRadius_;
+
 	//Žõ–½<frm>
 	static const int32_t kLifeTime = 60 * 5;
 

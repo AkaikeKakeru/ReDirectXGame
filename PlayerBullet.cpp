@@ -24,6 +24,9 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector
 
 	//ó‚¯‚Æ‚Á‚½‘¬“x‚ğƒƒ“ƒo•Ï”‚É‘ã“ü
 	velocity_ = velocity;
+
+	//”¼Œa
+	kRadius_ = 0.5f;
 }
 
 ///<summary>

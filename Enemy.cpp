@@ -38,6 +38,9 @@ void Enemy::Intialize(
 
 	//接近フェーズ初期化
 	IntializeApproachPhase();
+
+	//半径
+	kRadius_ = 0.5f;
 };
 
 /// <summary>
