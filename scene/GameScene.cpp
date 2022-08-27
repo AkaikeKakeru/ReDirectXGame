@@ -342,47 +342,50 @@ void GameScene::CheckAllCollision() {
 	const std::list<std::unique_ptr<EnemyBullet>>&
 		enemyBullets = enemy_->GetBullet();
 
-	//--半径--
-	////自機
-	//const float kPlR = 0.5f;
-	////敵
-	//const float kEnR = 0.5f;
-	////自弾
-	//const float kPlBuR = 0.5f;
-	////敵弾
-	//const float kEnBuR = 0.5f;
-
-	
-
 #pragma region 自キャラと敵弾の当たり判定
 	//自キャラと敵弾全ての当たり判定
-	for (const std::unique_ptr<EnemyBullet>& enemyBullet 
-		: enemyBullets){
-
-		//ペアの衝突判定
-		CheckCollisionPair(player_,enemyBullet.get());
-	}
+	//for (const std::unique_ptr<EnemyBullet>& enemyBullet 
+	//	: enemyBullets){
+	//	//ペアの衝突判定
+	//	CheckCollisionPair(player_,enemyBullet.get());
+	//}
 #pragma endregion
 
 #pragma region 自弾と敵キャラの当たり判定
-	for (const std::unique_ptr<PlayerBullet>&playerBullet 
-		: playerBullets){
-		//ペアの衝突判定
-		CheckCollisionPair(enemy_,playerBullet.get());
-	}
+	//for (const std::unique_ptr<PlayerBullet>&playerBullet 
+	//	: playerBullets){
+	//	//ペアの衝突判定
+	//	CheckCollisionPair(enemy_,playerBullet.get());
+	//}
 #pragma endregion
 
 #pragma region 自弾と敵弾の当たり判定
 	//自弾と敵弾全ての当たり判定
+	//for (const std::unique_ptr<PlayerBullet>& playerBullet
+	//	: playerBullets) {
+	//	for (const std::unique_ptr<EnemyBullet>& enemyBullet
+	//		: enemyBullets) {
+	//		//ペアの衝突判定
+	//		CheckCollisionPair(playerBullet.get(),enemyBullet.get());
+	//	}
+	//}
+#pragma endregion
+
+	//コライダー
+	std::list<Collider*> colliders_;
+	//コライダーをリストに登録
+	colliders_.push_back(player_);
+	colliders_.push_back(enemy_);
+	//自弾全てについて
 	for (const std::unique_ptr<PlayerBullet>& playerBullet
 		: playerBullets) {
-		for (const std::unique_ptr<EnemyBullet>& enemyBullet
-			: enemyBullets) {
-			//ペアの衝突判定
-			CheckCollisionPair(playerBullet.get(),enemyBullet.get());
-		}
+		colliders_.push_back(playerBullet.get());
 	}
-#pragma endregion
+	//敵弾全てについて
+	for (const std::unique_ptr<EnemyBullet>& enemyBullet
+		: enemyBullets) {
+		colliders_.push_back(enemyBullet.get());
+	}
 };
 
 // コライダー2つの衝突判定と応答
