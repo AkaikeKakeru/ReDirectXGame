@@ -83,10 +83,6 @@ Vector3 PlayerBullet::GetWorldPosition() {
 	return worldPos;
 };
 
-float PlayerBullet::GetRadius() {
-	return kRadius_;
-};
-
 /// <summary>
 /// コールバック
 /// </summary>

@@ -94,7 +94,9 @@ public:
 	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
 		return bullets_;}
 
-	float GetRadius() override;
+	float GetRadius() override {
+		return kRadius_;
+	};
 
 	Vector3 GetApproachSpeed(){
 		return this->approachVelocity_;}

@@ -204,10 +204,6 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 };
 
-float Enemy::GetRadius() {
-	return kRadius_;
-};
-
 /// <summary>
 /// コールバック
 /// </summary>

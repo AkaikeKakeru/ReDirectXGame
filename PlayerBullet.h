@@ -53,7 +53,9 @@ public:
 	/// <returns></returns>
 	//衝突時に呼ばれる関数
 	Vector3 GetWorldPosition() override;
-	float GetRadius() override;
+	float GetRadius() override{
+		return kRadius_;
+	};
 
 private:
 	//ワールド変換データ

@@ -201,10 +201,6 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 };
 
-float Player::GetRadius() {
-	return kRadius_;
-};
-
 /// <summary>
 /// コールバック
 /// </summary>

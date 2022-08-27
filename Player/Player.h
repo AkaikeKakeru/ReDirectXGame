@@ -69,7 +69,9 @@ public:
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() {
 		return bullets_;}
 
-	float GetRadius() override;
+	float GetRadius() override{
+		return kRadius_;
+	};
 
 	/// <summary>
 	/// コールバック

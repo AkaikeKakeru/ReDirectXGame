@@ -144,10 +144,6 @@ Vector3 EnemyBullet::GetWorldPosition() {
 	return worldPos;
 };
 
-float EnemyBullet::GetRadius() {
-	return kRadius_;
-};
-
 /// <summary>
 /// コールバック
 /// </summary>
