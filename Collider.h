@@ -5,6 +5,9 @@
 /// </summary>
 class Collider {
 public:
+	//Õ“Ë‚ÉŒÄ‚Î‚ê‚éŠÖ”
+	virtual void OnCollisuion();
+
 	//”¼Œa‚ğæ“¾
 	float GetRadius();
 	//”¼Œa‚ğİ’è
