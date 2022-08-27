@@ -35,7 +35,7 @@ public:
 	///<summary>
 	///転送
 	///<summary>
-	void Transfer(WorldTransform worldTransform,MyMatrix myMatrix);
+	void Transfer();
 
 	bool IsDead() const { return isDead_; }
 
@@ -44,6 +44,12 @@ public:
 	/// </summary>
 	//衝突したら呼び出される
 	void OnCollision();
+
+	/// <summary>
+	/// ゲッター
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWorldPosition();
 
 private:
 	//ワールド変換データ

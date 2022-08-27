@@ -260,6 +260,7 @@ void GameScene::Update() {
 
 #pragma region キャラクター
 
+	CheckAllCollision();
 #pragma region Player
 	player_->Update();
 #pragma endregion
@@ -268,7 +269,6 @@ void GameScene::Update() {
 	enemy_->Update();
 #pragma endregion
 
-	CheckAllCollision();
 
 #pragma endregion
 }
@@ -330,6 +330,7 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+// 衝突判定と応答
 void GameScene::CheckAllCollision() {
 	//衝突対象AとBの座標
 	Vector3 posA, posB;
@@ -341,6 +342,16 @@ void GameScene::CheckAllCollision() {
 	const std::list<std::unique_ptr<EnemyBullet>>&
 		enemyBullets = enemy_->GetBullet();
 
+	//--半径--
+	//自機
+	const float kPlR = 0.5f;
+	//敵
+	const float kEnR = 0.5f;
+	//自弾
+	const float kPlBuR = 0.5f;
+	//敵弾
+	const float kEnBuR = 0.5f;
+
 #pragma region 自キャラと敵弾の当たり判定
 	//自キャラの座標
 	posA = player_->GetWorldPosition();
@@ -351,10 +362,7 @@ void GameScene::CheckAllCollision() {
 		//敵弾の座標
 		posB = bullet->GetWorldPosition();
 
-		const float kPosAR = 0.5f;
-		const float kPosBR = 0.5f;
-
-		if (myVector3_.CollisionAlgorithm(posA, kPosAR, posB, kPosBR) == true) {
+		if (myVector3_.CollisionAlgorithm(posA, kPlR, posB, kEnBuR) == true) {
 			//自キャラの衝突時コールバックを呼び出す
 			player_->OnCollision();
 			//敵弾の衝突時コールバックを呼び出す
@@ -364,6 +372,21 @@ void GameScene::CheckAllCollision() {
 #pragma endregion
 
 #pragma region 自弾と敵キャラの当たり判定
+	//敵キャラの座標
+	posA = enemy_->GetWorldPosition();
+
+	for (const std::unique_ptr<PlayerBullet>&bullet 
+		: playerBullets){
+		//自弾の座標
+		posB = bullet->GetWorldPosition();
+
+		if (myVector3_.CollisionAlgorithm(posA, kEnR, posB, kPlBuR) == true) {
+			//敵キャラの衝突時コールバックを呼び出す
+			enemy_->OnCollision();
+			//自弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
 #pragma endregion
 
 #pragma region 自弾と敵弾の当たり判定

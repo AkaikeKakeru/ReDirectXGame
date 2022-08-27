@@ -39,6 +39,7 @@ void Player::Update() {
 
 	//デスフラグの立った弾を削除
 	bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {
+
 		return bullet->IsDead();
 		});
 
@@ -169,7 +170,7 @@ void Player::Transfer()
 ///攻撃
 ///<summary>
 void Player::Attack(){
-	const float kBulletSpeed = 0.1f;
+	const float kBulletSpeed = 1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	if (input_->TriggerKey(DIK_SPACE))
