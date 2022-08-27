@@ -51,7 +51,8 @@ public:
 	/// ゲッター
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetWorldPosition();
+	//衝突時に呼ばれる関数
+	Vector3 GetWorldPosition() override;
 
 private:
 	//ワールド変換データ

@@ -63,7 +63,8 @@ public:
 	/// ゲッター
 	/// </summary>
 	//ワールド座標を取得
-	Vector3 GetWorldPosition();
+	//衝突時に呼ばれる関数
+	Vector3 GetWorldPosition() override;
 	//弾リストを取得
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() {
 		return bullets_;}

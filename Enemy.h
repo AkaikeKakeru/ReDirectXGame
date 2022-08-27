@@ -85,8 +85,9 @@ public:
 	/// <summary>
 	/// ゲッター
 	/// </summary>
+	//衝突時に呼ばれる関数
+	Vector3 GetWorldPosition() override;
 	//ワールド座標を取得
-	Vector3 GetWorldPosition();
 	Vector3 GetPosition() {
 		return this->worldTransform_.translation_;};
 	//弾リストを取得
