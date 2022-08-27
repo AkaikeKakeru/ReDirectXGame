@@ -5,10 +5,12 @@
 #include "MyMatrix.h"
 #include "DebugText.h"
 
+#include "Collider.h"
+
 ///<summary>
 ///自キャラの弾
 /// </summary>
-class PlayerBullet {
+class PlayerBullet:public Collider {
 public:
 	PlayerBullet();
 	~PlayerBullet();
@@ -43,7 +45,7 @@ public:
 	/// コールバック
 	/// </summary>
 	//衝突したら呼び出される
-	void OnCollision();
+	void OnCollision() override;
 
 	/// <summary>
 	/// ゲッター

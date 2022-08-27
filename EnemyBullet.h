@@ -4,12 +4,13 @@
 #include "WorldTransform.h"
 #include "MyMatrix.h"
 #include "MyVector3.h"
+#include "Collider.h"
 
 #include "Player.h"
 
 class Player;
 
-class EnemyBullet{
+class EnemyBullet:public Collider {
 public:
 	EnemyBullet();
 	~EnemyBullet();
@@ -54,7 +55,7 @@ public:
 	/// コールバック
 	/// </summary>
 	//衝突したら呼び出される
-	void OnCollision();
+	void OnCollision() override;
 
 	/// <summary>
 	/// ゲッター

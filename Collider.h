@@ -6,7 +6,7 @@
 class Collider {
 public:
 	//Õ“Ë‚ÉŒÄ‚Î‚ê‚éŠÖ”
-	virtual void OnCollisuion();
+	virtual void OnCollision();
 
 	//”¼Œa‚ğæ“¾
 	float GetRadius();
@@ -16,3 +16,7 @@ private:
 	//Õ“Ë”¼Œa
 	float radius_ = 0.5f;
 };
+
+
+//ƒ[ƒ‹ƒhÀ•W‚ğæ“¾
+virtual Vector3 GetWorldPosition() = 0;

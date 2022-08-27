@@ -15,6 +15,7 @@
 #include "EnemyLeave.h"
 
 #include "TimedCall.h"
+#include "Collider.h"
 
 #include "Player.h"
 
@@ -24,7 +25,7 @@ class Player;
 /// <summary>
 /// 敵
 /// </summary>
-class Enemy
+class Enemy:public Collider
 {
 public:
 	Enemy();
@@ -113,7 +114,7 @@ public:
 	/// 弾を発射し、タイマーをリセットする
 	void FireAndResetTimer();
 	//衝突したら呼び出される
-	void OnCollision();
+	void OnCollision() override;
 
 public://接近フェーズ
 	//接近フェーズ初期化

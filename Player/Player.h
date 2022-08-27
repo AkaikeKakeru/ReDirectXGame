@@ -10,10 +10,12 @@
 #include <List>
 #include "MyMatrix.h"
 
+#include "Collider.h"
+
 ///<summary>
 ///自キャラ
 ///<summary>
-class Player
+class Player:public Collider
 {
 public:
 	Player();
@@ -70,7 +72,7 @@ public:
 	/// コールバック
 	/// </summary>
 	//衝突したら呼び出される
-	void OnCollision();
+	void OnCollision() override;
 
 private:
 	//ワールド変換データ
