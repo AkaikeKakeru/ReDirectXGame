@@ -57,6 +57,15 @@ public:
 		return kRadius_;
 	};
 
+	//衝突属性(自分)を取得
+	uint32_t GetCollisionAttribute() override{
+		return collisionAttribute_;
+	};
+	//衝突マスク(相手)を取得
+	uint32_t GetCollisionMask() override{
+		return collisionMask_;
+	};
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -75,6 +84,11 @@ private:
 
 	//半径
 	float kRadius_ = 0.5f;
+
+	//衝突属性(自分)
+	uint32_t collisionAttribute_ = 0xffffffff;
+	//衝突マスク(相手)
+	uint32_t collisionMask_ = 0xffffffff;
 
 	//寿命<frm>
 	static const int32_t kLifeTime = 60 * 5;

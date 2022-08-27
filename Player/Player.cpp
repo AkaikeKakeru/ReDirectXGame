@@ -27,11 +27,6 @@ void Player::Intialize(Model* model) {
 
 	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
 	worldTransform_.Initialize();
-
-	//Õ“Ë‘®«‚ğİ’è
-	SetCollisionAttribute(kCollisionAttributePlayer);
-	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
-	SetCollisionMask(kCollisionAttributeEnemy);
 };
 
 ///<summary>
