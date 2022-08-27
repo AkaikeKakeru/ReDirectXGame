@@ -386,6 +386,22 @@ void GameScene::CheckAllCollision() {
 		: enemyBullets) {
 		colliders_.push_back(enemyBullet.get());
 	}
+
+	//リスト内のペアを総当たり
+	std::list<Collider*>::iterator itrA = colliders_.begin();
+	for (; itrA != colliders_.end(); ++itrA){
+		Collider* colA = *itrA;
+
+		//イテレータBはイテレータAの次の要素から回す(重複判定を回避)
+		std::list<Collider*>::iterator itrB = itrA;
+		itrB++;
+		for (; itrB != colliders_.end(); ++itrB){
+			Collider* colB = *itrB;
+
+			//ペアの衝突判定
+			CheckCollisionPair(colA,colB);
+		}
+	}
 };
 
 // コライダー2つの衝突判定と応答
