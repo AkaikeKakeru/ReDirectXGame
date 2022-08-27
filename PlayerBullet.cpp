@@ -9,7 +9,7 @@ PlayerBullet::~PlayerBullet(){}
 ///<summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標</param>
-void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector3& velocity){
+void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	//nullチェック
 	assert(model);
 
@@ -24,7 +24,12 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector
 
 	//受けとった速度をメンバ変数に代入
 	velocity_ = velocity;
-}
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定
+	SetCollisionMask(kCollisionAttributeEnemy);
+};
 
 ///<summary>
 ///更新

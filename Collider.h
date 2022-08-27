@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include <cstdint>
+#include "CollisionConfig.h"
 
 /// <summary>
 /// 衝突判定オブジェクト

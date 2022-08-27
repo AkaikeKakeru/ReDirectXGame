@@ -24,7 +24,7 @@ void EnemyBullet::Intialize(
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
-	
+
 	//Z方向に伸びた形状
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
@@ -37,7 +37,12 @@ void EnemyBullet::Intialize(
 
 	//弾の初期角度を変える
 	MatchRotationAppearance();
-}
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	//衝突対象を自分の属性以外に設定
+	SetCollisionMask(kCollisionAttributePlayer);
+};
 
 ///<summary>
 ///更新

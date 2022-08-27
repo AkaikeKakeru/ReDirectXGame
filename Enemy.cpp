@@ -36,6 +36,11 @@ void Enemy::Intialize(
 	approachVelocity_ = approachVelocity;
 	leaveVelocity_ = leaveVelocity;
 
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	//衝突対象を自分の属性以外に設定
+	SetCollisionMask(kCollisionAttributePlayer);
+
 	//接近フェーズ初期化
 	IntializeApproachPhase();
 };

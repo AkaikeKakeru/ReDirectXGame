@@ -27,7 +27,12 @@ void Player::Intialize(Model* model) {
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
-}
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定
+	SetCollisionMask(kCollisionAttributeEnemy);
+};
 
 ///<summary>
 ///更新
