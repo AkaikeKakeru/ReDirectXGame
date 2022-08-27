@@ -40,3 +40,20 @@ Vector3 MyVector3::Slerp(const Vector3& v1, const Vector3& v2, float t) {
 
 	return result;
 };
+
+//è’ìÀîªíË
+bool MyVector3::CollisionAlgorithm(
+	const Vector3& v1,const float r1,
+	const Vector3& v2,const float r2) {
+	float distance = 
+		  (v2.x - v1.x) * (v2.x - v1.x)
+		+ (v2.y - v1.y) * (v2.y - v1.y)
+		+ (v2.z - v1.z) * (v2.z - v1.z);
+
+	float sumR = r1 + r2;
+
+	if (distance <= (sumR*sumR)) {
+		return true;
+	}
+	return false;
+};

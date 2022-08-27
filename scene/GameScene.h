@@ -15,6 +15,7 @@
 
 #include "directxmath.h"
 #include <random>
+#include "MyVector3.h"
 
 #include <memory>
 using namespace DirectX;
@@ -85,6 +86,9 @@ private: // メンバ変数
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
+
+	//Vector3による特殊な計算の関数まとめ
+	MyVector3 myVector3_;
 
 	/// <summary>
 	/// ゲームシーン用

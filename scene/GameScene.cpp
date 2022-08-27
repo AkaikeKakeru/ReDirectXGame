@@ -268,6 +268,8 @@ void GameScene::Update() {
 	enemy_->Update();
 #pragma endregion
 
+	CheckAllCollision();
+
 #pragma endregion
 }
 
@@ -340,6 +342,25 @@ void GameScene::CheckAllCollision() {
 		enemyBullets = enemy_->GetBullet();
 
 #pragma region 自キャラと敵弾の当たり判定
+	//自キャラの座標
+	posA = player_->GetWorldPosition();
+
+	//自キャラと敵弾全ての当たり判定
+	for (const std::unique_ptr<EnemyBullet>&bullet 
+		: enemyBullets){
+		//敵弾の座標
+		posB = bullet->GetWorldPosition();
+
+		const float kPosAR = 0.5f;
+		const float kPosBR = 0.5f;
+
+		if (myVector3_.CollisionAlgorithm(posA, kPosAR, posB, kPosBR) == true) {
+			//自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision();
+			//敵弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
 #pragma endregion
 
 #pragma region 自弾と敵キャラの当たり判定

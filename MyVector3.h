@@ -12,4 +12,7 @@ Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 
 //‹…–ÊüŒ`•âŠÔ
 Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
+
+//Õ“Ë”»’è
+bool CollisionAlgorithm(const Vector3& v1,const float r1, const Vector3& v2,const float r2);
 }MyVector3;
