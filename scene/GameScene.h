@@ -104,6 +104,9 @@ private: // メンバ変数
 	//Vector3による特殊な計算の関数まとめ
 	MyVector3 myVector3_;
 
+	//衝突マネージャー
+	std::unique_ptr<CollisionManager> collisionManager_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

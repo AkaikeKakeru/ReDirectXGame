@@ -9,8 +9,6 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
-	//delete player_;
-	//delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -25,7 +23,6 @@ void GameScene::Initialize() {
 #pragma region Player
 	//自キャラの生成
 	player_ = std::make_unique<Player>();
-	//player_ = new Player;
 
 	//自キャラの初期化
 	player_->Intialize(model_);
@@ -34,7 +31,6 @@ void GameScene::Initialize() {
 #pragma region Enemy
 	//敵キャラの生成
 	enemy_ = std::make_unique<Enemy>();
-	//enemy_ = new Enemy;
 
 	Vector3 enePos(2.0f, 5.0f, 50.0f);
 
@@ -47,6 +43,9 @@ void GameScene::Initialize() {
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_.get());
 #pragma endregion
+
+	//衝突マネージャー
+	collisionManager_ = std::make_unique<CollisionManager>();
 
 #pragma region カメラ設定
 
