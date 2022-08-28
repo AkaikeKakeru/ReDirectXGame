@@ -57,18 +57,10 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-	/// <summary>
-	/// 衝突判定と応答
-	/// </summary>
-	void CheckAllCollision();
-
 private: // メンバ関数
-	/// <summary>
-	/// コライダー2つの衝突判定と応答
-	/// </summary>
-	/// <param name="colliderA">コライダーA</param>
-	/// <param name="colliderB">コライダーB</param>
-	void CheckCollisionPair(Collider* colliderA,Collider* colliderB);
+
+		 //衝突マネージャーを動かす
+	void RunCollisionManager();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
