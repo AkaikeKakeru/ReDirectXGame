@@ -20,12 +20,21 @@ void GameScene::Initialize() {
 
 	//モデルの生成
 	model_ = Model::Create();
+
+#pragma region Skydome
+	//天球の生成
+	skydome_ = std::make_unique<Skydome>();
+
+	//天球の初期化
+	skydome_->Initialize();
+#pragma endregion
+
 #pragma region Player
 	//自キャラの生成
 	player_ = std::make_unique<Player>();
 
 	//自キャラの初期化
-	player_->Intialize(model_);
+	player_->Initialize(model_);
 #pragma endregion
 
 #pragma region Enemy
@@ -259,6 +268,10 @@ void GameScene::Update() {
 	//	}
 #pragma endregion
 
+#pragma region Skydome
+	skydome_->Update();
+#pragma endregion
+
 #pragma region キャラクター
 	//衝突マネージャーを動かす
 	RunCollisionManager();
@@ -301,6 +314,10 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+#pragma region Skydome
+	skydome_->Draw();
+#pragma endregion
 
 #pragma region キャラクター
 	player_->Draw(viewProjection_);

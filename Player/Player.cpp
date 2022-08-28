@@ -13,7 +13,7 @@ Player::~Player()
 ///<summary>
 ///初期化
 ///<summary>
-void Player::Intialize(Model* model) {
+void Player::Initialize(Model* model) {
 	//nullチェック
 	assert(model);
 

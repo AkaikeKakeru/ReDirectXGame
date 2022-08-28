@@ -132,7 +132,7 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>ソース ファイル\scene\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="skydome.cpp">
+    <ClCompile Include="Skydome.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -257,7 +257,7 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>ヘッダー ファイル\scene\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="skydome.h">
+    <ClInclude Include="Skydome.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
   </ItemGroup>

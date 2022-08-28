@@ -12,6 +12,7 @@
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Skydome.h"
 
 #include "directxmath.h"
 #include <random>
@@ -98,6 +99,9 @@ private: // メンバ変数
 
 	//衝突マネージャー
 	std::unique_ptr<CollisionManager> collisionManager_;
+
+	//天球
+	std::unique_ptr<Skydome> skydome_;
 
 	/// <summary>
 	/// ゲームシーン用

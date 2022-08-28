@@ -1,16 +1,16 @@
-#include "skydome.h"
+#include "Skydome.h"
 
 // ‰Šú‰»
-void skydome::Initialize() {
+void Skydome::Initialize() {
 
 };
 
 // –ˆƒtƒŒ[ƒ€ˆ—
-void skydome::Update(){
+void Skydome::Update(){
 
 };
 
 // •`‰æ
-void skydome::Draw(){
+void Skydome::Draw(){
 
 };

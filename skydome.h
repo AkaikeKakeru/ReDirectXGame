@@ -5,7 +5,7 @@
 /// <summary>
 /// “V‹…
 /// </summary>
-class skydome {
+class Skydome {
 public:
 	/// <summary>
 	/// ‰Šú‰»
