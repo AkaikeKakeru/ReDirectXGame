@@ -75,12 +75,10 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 
 	//自キャラ
-	//Player* player_ = nullptr;
-	std::unique_ptr<Player> player_; /*= nullptr;*/
+	std::unique_ptr<Player> player_;
 
 	//敵キャラ
-	//Enemy* enemy_ = nullptr;
-	std::unique_ptr<Enemy> enemy_; /*= nullptr;*/
+	std::unique_ptr<Enemy> enemy_;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
@@ -102,6 +100,8 @@ private: // メンバ変数
 
 	//天球
 	std::unique_ptr<Skydome> skydome_;
+	//天球用モデル
+	Model* modelSkydome_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

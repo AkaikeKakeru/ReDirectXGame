@@ -9,6 +9,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -22,6 +23,9 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 
 #pragma region Skydome
+	//天球モデル生成
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+
 	//天球の生成
 	skydome_ = std::make_unique<Skydome>();
 
