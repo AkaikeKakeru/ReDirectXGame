@@ -1,4 +1,6 @@
 #pragma once
+#include "Model.h"
+#include "WorldTransform.h"
 
 /// <summary>
 /// 天球
@@ -19,4 +21,9 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
+private:
+	//ワールド変換データ
+	WorldTransform worldTransform_;
+	//モデル
+	Model* model_ = nullptr;
 };
