@@ -413,6 +413,7 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 		){
 		return;
 	}
+	
 	//コライダーのワールド座標を取得
 	Vector3 posA = colliderA->GetWorldPosition();
 	Vector3 posB = colliderB->GetWorldPosition();
