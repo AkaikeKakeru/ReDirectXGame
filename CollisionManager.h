@@ -17,8 +17,8 @@ public:
 	/// <summary>
 	/// セッター
 	/// </summary>
-	//衝突マスク(相手)を設定
-	void SetCollider (Collider* collider) { //コライダーをリストに登録
+	//コライダーをリストに登録
+	void SetCollider (Collider* collider) { 
 		colliders_.push_back(collider); };
 
 private:
