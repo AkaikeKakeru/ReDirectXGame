@@ -129,6 +129,9 @@
     <ClCompile Include="Collider.cpp">
       <Filter>ソース ファイル\scene\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>ソース ファイル\scene\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -246,6 +249,9 @@
       <Filter>ヘッダー ファイル\scene\Collider</Filter>
     </ClInclude>
     <ClInclude Include="CollisionConfig.h">
+      <Filter>ヘッダー ファイル\scene\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>ヘッダー ファイル\scene\Collider</Filter>
     </ClInclude>
   </ItemGroup>
