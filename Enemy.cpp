@@ -39,7 +39,7 @@ void Enemy::Intialize(
 	//衝突属性を設定
 	SetCollisionAttribute(kCollisionAttributeEnemy);
 	//衝突対象を自分の属性以外に設定
-	SetCollisionMask(kCollisionAttributePlayer);
+	SetCollisionMask(~(kCollisionAttributeEnemy));
 
 	//接近フェーズ初期化
 	IntializeApproachPhase();

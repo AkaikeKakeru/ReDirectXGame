@@ -26,6 +26,7 @@ public:
 	void SetCollisionAttribute(uint32_t collisionAttribute) { this->collisionAttribute_ = collisionAttribute; };
 	//Õ“Ëƒ}ƒXƒN(‘Šè)‚ğİ’è
 	void SetCollisionMask(uint32_t collisionMask) { this->collisionMask_ = collisionMask; };
+
 private:
 	//Õ“Ë”¼Œa
 	float radius_ = 0.5f;

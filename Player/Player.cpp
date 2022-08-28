@@ -27,6 +27,11 @@ void Player::Intialize(Model* model) {
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	//衝突対象を自分の属性以外に設定
+	SetCollisionMask(~(kCollisionAttributePlayer));
 };
 
 ///<summary>
@@ -44,13 +49,13 @@ void Player::Update() {
 		});
 
 	Rotate();
-	
+
 	Move();
 
 	Attack();
 
 	//弾更新
-	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Update();
 	}
 
@@ -64,7 +69,8 @@ void Player::Update() {
 	debugText_->SetPos(50, 180);
 	debugText_->Printf(
 		"PlaRota:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
-}
+
+};
 
 ///<summary>
 ///描画

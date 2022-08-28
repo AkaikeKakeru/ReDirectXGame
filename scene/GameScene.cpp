@@ -406,6 +406,13 @@ void GameScene::CheckAllCollision() {
 
 // コライダー2つの衝突判定と応答
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+	//衝突フィルタリング
+	if (
+		(colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask()) == 0 ||
+		(colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask()) == 0
+		){
+		return;
+	}
 	//コライダーのワールド座標を取得
 	Vector3 posA = colliderA->GetWorldPosition();
 	Vector3 posB = colliderB->GetWorldPosition();
@@ -413,15 +420,8 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	float rA = colliderA->GetRadius();
 	float rB = colliderB->GetRadius();
 
-	//衝突フィルタリング
-	if (
-		colliderA->GetCollisionAttribute() != colliderB->GetCollisionMask() ||
-		colliderB->GetCollisionAttribute() != colliderA->GetCollisionMask()
-		){
-		return;
-	}
-
 	if (myVector3_.CollisionAlgorithm(posA, rA, posB, rB) == true) {
+	
 		//自弾の衝突時コールバックを呼び出す
 		colliderA->OnCollision();
 		//敵弾の衝突時コールバックを呼び出す

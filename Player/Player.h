@@ -73,7 +73,6 @@ public:
 		return kRadius_;
 	};
 
-	
 	//衝突属性(自分)を取得
 	uint32_t GetCollisionAttribute() override{
 		return collisionAttribute_;
@@ -82,6 +81,14 @@ public:
 	uint32_t GetCollisionMask() override{
 		return collisionMask_;
 	};
+
+	/// <summary>
+	/// セッター
+	/// </summary>
+	//衝突属性(自分)を設定
+	void SetCollisionAttribute (uint32_t collisionAttribute) { this->collisionAttribute_ = collisionAttribute; };
+	//衝突マスク(相手)を設定
+	void SetCollisionMask (uint32_t collisionMask) { this->collisionMask_ = collisionMask; };
 
 	/// <summary>
 	/// コールバック

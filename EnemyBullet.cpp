@@ -41,7 +41,7 @@ void EnemyBullet::Intialize(
 	//Õ“Ë‘®«‚ğİ’è
 	SetCollisionAttribute(kCollisionAttributeEnemy);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
-	SetCollisionMask(kCollisionAttributePlayer);
+	SetCollisionMask(~(kCollisionAttributeEnemy));
 };
 
 ///<summary>
