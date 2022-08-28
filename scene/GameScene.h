@@ -19,6 +19,7 @@
 #include <memory>
 
 #include "Collider.h"
+#include "CollisionManager.h"
 
 using namespace DirectX;
 
@@ -81,10 +82,12 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 
 	//自キャラ
-	Player* player_ = nullptr;
+	//Player* player_ = nullptr;
+	std::unique_ptr<Player> player_; /*= nullptr;*/
 
 	//敵キャラ
-	Enemy* enemy_ = nullptr;
+	//Enemy* enemy_ = nullptr;
+	std::unique_ptr<Enemy> enemy_; /*= nullptr;*/
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;

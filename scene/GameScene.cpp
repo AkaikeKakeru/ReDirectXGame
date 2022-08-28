@@ -9,8 +9,8 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
-	delete player_;
-	delete enemy_;
+	//delete player_;
+	//delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -24,7 +24,8 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 #pragma region Player
 	//自キャラの生成
-	player_ = new Player;
+	player_ = std::make_unique<Player>();
+	//player_ = new Player;
 
 	//自キャラの初期化
 	player_->Intialize(model_);
@@ -32,7 +33,8 @@ void GameScene::Initialize() {
 
 #pragma region Enemy
 	//敵キャラの生成
-	enemy_ = new Enemy;
+	enemy_ = std::make_unique<Enemy>();
+	//enemy_ = new Enemy;
 
 	Vector3 enePos(2.0f, 5.0f, 50.0f);
 
@@ -43,7 +45,7 @@ void GameScene::Initialize() {
 		Vector3(-0.1f, 0.1f, 0));
 
 	//敵キャラに自キャラのアドレスを渡す
-	enemy_->SetPlayer(player_);
+	enemy_->SetPlayer(player_.get());
 #pragma endregion
 
 #pragma region カメラ設定
@@ -330,6 +332,7 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+
 // 衝突判定と応答
 void GameScene::CheckAllCollision() {
 	//衝突対象AとBの座標
@@ -374,8 +377,8 @@ void GameScene::CheckAllCollision() {
 	//コライダー
 	std::list<Collider*> colliders_;
 	//コライダーをリストに登録
-	colliders_.push_back(player_);
-	colliders_.push_back(enemy_);
+	colliders_.push_back(player_.get());
+	colliders_.push_back(enemy_.get());
 	//自弾全てについて
 	for (const std::unique_ptr<PlayerBullet>& playerBullet
 		: playerBullets) {
