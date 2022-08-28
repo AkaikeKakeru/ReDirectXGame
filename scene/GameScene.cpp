@@ -25,12 +25,12 @@ void GameScene::Initialize() {
 #pragma region Skydome
 	//天球モデル生成
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
-
+	
 	//天球の生成
 	skydome_ = std::make_unique<Skydome>();
 
 	//天球の初期化
-	skydome_->Initialize();
+	skydome_->Initialize(modelSkydome_);
 #pragma endregion
 
 #pragma region Player
@@ -320,7 +320,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 #pragma region Skydome
-	skydome_->Draw();
+	skydome_->Draw(viewProjection_);
 #pragma endregion
 
 #pragma region キャラクター
