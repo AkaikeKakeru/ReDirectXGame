@@ -132,6 +132,9 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>ソース ファイル\scene\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="skydome.cpp">
+      <Filter>ソース ファイル\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>ヘッダー ファイル\scene\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="skydome.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
