@@ -80,10 +80,10 @@ void GameScene::Initialize() {
 	//viewProjection_.aspectRatio = 1.0f;
 
 	////ニアクリップ距離を設定
-	//viewProjection_.nearZ = 52.0f;
+	//viewProjection_.nearZ = 10.0f;
 
 	////ファークリップ距離を設定
-	//viewProjection_.farZ = 53.0f;
+	//viewProjection_.farZ = 20.0f;
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
@@ -95,37 +95,44 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera_ = new RailCamera();
 
+
+	railCamera_->Initialize(Vector3(0,0,-20),
+		Vector3(
+			XMConvertToRadians(90.0f),
+			XMConvertToRadians(0.0f),
+			XMConvertToRadians(0.0f)));
+
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_ /*&debugCamera_->GetViewProjection()*/);
 
-	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_/*&debugCamera_->GetViewProjection()*/);
 }
 
 void GameScene::Update() {
 #pragma region デバッグ
 #ifdef  _DEBUG
-	if (input_->TriggerKey(DIK_R)) {
-		isDebugCameraActive_ = !isDebugCameraActive_;
-	}
+	//if (input_->TriggerKey(DIK_R)) {
+	//	isDebugCameraActive_ = !isDebugCameraActive_;
+	//}
 
-	if (isDebugCameraActive_) {
-		//デバッグ用表示
-		debugText_->SetPos(50, 70);
-		debugText_->Printf(
-			"ON");
-	}
-	else {
-		//デバッグ用表示
-		debugText_->SetPos(50, 70);
-		debugText_->Printf(
-			"OFF");
-	}
-	//デバッグ用表示
-	debugText_->SetPos(50, 50);
-	debugText_->Printf(
-		"Rkey -> ON:OFFswitch");
+	//if (isDebugCameraActive_) {
+	//	//デバッグ用表示
+	//	debugText_->SetPos(50, 70);
+	//	debugText_->Printf(
+	//		"ON");
+	//}
+	//else {
+	//	//デバッグ用表示
+	//	debugText_->SetPos(50, 70);
+	//	debugText_->Printf(
+	//		"OFF");
+	//}
+	////デバッグ用表示
+	//debugText_->SetPos(50, 50);
+	//debugText_->Printf(
+	//	"Rkey -> ON:OFFswitch");
 #endif //  _DEBUG
 
 	//デバッグ用表示
@@ -145,22 +152,22 @@ void GameScene::Update() {
 	debugText_->Printf(
 		"SPACEkey -> Shot");
 
-	if (isDebugCameraActive_) {
-		//デバッグカメラの更新
-		debugCamera_->Update();
+	//if (isDebugCameraActive_) {
+	//	//デバッグカメラの更新
+	//	debugCamera_->Update();
 
-		//ビュー行列とプロジェクション行列を取得
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+	//	//ビュー行列とプロジェクション行列を取得
+	//	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+	//	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 
-		//転送
-		viewProjection_.TransferMatrix();
-	}
-	else {
-		//再計算と転送
-		viewProjection_.UpdateMatrix();
-		viewProjection_.TransferMatrix();
-	}
+	//	//転送
+	//	viewProjection_.TransferMatrix();
+	//}
+	//else {
+	//	//再計算と転送
+	//	viewProjection_.UpdateMatrix();
+	//	viewProjection_.TransferMatrix();
+	//}
 #pragma endregion
 
 #pragma region 視点処理
@@ -286,6 +293,10 @@ void GameScene::Update() {
 	//	}
 #pragma endregion
 
+	//レールカメラ
+	railCamera_->Update();
+
+	this->viewProjection_ = railCamera_->GetViewProjection();
 #pragma region Skydome
 	skydome_->Update();
 #pragma endregion
