@@ -1,4 +1,7 @@
 #pragma once
+#include "WorldTransform.h"
+#include "ViewProjection.h"
+
 class RailCamera
 {
 public:
@@ -12,5 +15,8 @@ public:
 	/// </summary>
 	void Update();
 private:
-
+	//ワールド変換データ
+	WorldTransform worldTransform_;
+	//ビュープロジェクション
+	ViewProjection viewprojection_;
 };
