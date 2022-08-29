@@ -13,14 +13,19 @@ Enemy::~Enemy() {
 /// </summary>
 void Enemy::Intialize(
 	Model* model,
+	Model* modelBullet,
 	const Vector3& position,
 	const Vector3& approachVelocity,
 	const Vector3& leaveVelocity) {
 	//nullチェック
 	assert(model);
 
+	//nullチェック
+	assert(modelBullet);
+
 	//メンバ変数に記録
 	model_ = model;
+	modelBullet_ = modelBullet;
 	textureHandle_ = TextureManager::Load("plane/enemy_plane_Map.png");
 
 	//シングルトンインスタンス
@@ -138,7 +143,7 @@ void Enemy::Fire() {
 	//弾生成
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
 
-	newBullet->Intialize(model_,worldTransform_.translation_, bulletVelocity_);
+	newBullet->Intialize(modelBullet_,worldTransform_.translation_, bulletVelocity_);
 
 	//弾を登録
 	bullets_.push_back(std::move(newBullet));

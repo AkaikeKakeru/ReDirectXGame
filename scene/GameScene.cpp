@@ -57,6 +57,7 @@ void GameScene::Initialize() {
 
 	//敵キャラの初期化
 	enemy_->Intialize(modelEnemy_,
+		model_,
 		enePos,
 		Vector3(0, 0, -0.1f),
 		Vector3(-0.1f, 0.1f, 0));

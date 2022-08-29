@@ -34,11 +34,13 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="model">モデル</param>
+	/// <param name="modelBullet">弾モデル</param> 
 	/// <param name="position">初期座標</param>
 	///  <param name="approachVelocity">接近速度</param>
 	/// <param name="leaveVelocity">離脱速度</param>
 	void Intialize(
 		Model* model,
+		Model* modelBullet,
 		const Vector3& position,
 		const Vector3& approachVelocity,
 		const Vector3& leaveVelocity);
@@ -149,6 +151,8 @@ private:
 	WorldTransform worldTransform_;
 	//モデル
 	Model* model_ = nullptr;
+	Model* modelBullet_ = nullptr;
+
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
