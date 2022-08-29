@@ -8,6 +8,8 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
+	delete railCamera_;
+
 	delete model_;
 	delete modelSkydome_;
 	delete modelPlayer_;
@@ -89,6 +91,9 @@ void GameScene::Initialize() {
 
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 800);
+
+	//レールカメラの生成
+	railCamera_ = new RailCamera();
 
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);

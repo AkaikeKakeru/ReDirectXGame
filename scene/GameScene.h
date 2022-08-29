@@ -8,7 +8,9 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+
 #include "DebugCamera.h"
+#include "RailCamera.h"
 
 #include "Player.h"
 #include "Enemy.h"
@@ -90,9 +92,11 @@ private: // メンバ変数
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
+
+	//レールカメラ
+	RailCamera* railCamera_ = nullptr;
 
 	//Vector3による特殊な計算の関数まとめ
 	MyVector3 myVector3_;
