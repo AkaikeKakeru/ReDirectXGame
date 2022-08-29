@@ -13,12 +13,16 @@ Player::~Player()
 ///<summary>
 ///初期化
 ///<summary>
-void Player::Initialize(Model* model) {
+void Player::Initialize(Model* model,Model* modelBullet) {
 	//nullチェック
 	assert(model);
 
+	//nullチェック
+	assert(modelBullet);
+
 	//メンバ変数に記録
 	model_ = model;
+	modelBullet_ = modelBullet;
 	textureHandle_ = TextureManager::Load("plane/plane_Map.png");
 
 	//シングルトンインスタンス
@@ -180,7 +184,7 @@ void Player::Transfer()
 ///攻撃
 ///<summary>
 void Player::Attack(){
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = -1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
 	if (input_->TriggerKey(DIK_SPACE))
@@ -190,7 +194,7 @@ void Player::Attack(){
 
 		//弾を生成し、初期化
  		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Intialize(model_,worldTransform_.translation_,bulletVelocity_);
+		newBullet->Intialize(modelBullet_,worldTransform_.translation_,bulletVelocity_);
 
 		//弾を登録
 		//bullet_ = newBullet;

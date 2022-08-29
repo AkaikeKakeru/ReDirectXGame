@@ -42,7 +42,7 @@ void GameScene::Initialize() {
 	player_ = std::make_unique<Player>();
 
 	//自キャラの初期化
-	player_->Initialize(modelPlayer_);
+	player_->Initialize(modelPlayer_,model_);
 #pragma endregion
 
 #pragma region Enemy
