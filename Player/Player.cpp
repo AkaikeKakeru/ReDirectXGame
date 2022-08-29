@@ -19,7 +19,7 @@ void Player::Initialize(Model* model) {
 
 	//メンバ変数に記録
 	model_ = model;
-	textureHandle_ = TextureManager::Load("mario.jpg");
+	textureHandle_ = TextureManager::Load("plane/plane_Map.png");
 
 	//シングルトンインスタンス
 	input_ = Input::GetInstance();
@@ -27,6 +27,7 @@ void Player::Initialize(Model* model) {
 
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
+	worldTransform_.rotation_.y = XMConvertToRadians(180.0f);
 
 	//衝突属性を設定
 	SetCollisionAttribute(kCollisionAttributePlayer);
@@ -127,6 +128,8 @@ void Player::Move()
 ///<summary>
 void Player::Rotate()
 {
+	
+
 #pragma region 半身回転
 	//上半身回転
 	if (input_->PushKey(DIK_U))
@@ -148,6 +151,7 @@ void Player::Rotate()
 		worldTransform_.rotation_.y += 0.05f;
 	}
 #pragma endregion
+
 }
 
 ///<summary>

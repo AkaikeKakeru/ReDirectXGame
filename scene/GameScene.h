@@ -76,6 +76,7 @@ private: // メンバ変数
 
 	//自キャラ
 	std::unique_ptr<Player> player_;
+	Model* modelPlayer_ = nullptr;
 
 	//敵キャラ
 	std::unique_ptr<Enemy> enemy_;
