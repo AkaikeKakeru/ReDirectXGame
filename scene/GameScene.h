@@ -80,6 +80,7 @@ private: // メンバ変数
 
 	//敵キャラ
 	std::unique_ptr<Enemy> enemy_;
+	Model* modelEnemy_ = nullptr;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;

@@ -11,6 +11,7 @@ GameScene::~GameScene() {
 	delete model_;
 	delete modelSkydome_;
 	delete modelPlayer_;
+	delete modelEnemy_;
 }
 
 void GameScene::Initialize() {
@@ -35,7 +36,7 @@ void GameScene::Initialize() {
 #pragma endregion
 
 #pragma region Player
-	//天球モデル生成
+	//自キャラモデル生成
 	modelPlayer_ = Model::CreateFromOBJ("plane", true);
 
 	//自キャラの生成
@@ -46,13 +47,16 @@ void GameScene::Initialize() {
 #pragma endregion
 
 #pragma region Enemy
+	//敵キャラモデル生成
+	modelEnemy_ = Model::CreateFromOBJ("plane", true);
+
 	//敵キャラの生成
 	enemy_ = std::make_unique<Enemy>();
 
 	Vector3 enePos(2.0f, 5.0f, 50.0f);
 
 	//敵キャラの初期化
-	enemy_->Intialize(model_,
+	enemy_->Intialize(modelEnemy_,
 		enePos,
 		Vector3(0, 0, -0.1f),
 		Vector3(-0.1f, 0.1f, 0));
