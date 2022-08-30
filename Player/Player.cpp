@@ -193,6 +193,13 @@ void Player::Attack(){
 	const float kBulletSpeed = -1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
+	Vector3 bulletPosition_ = 
+		Vector3(
+			worldTransform_.matWorld_.m[3][0],
+			worldTransform_.matWorld_.m[3][1],
+			worldTransform_.matWorld_.m[3][2]
+	);
+
 	if (input_->TriggerKey(DIK_SPACE))
 	{
 		//速度ベクトルを自機の向きにあわせる
@@ -200,7 +207,7 @@ void Player::Attack(){
 
 		//弾を生成し、初期化
  		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Intialize(modelBullet_,worldTransform_.translation_,bulletVelocity_);
+		newBullet->Intialize(modelBullet_,bulletPosition_,bulletVelocity_);
 
 		//弾を登録
 		//bullet_ = newBullet;

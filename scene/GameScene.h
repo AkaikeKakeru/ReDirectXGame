@@ -60,6 +60,8 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void AddEnemyBullet();
+
 private: // メンバ関数
 
 		 //衝突マネージャーを動かす
