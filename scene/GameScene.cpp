@@ -19,6 +19,9 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
+	//レティクルのテクスチャ
+	TextureManager::Load("cursor.png");
+
 	loadEnemyPopData();
 
 	dxCommon_ = DirectXCommon::GetInstance();
