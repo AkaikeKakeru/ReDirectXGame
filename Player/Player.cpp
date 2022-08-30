@@ -87,6 +87,7 @@ void Player::Update() {
 void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
+	modelBullet_->Draw(worldTransform3DReticle_, viewProjection);
 
 	//’e•`‰æ
 	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
