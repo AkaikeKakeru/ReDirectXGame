@@ -35,6 +35,13 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 	worldTransform_.translation_.z = 40.0f;
 	worldTransform3DReticle_.Initialize();
 
+	//レティクル用テクスチャ取得
+	uint32_t textureReticle = TextureManager::Load("cursor.png");
+	//スプライト生成
+	sprite2DReticle_.reset(Sprite::Create(textureReticle,
+		Vector2(0, 0), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f));
+
+
 	//衝突属性を設定
 	SetCollisionAttribute(kCollisionAttributePlayer);
 	//衝突対象を自分の属性以外に設定
