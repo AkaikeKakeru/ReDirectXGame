@@ -31,11 +31,9 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 
 	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
 	worldTransform_.Initialize();
-
 	worldTransform_.rotation_.y = XMConvertToRadians(180.0f);
-
 	worldTransform_.translation_.z = 40.0f;
-
+	worldTransform3DReticle_.Initialize();
 
 	//Õ“Ë‘®«‚ğİ’è
 	SetCollisionAttribute(kCollisionAttributePlayer);
