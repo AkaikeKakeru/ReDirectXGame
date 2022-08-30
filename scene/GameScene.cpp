@@ -551,5 +551,18 @@ void GameScene::UpdateEnemypopCommands() {
 			//敵を発生
 			PopEnemy(Vector3(x, y, z));
 		}
+		else if (word.find("WAIT") == 0) {
+			getline(line_stream, word, ',');
+
+			//待ち時間
+			int32_t waitTime = atoi(word.c_str());
+
+			//待機時間
+			isWait_ = true;
+			waitTimer_ = waitTime;
+
+			//コマンドループから抜ける
+			break;
+		}
 	}
 };

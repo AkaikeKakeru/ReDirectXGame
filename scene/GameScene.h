@@ -115,6 +115,11 @@ private: // メンバ変数
 
 	//敵発生コマンド
 	std::stringstream enemyPopCommands;
+	//発生待機中フラグ
+	bool isWait_ = false;
+	//待機タイマー
+	int32_t waitTimer_ = 10;
+
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
