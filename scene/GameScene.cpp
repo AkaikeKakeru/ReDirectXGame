@@ -314,6 +314,12 @@ void GameScene::Update() {
 
 #pragma region Enemy
 	enemy_->Update();
+
+	//弾更新
+	for (std::unique_ptr<EnemyBullet>& enemyBullet : enemyBullets_) {
+		enemyBullet->SetPlayer(player_.get());
+		enemyBullet->Update();
+	}
 #pragma endregion
 
 
@@ -355,6 +361,11 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 
 	enemy_->Draw(viewProjection_);
+
+	//弾描画
+	for (std::unique_ptr<EnemyBullet>& enemyBullet : enemyBullets_) {
+		enemyBullet->Draw(viewProjection_);
+	}
 #pragma endregion
 
 	// 3Dオブジェクト描画後処理
@@ -397,8 +408,11 @@ void GameScene::RunCollisionManager() {
 	const std::list<std::unique_ptr<PlayerBullet>>&
 		playerBullets = player_->GetBullet();
 	//敵弾リストの取得
-	const std::list<std::unique_ptr<EnemyBullet>>&
-		enemyBullets = enemy_->GetBullet();
+	//const std::list<std::unique_ptr<EnemyBullet>>&
+	//	enemyBullets = enemy_->GetBullet();
+	//const std::list<std::unique_ptr<EnemyBullet>>&
+	//	enemyBullets = enemy_->GetBullet();
+
 
 	//自弾全てについて
 	for (const std::unique_ptr<PlayerBullet>& playerBullet
@@ -407,7 +421,7 @@ void GameScene::RunCollisionManager() {
 	}
 	//敵弾全てについて
 	for (const std::unique_ptr<EnemyBullet>& enemyBullet
-		: enemyBullets) {
+		: enemyBullets_) {
 		collisionManager_->SetCollider(enemyBullet.get());
 	}
 

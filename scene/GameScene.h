@@ -60,6 +60,10 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	//弾リストを取得
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
+		return enemyBullets_;}
+
 	/// <summary>
 	/// 敵弾を追加
 	/// </summary>

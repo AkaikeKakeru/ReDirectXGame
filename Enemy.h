@@ -95,9 +95,9 @@ public:
 	//ワールド座標を取得
 	Vector3 GetPosition() {
 		return this->worldTransform_.translation_;};
-	//弾リストを取得
-	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
-		return bullets_;}
+	////弾リストを取得
+	//const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() {
+	//	return bullets_;}
 
 	float GetRadius() override {
 		return kRadius_;
@@ -180,8 +180,8 @@ private:
 	//衝突マスク(相手)
 	uint32_t collisionMask_ = 0xffffffff;
 
-	//弾
-	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
+	////弾
+	//std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;

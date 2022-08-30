@@ -73,11 +73,11 @@ void Enemy::Update() {
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
 
-	//弾更新
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->SetPlayer(player_);
-		bullet->Update();
-	}
+	////弾更新
+	//for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+	//	bullet->SetPlayer(player_);
+	//	bullet->Update();
+	//}
 
 	//キャラデバッグ用表示
 	debugText_->SetPos(50, 210);
@@ -94,10 +94,10 @@ void Enemy::Update() {
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	//弾描画
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	////弾描画
+	//for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 };
 
 /// <summary>
