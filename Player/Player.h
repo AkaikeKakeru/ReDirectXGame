@@ -107,12 +107,15 @@ public:
 	/// </summary>
 	//衝突したら呼び出される
 	void OnCollision() override;
-
+	
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle_;
+
+	//2Dレティクル用スプライト
+	std::unique_ptr<Sprite> sprite2DReticle_;
 
 	//モデル
 	Model* model_ = nullptr;
