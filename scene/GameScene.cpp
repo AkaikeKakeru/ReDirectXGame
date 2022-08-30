@@ -66,19 +66,21 @@ void GameScene::Initialize() {
 	modelEnemy_ = Model::CreateFromOBJ("plane", true);
 
 	//敵キャラの生成
-	//enemy_ = std::make_unique<Enemy>();
-	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+	PopEnemy(Vector3(2.0f, 5.0f, 50.0f));
+
+	////enemy_ = std::make_unique<Enemy>();
+	//std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 
 
-	Vector3 enePos(2.0f, 5.0f, 50.0f);
+	//Vector3 enePos(2.0f, 5.0f, 50.0f);
 
-	newEnemy->Intialize(modelEnemy_,
-		model_,
-		enePos,
-		Vector3(0, 0, -0.1f),
-		Vector3(-0.1f, 0.1f, 0));
+	//newEnemy->Intialize(modelEnemy_,
+	//	model_,
+	//	enePos,
+	//	Vector3(0, 0, -0.1f),
+	//	Vector3(-0.1f, 0.1f, 0));
 
-	enemys_.push_back(std::move(newEnemy));
+	//enemys_.push_back(std::move(newEnemy));
 
 	//敵キャラの初期化
 
@@ -444,6 +446,19 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+void GameScene::PopEnemy(Vector3 position) {
+	//敵キャラの生成
+	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+
+	newEnemy->Intialize(modelEnemy_,
+		model_,
+		position,
+		Vector3(0, 0, -0.1f),
+		Vector3(-0.1f, 0.1f, 0));
+
+	enemys_.push_back(std::move(newEnemy));
+};
+
 void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet) {
 	//リストに追加
 	enemyBullets_.push_back(std::move(enemyBullet));
@@ -498,4 +513,43 @@ void GameScene::loadEnemyPopData() {
 
 	//ファイルを閉じる
 	file.close();
+};
+
+void GameScene::UpdateEnemypopCommands() {
+	//1行分の文字列を入れる変数
+	std::string line;
+
+	//コマンド実行ループ
+	while (getline(enemyPopCommands, line)) {
+		//1行分の文字列をストリームに変換して解析しやすくする
+		std::istringstream line_stream(line);
+
+		std::string word;
+		//,区切りで行の先頭文字列を取得
+		getline(line_stream, word, ',');
+
+		//"//"から始まるコメント
+		if (word.find("//") == 0) {
+			//コメント行は飛ばす
+			continue;
+		}
+
+		//POPコマンド
+		if (word.find("POP") == 0) {
+			//x座標
+			getline(line_stream, word, ',');
+			float x = (float)std::atof(word.c_str());
+	
+			//y座標
+			getline(line_stream, word, ',');
+			float y = (float)std::atof(word.c_str());
+		
+			//z座標
+			getline(line_stream, word, ',');
+			float z = (float)std::atof(word.c_str());
+
+			//敵を発生
+			PopEnemy(Vector3(x, y, z));
+		}
+	}
 };

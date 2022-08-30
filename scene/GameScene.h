@@ -66,14 +66,25 @@ public: // メンバ関数
 		return enemyBullets_;}
 
 	/// <summary>
+	/// 敵を発生
+	/// </summary>
+	void PopEnemy(Vector3 position);
+
+	/// <summary>
 	/// 敵弾を追加
 	/// </summary>
 	/// <param name="enemyBullet">敵弾</param>
 	void AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet);
+	
 	/// <summary>
 	/// 敵発生データの読み込み
 	/// </summary>
 	void loadEnemyPopData();
+
+	/// <summary>
+	/// 敵発生コマンドの更新
+	/// </summary>
+	void UpdateEnemypopCommands();
 private: // メンバ関数
 
 		 //衝突マネージャーを動かす
