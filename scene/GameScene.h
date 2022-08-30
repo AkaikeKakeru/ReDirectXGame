@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <sstream>
 
 #include "DebugCamera.h"
 #include "RailCamera.h"
@@ -97,6 +98,9 @@ private: // メンバ変数
 
 	//敵弾
 	std::list<std::unique_ptr<EnemyBullet>> enemyBullets_;
+
+	//敵発生コマンド
+	std::stringstream enemyPopCommands;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
