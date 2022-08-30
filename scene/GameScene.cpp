@@ -19,6 +19,8 @@ GameScene::~GameScene() {
 
 void GameScene::Initialize() {
 
+	loadEnemyPopData();
+
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
@@ -68,38 +70,6 @@ void GameScene::Initialize() {
 	//敵キャラの生成
 	PopEnemy(Vector3(2.0f, 5.0f, 50.0f));
 
-	////enemy_ = std::make_unique<Enemy>();
-	//std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-
-
-	//Vector3 enePos(2.0f, 5.0f, 50.0f);
-
-	//newEnemy->Intialize(modelEnemy_,
-	//	model_,
-	//	enePos,
-	//	Vector3(0, 0, -0.1f),
-	//	Vector3(-0.1f, 0.1f, 0));
-
-	//enemys_.push_back(std::move(newEnemy));
-
-	//敵キャラの初期化
-
-	/*for (const std::unique_ptr<Enemy>& enemy
-		: enemys_) {
-		enemy->Intialize(modelEnemy_,
-			model_,
-			enePos,
-			Vector3(0, 0, -0.1f),
-			Vector3(-0.1f, 0.1f, 0));
-	}*/
-	/*enemy_->Intialize(modelEnemy_,
-		model_,
-		enePos,
-		Vector3(0, 0, -0.1f),
-		Vector3(-0.1f, 0.1f, 0));*/
-
-	//敵キャラに自キャラのアドレスを渡す
-	//enemy_->SetGameScene(this);
 	for (const std::unique_ptr<Enemy>& enemy
 	: enemys_) {
 	enemy->SetGameScene(this);
@@ -358,6 +328,8 @@ void GameScene::Update() {
 	//敵更新
 	for (const std::unique_ptr<Enemy>& enemy
 		: enemys_) {
+		UpdateEnemypopCommands();
+
 		enemy->Update();
 	}
 	//enemy_->Update();
@@ -457,6 +429,19 @@ void GameScene::PopEnemy(Vector3 position) {
 		Vector3(-0.1f, 0.1f, 0));
 
 	enemys_.push_back(std::move(newEnemy));
+
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->SetGameScene(this);
+	}
+
+
+	//敵キャラに自キャラのアドレスを渡す
+	//enemy_->SetPlayer(player_.get());
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->SetPlayer(player_.get());
+	}
 };
 
 void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet) {
@@ -505,7 +490,7 @@ void GameScene::loadEnemyPopData() {
 	//ファイルを開く
 	std::ifstream file;
 
-	file.open("Resorce/enemyPop.csv");
+	file.open("C:/KamataEngine/DirectXGame/Resources/enemyPop.csv");
 	assert(file.is_open());
 
 	//ファイルの内容を文字列ストリームにコピー

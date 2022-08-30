@@ -21,7 +21,7 @@ void RailCamera::Initialize(const Vector3& position,const Vector3& viewAngle) {
 
 // çXêV
 void RailCamera::Update(){
-	worldTransform_.translation_.z -= 0.1f;
+	//worldTransform_.translation_.z -= 0.1f;
 	//worldTransform_.rotation_.z += 0.001f;
 	Transfer();
 
