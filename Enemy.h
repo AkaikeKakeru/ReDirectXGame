@@ -134,6 +134,9 @@ public:
 	//衝突マスク(相手)を設定
 	void SetCollisionMask (uint32_t collisionMask) { this->collisionMask_ = collisionMask; };
 
+
+	bool IsDead() const { return isDead_; }
+
 	/// <summary>
 	/// コールバック
 	/// </summary>
@@ -186,6 +189,9 @@ private:
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
+
+	//デスフラグ
+	bool isDead_ = false;
 
 	//ゲームシーン
 	GameScene* gameScene_ = nullptr;

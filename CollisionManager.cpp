@@ -21,6 +21,13 @@ void CollisionManager::CheckAllCollision() {
 
 // コライダー2つの衝突判定と応答
 void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+	uint32_t a = colliderA->GetCollisionAttribute();
+	uint32_t b = colliderB->GetCollisionMask();
+	
+	if ((a & b) != 0) {
+
+	}
+
 	//衝突フィルタリング
 	if (
 		(colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask()) == 0 ||

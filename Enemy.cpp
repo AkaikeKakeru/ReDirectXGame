@@ -231,4 +231,5 @@ void Enemy::FireAndResetTimer() {
 //Õ“Ë‚µ‚½‚çŒÄ‚Ño‚³‚ê‚é
 void Enemy::OnCollision() {
 
+	isDead_ = true;
 };

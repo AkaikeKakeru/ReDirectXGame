@@ -349,6 +349,10 @@ void GameScene::Update() {
 		return bullet->IsDead();
 		});
 
+	//デスフラグの立った敵を削除
+	enemys_.remove_if([](std::unique_ptr<Enemy>& enemy) {
+		return enemy->IsDead();
+		});
 
 	//敵更新
 	for (const std::unique_ptr<Enemy>& enemy
