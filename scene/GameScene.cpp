@@ -77,6 +77,9 @@ void GameScene::Initialize() {
 		Vector3(-0.1f, 0.1f, 0));
 
 	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetGameScene(this);
+
+	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_.get());
 #pragma endregion
 
@@ -313,6 +316,11 @@ void GameScene::Update() {
 #pragma endregion
 
 #pragma region Enemy
+	//デスフラグの立った弾を削除
+	enemyBullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->IsDead();
+		});
+
 	enemy_->Update();
 
 	//弾更新

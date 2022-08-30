@@ -56,9 +56,9 @@ void Enemy::Intialize(
 void Enemy::Update() {
 
 	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->IsDead();
-		});
+	//bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+	//	return bullet->IsDead();
+	//	});
 
 	//完了フラグの立ったタイマーを削除
 	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& timedCall) {
@@ -146,7 +146,7 @@ void Enemy::Fire() {
 	newBullet->Intialize(modelBullet_,worldTransform_.translation_, bulletVelocity_);
 
 	//弾を登録
-	bullets_.push_back(std::move(newBullet));
+	//bullets_.push_back(std::move(newBullet));
 };
 
 /// 弾のタイマーを全削除
