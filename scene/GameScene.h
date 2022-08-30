@@ -70,7 +70,10 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="enemyBullet">敵弾</param>
 	void AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet);
-
+	/// <summary>
+	/// 敵発生データの読み込み
+	/// </summary>
+	void loadEnemyPopData();
 private: // メンバ関数
 
 		 //衝突マネージャーを動かす

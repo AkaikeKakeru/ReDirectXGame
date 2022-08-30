@@ -3,6 +3,7 @@
 #include <cassert>
 #include "PrimitiveDrawer.h"
 #include "AxisIndicator.h"
+#include <fstream>
 
 GameScene::GameScene() {}
 
@@ -483,4 +484,18 @@ void GameScene::RunCollisionManager() {
 	}
 
 	collisionManager_->CheckAllCollision();
+};
+
+void GameScene::loadEnemyPopData() {
+	//ファイルを開く
+	std::ifstream file;
+
+	file.open("Resorce/enemyPop.csv");
+	assert(file.is_open());
+
+	//ファイルの内容を文字列ストリームにコピー
+	enemyPopCommands << file.rdbuf();
+
+	//ファイルを閉じる
+	file.close();
 };
