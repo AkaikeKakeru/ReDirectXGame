@@ -40,6 +40,11 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(const ViewProjection&  viewProjection);
 
+	/// <summary>
+	/// UI描画
+	/// </summary>
+	void DrawUI();
+
 	///<summary>
 	///移動
 	///<summary>

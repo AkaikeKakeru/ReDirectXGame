@@ -411,6 +411,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	player_->DrawUI();
+
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);

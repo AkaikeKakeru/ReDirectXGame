@@ -39,7 +39,7 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 	uint32_t textureReticle = TextureManager::Load("cursor.png");
 	//ƒXƒvƒ‰ƒCƒg¶¬
 	sprite2DReticle_.reset(Sprite::Create(textureReticle,
-		Vector2(0, 0), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f));
+		Vector2(640, 300), Vector4(1, 1, 1, 1), Vector2(0.5f, 0.5f)));
 
 
 	//Õ“Ë‘®«‚ðÝ’è
@@ -94,13 +94,17 @@ void Player::Update() {
 void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	modelBullet_->Draw(worldTransform3DReticle_, viewProjection);
+	//modelBullet_->Draw(worldTransform3DReticle_, viewProjection);
 
 	//’e•`‰æ
 	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
 }
+
+void Player::DrawUI() {
+	sprite2DReticle_->Draw();
+};
 
 ///<summary>
 ///ˆÚ“®
