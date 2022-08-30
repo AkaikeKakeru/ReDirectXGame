@@ -33,8 +33,9 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 	worldTransform_.Initialize();
 
 	worldTransform_.rotation_.y = XMConvertToRadians(180.0f);
-	
+
 	worldTransform_.translation_.z = 40.0f;
+
 
 	//Õ“Ë‘®«‚ğİ’è
 	SetCollisionAttribute(kCollisionAttributePlayer);
@@ -135,7 +136,7 @@ void Player::Move()
 ///<summary>
 void Player::Rotate()
 {
-	
+
 
 #pragma region ”¼g‰ñ“]
 	//ã”¼g‰ñ“]
@@ -192,6 +193,7 @@ void Player::Transfer()
 void Player::Attack(){
 	const float kBulletSpeed = -1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
+
 	Vector3 bulletPosition_ = 
 		Vector3(
 			worldTransform_.matWorld_.m[3][0],

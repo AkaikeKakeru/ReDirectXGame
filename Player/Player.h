@@ -94,6 +94,9 @@ public:
 	void SetWorldParent(WorldTransform* worldTransform) {
 		this->worldTransform_.parent_ = worldTransform; };
 
+	void SetCamera(WorldTransform* worldCamera) {
+		this->worldTransform_.parent_ = worldCamera; };
+
 	/// <summary>
 	/// コールバック
 	/// </summary>
@@ -103,7 +106,6 @@ public:
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
-	WorldTransform cameraWorldTransform_;
 
 	//モデル
 	Model* model_ = nullptr;
@@ -117,7 +119,7 @@ private:
 	DebugText* debugText_ = nullptr;
 	////ビュープロジェクション
 	//ViewProjection viewProjection_;
-	
+
 	//ワールド変換行列
 	MyMatrix myMatrix_;
 
@@ -125,10 +127,10 @@ private:
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
 	//半径
-	 float kRadius_ = 0.5f;
+	float kRadius_ = 0.5f;
 
-	 //衝突属性(自分)
-	 uint32_t collisionAttribute_ = 0xffffffff;
-	 //衝突マスク(相手)
-	 uint32_t collisionMask_ = 0xffffffff;
+	//衝突属性(自分)
+	uint32_t collisionAttribute_ = 0xffffffff;
+	//衝突マスク(相手)
+	uint32_t collisionMask_ = 0xffffffff;
 };
