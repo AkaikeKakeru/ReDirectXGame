@@ -59,6 +59,8 @@ void Player::Update() {
 
 	Move();
 
+	Update3DReticle();
+
 	Attack();
 
 	//弾更新
@@ -84,6 +86,7 @@ void Player::Update() {
 ///<summary>
 void Player::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
 
 	//弾描画
 	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
@@ -214,6 +217,34 @@ void Player::Attack(){
 		bullets_.push_back(std::move(newBullet));
 	}
 }
+
+void Player::Update3DReticle() {
+	//自機から3Dレティクルへの距離
+	const float kDistancePlayerTo3DRethicle = 50.0f;
+	//自機から3Dレティクルへのオフセット(Z+向き)
+	Vector3 offset = { 0,0,1.0f };
+	//自機のワールド行列の回転を反映
+	offset = Vector3Transform(offset, worldTransform_.matWorld_);
+	//ベクトルの長さを整える
+	offset = Vector3Normalize(offset) * kDistancePlayerTo3DRethicle;
+	//3Dレティクルの座標を指定
+	worldTransform3DReticle_.translation_ = offset;
+
+
+	//matrix
+	static Matrix4 scale;
+	static  Matrix4 rota;
+	static  Matrix4 translation;
+
+	scale = myMatrix_.MatrixScale(worldTransform3DReticle_.scale_);
+	rota = myMatrix_.MatrixRotationZ(worldTransform3DReticle_.rotation_);
+	rota *= myMatrix_.MatrixRotationX(worldTransform3DReticle_.rotation_);
+	rota *= myMatrix_.MatrixRotationY(worldTransform3DReticle_.rotation_);
+	translation = myMatrix_.MatrixTranslation(worldTransform3DReticle_.translation_);
+
+	worldTransform3DReticle_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
+	worldTransform3DReticle_.TransferMatrix();
+};
 
 Vector3 Player::GetWorldPosition() {
 	//ワールド座標を入れる変数

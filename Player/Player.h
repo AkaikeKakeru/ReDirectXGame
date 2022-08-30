@@ -61,6 +61,11 @@ public:
 	void Attack();
 
 	/// <summary>
+	/// 3Dレティクルの更新
+	/// </summary>
+	void Update3DReticle();
+
+	/// <summary>
 	/// ゲッター
 	/// </summary>
 	//ワールド座標を取得
