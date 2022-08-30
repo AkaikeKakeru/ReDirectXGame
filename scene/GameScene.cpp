@@ -381,6 +381,11 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet) {
+	//リストに追加
+	enemyBullets_.push_back(std::move(enemyBullet));
+};
+
 void GameScene::RunCollisionManager() {
 	collisionManager_->ClearColliderList();
 

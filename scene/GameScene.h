@@ -60,6 +60,12 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 敵弾を追加
+	/// </summary>
+	/// <param name="enemyBullet">敵弾</param>
+	void AddEnemyBullet(std::unique_ptr<EnemyBullet> enemyBullet);
+
 private: // メンバ関数
 
 		 //衝突マネージャーを動かす
@@ -83,6 +89,9 @@ private: // メンバ変数
 	//敵キャラ
 	std::unique_ptr<Enemy> enemy_;
 	Model* modelEnemy_ = nullptr;
+
+	//敵弾
+	std::list<std::unique_ptr<EnemyBullet>> enemyBullets_;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;

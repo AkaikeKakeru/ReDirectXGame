@@ -177,7 +177,7 @@ private:
 	uint32_t collisionMask_ = 0xffffffff;
 
 	//’e
-	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
+	//std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 
 	//ŒÀ”­“®‚ÌƒŠƒXƒg
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
