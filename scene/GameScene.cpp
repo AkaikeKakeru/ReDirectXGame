@@ -65,22 +65,50 @@ void GameScene::Initialize() {
 	modelEnemy_ = Model::CreateFromOBJ("plane", true);
 
 	//敵キャラの生成
-	enemy_ = std::make_unique<Enemy>();
+	//enemy_ = std::make_unique<Enemy>();
+	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+
 
 	Vector3 enePos(2.0f, 5.0f, 50.0f);
 
-	//敵キャラの初期化
-	enemy_->Intialize(modelEnemy_,
+	newEnemy->Intialize(modelEnemy_,
 		model_,
 		enePos,
 		Vector3(0, 0, -0.1f),
 		Vector3(-0.1f, 0.1f, 0));
 
-	//敵キャラに自キャラのアドレスを渡す
-	enemy_->SetGameScene(this);
+	enemys_.push_back(std::move(newEnemy));
+
+	//敵キャラの初期化
+
+	/*for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->Intialize(modelEnemy_,
+			model_,
+			enePos,
+			Vector3(0, 0, -0.1f),
+			Vector3(-0.1f, 0.1f, 0));
+	}*/
+	/*enemy_->Intialize(modelEnemy_,
+		model_,
+		enePos,
+		Vector3(0, 0, -0.1f),
+		Vector3(-0.1f, 0.1f, 0));*/
 
 	//敵キャラに自キャラのアドレスを渡す
-	enemy_->SetPlayer(player_.get());
+	//enemy_->SetGameScene(this);
+	for (const std::unique_ptr<Enemy>& enemy
+	: enemys_) {
+	enemy->SetGameScene(this);
+	}
+
+
+	//敵キャラに自キャラのアドレスを渡す
+	//enemy_->SetPlayer(player_.get());
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->SetPlayer(player_.get());
+	}
 #pragma endregion
 
 	//衝突マネージャー
@@ -321,7 +349,13 @@ void GameScene::Update() {
 		return bullet->IsDead();
 		});
 
-	enemy_->Update();
+
+	//敵更新
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->Update();
+	}
+	//enemy_->Update();
 
 	//弾更新
 	for (std::unique_ptr<EnemyBullet>& enemyBullet : enemyBullets_) {
@@ -368,7 +402,12 @@ void GameScene::Draw() {
 #pragma region キャラクター
 	player_->Draw(viewProjection_);
 
-	enemy_->Draw(viewProjection_);
+	//敵描画
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		enemy->Draw(viewProjection_);
+	}
+	//enemy_->Draw(viewProjection_);
 
 	//弾描画
 	for (std::unique_ptr<EnemyBullet>& enemyBullet : enemyBullets_) {
@@ -410,7 +449,13 @@ void GameScene::RunCollisionManager() {
 
 	//コライダーをリストに登録
 	collisionManager_->SetCollider(player_.get());
-	collisionManager_->SetCollider(enemy_.get());
+
+	//敵全てについて
+	for (const std::unique_ptr<Enemy>& enemy
+		: enemys_) {
+		collisionManager_->SetCollider(enemy.get());
+	}
+	
 
 	//自弾リストの取得
 	const std::list<std::unique_ptr<PlayerBullet>>&

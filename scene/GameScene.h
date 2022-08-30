@@ -91,7 +91,8 @@ private: // メンバ変数
 	Model* modelPlayer_ = nullptr;
 
 	//敵キャラ
-	std::unique_ptr<Enemy> enemy_;
+	//std::unique_ptr<Enemy> enemy_;
+	std::list<std::unique_ptr<Enemy>> enemys_;
 	Model* modelEnemy_ = nullptr;
 
 	//敵弾
