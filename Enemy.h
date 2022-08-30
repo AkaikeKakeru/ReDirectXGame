@@ -19,6 +19,9 @@
 
 #include "Player.h"
 
+//ゲームシーン前方宣言
+class GameScene;
+
 //自機クラスの前方宣言
 class Player;
 
@@ -117,10 +120,11 @@ public:
 
 	/// <summary>
 	/// セッター
-	/// </summary>
-	/// <param name="position">座標</param>
+	/// </summary> 
 	void SetPosition(Vector3 position);
 	void SetIsFire(bool isFire);
+
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
 	void SetPlayer(Player* player) { this->player_ = player; }
 
@@ -177,10 +181,13 @@ private:
 	uint32_t collisionMask_ = 0xffffffff;
 
 	//弾
-	//std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
+	std::list<std::unique_ptr<EnemyBullet>> bullets_ ;
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_ ;
+
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 
 	//自キャラ
 	Player* player_ = nullptr;
