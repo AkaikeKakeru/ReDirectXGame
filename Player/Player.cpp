@@ -36,6 +36,7 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 	
 	worldTransform_.translation_.z = 40.0f;
 
+
 	//Õ“Ë‘®«‚ğİ’è
 	SetCollisionAttribute(kCollisionAttributePlayer);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è

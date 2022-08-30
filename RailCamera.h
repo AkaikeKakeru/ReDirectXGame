@@ -26,8 +26,6 @@ public:
 	///<summary>
 	void Transfer();
 
-	Vector3 t(const Vector3& v, const Matrix4& m);
-
 	const ViewProjection& GetViewProjection() { return this->viewProjection_; };
 	WorldTransform& GetWorldTransform() { return this->worldTransform_; };
 private:

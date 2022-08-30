@@ -94,6 +94,9 @@ public:
 	void SetWorldParent(WorldTransform* worldTransform) {
 		this->worldTransform_.parent_ = worldTransform; };
 
+	void SetCamera(WorldTransform* worldCamera) {
+		this->worldTransform_.parent_ = worldCamera; };
+
 	/// <summary>
 	/// コールバック
 	/// </summary>
@@ -103,7 +106,6 @@ public:
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
-	WorldTransform cameraWorldTransform_;
 
 	//モデル
 	Model* model_ = nullptr;

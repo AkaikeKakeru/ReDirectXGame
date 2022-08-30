@@ -12,7 +12,7 @@ void RailCamera::Initialize(const Vector3& position,const Vector3& viewAngle) {
 	//ビュープロジェクションの初期化
 	viewProjection_.nearZ = 15.0f;
 
-	viewProjection_.farZ = 200.0f;
+	viewProjection_.farZ = 500.0f;
 
 	viewProjection_.Initialize();
 
@@ -22,7 +22,6 @@ void RailCamera::Initialize(const Vector3& position,const Vector3& viewAngle) {
 // 更新
 void RailCamera::Update(){
 	worldTransform_.translation_.z -= 0.1f;
-	//worldTransform_.rotation_.z += 0.001f;
 	Transfer();
 
 	viewProjection_.eye = worldTransform_.translation_;
@@ -69,21 +68,4 @@ void RailCamera::Transfer()
 	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
 	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
-
-	//worldTransform_.TransferMatrix();
-}
-
-// 座標変換 (ベクトルと行列の掛け算をする)
-Vector3 RailCamera::t(const Vector3& v, const Matrix4& m)
-{
-	float w = v.x * m.m[0][3] + v.y * m.m[1][3] + v.z * m.m[2][3] + m.m[3][3];
-
-	Vector3 result
-	{
-		(v.x * m.m[0][0] + v.y * m.m[1][0] + v.z * m.m[2][0] + m.m[3][0]) / w,
-		(v.x * m.m[0][1] + v.y * m.m[1][1] + v.z * m.m[2][1] + m.m[3][1]) / w,
-		(v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2] + m.m[3][2]) / w,
-	};
-
-	return result;
-}
+};
