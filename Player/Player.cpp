@@ -192,6 +192,12 @@ void Player::Transfer()
 void Player::Attack(){
 	const float kBulletSpeed = -1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
+	Vector3 bulletPosition_ = 
+		Vector3(
+			worldTransform_.matWorld_.m[3][0],
+			worldTransform_.matWorld_.m[3][1],
+			worldTransform_.matWorld_.m[3][2]
+		);
 
 	if (input_->TriggerKey(DIK_SPACE))
 	{
@@ -199,8 +205,8 @@ void Player::Attack(){
 		bulletVelocity_ = myMatrix_.CrossVector(bulletVelocity_, worldTransform_.matWorld_);
 
 		//’e‚ğ¶¬‚µA‰Šú‰»
- 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Intialize(modelBullet_,worldTransform_.translation_,bulletVelocity_);
+		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Intialize(modelBullet_,bulletPosition_,bulletVelocity_);
 
 		//’e‚ğ“o˜^
 		//bullet_ = newBullet;
