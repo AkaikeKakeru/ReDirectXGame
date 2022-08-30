@@ -23,6 +23,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 
+	//レールカメラの生成
+	railCamera_ = new RailCamera();
+
+	railCamera_->Initialize(Vector3(0, 0, -100),
+		Vector3(
+			XMConvertToRadians(0.0f),
+			XMConvertToRadians(0.0f),
+			XMConvertToRadians(0.0f)));
+
 	//モデルの生成
 	model_ = Model::Create();
 
@@ -46,6 +55,9 @@ void GameScene::Initialize() {
 
 	//自キャラの初期化
 	player_->Initialize(modelPlayer_,model_);
+	
+	player_->SetWorldParent(&railCamera_->GetWorldTransform());
+
 #pragma endregion
 
 #pragma region Enemy
@@ -91,16 +103,7 @@ void GameScene::Initialize() {
 
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 800);
-
-	//レールカメラの生成
-	railCamera_ = new RailCamera();
-
-
-	railCamera_->Initialize(Vector3(0,0,-20),
-		Vector3(
-			XMConvertToRadians(90.0f),
-			XMConvertToRadians(0.0f),
-			XMConvertToRadians(0.0f)));
+;
 
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);

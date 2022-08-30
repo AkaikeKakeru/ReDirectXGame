@@ -26,6 +26,7 @@ public:
 	///<summary>
 	/// <param name="model">モデル</param>
 	/// <param name="modelBullet">弾モデル</param> 
+	/// <param name="cameraWorld">カメラのワールド行列</param>
 	void Initialize(Model* model,Model* modelBullet);
 
 	///<summary>
@@ -90,6 +91,9 @@ public:
 	//衝突マスク(相手)を設定
 	void SetCollisionMask (uint32_t collisionMask) { this->collisionMask_ = collisionMask; };
 
+	void SetWorldParent(WorldTransform* worldTransform) {
+		this->worldTransform_.parent_ = worldTransform; };
+
 	/// <summary>
 	/// コールバック
 	/// </summary>
@@ -99,6 +103,8 @@ public:
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
+	WorldTransform cameraWorldTransform_;
+
 	//モデル
 	Model* model_ = nullptr;
 	Model* modelBullet_ = nullptr;
@@ -111,6 +117,7 @@ private:
 	DebugText* debugText_ = nullptr;
 	////ビュープロジェクション
 	//ViewProjection viewProjection_;
+	
 	//ワールド変換行列
 	MyMatrix myMatrix_;
 

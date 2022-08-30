@@ -31,7 +31,10 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 
 	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
 	worldTransform_.Initialize();
+
 	worldTransform_.rotation_.y = XMConvertToRadians(180.0f);
+	
+	worldTransform_.translation_.z = 40.0f;
 
 	//Õ“Ë‘®«‚ðÝ’è
 	SetCollisionAttribute(kCollisionAttributePlayer);
@@ -175,6 +178,9 @@ void Player::Transfer()
 	translation = myMatrix_.MatrixTranslation(worldTransform_.translation_);
 
 	worldTransform_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
+
+	//e‚Ìƒ[ƒ‹ƒhs—ñ‚ðŠ|‚¯ŽZ
+	worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
 
 	//“]‘—
 	worldTransform_.TransferMatrix();

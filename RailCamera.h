@@ -29,6 +29,7 @@ public:
 	Vector3 t(const Vector3& v, const Matrix4& m);
 
 	const ViewProjection& GetViewProjection() { return this->viewProjection_; };
+	WorldTransform& GetWorldTransform() { return this->worldTransform_; };
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
