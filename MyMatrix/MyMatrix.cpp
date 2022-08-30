@@ -58,9 +58,21 @@ Vector3 MyMatrix::CrossVector(Vector3 vector, Matrix4 matrix)
 		+ vec.y * mat.m[1][1]
 		+ vec.z * mat.m[2][1];
 
-	ans.z = vec.x * mat.m[0][2]
+	ans.z = vec.x * mat.m[2][2]
 		+ vec.y * mat.m[1][2]
 		+ vec.z * mat.m[2][2];
+
+	//ans.x = vec.x * mat.m[0][0]
+	//	+ vec.y * mat.m[0][1]
+	//	+ vec.z * mat.m[0][2];
+
+	//ans.y = vec.x * mat.m[1][0]
+	//	+ vec.y * mat.m[1][1]
+	//	+ vec.z * mat.m[1][2];
+
+	//ans.z = vec.x * mat.m[2][0]
+	//	+ vec.y * mat.m[2][1]
+	//	+ vec.z * mat.m[2][2];
 
 	return ans;
 }

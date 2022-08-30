@@ -196,6 +196,18 @@ void Player::Attack(){
 	const float kBulletSpeed = -1.0f;
 	Vector3 bulletVelocity_ = Vector3(0, 0, kBulletSpeed);
 
+	bulletVelocity_ = Vector3(
+		worldTransform3DReticle_.matWorld_.m[3][0] 
+			-worldTransform_.matWorld_.m[3][0],
+		worldTransform3DReticle_.matWorld_.m[3][1]
+			-worldTransform_.matWorld_.m[3][1],
+		worldTransform3DReticle_.matWorld_.m[3][2]
+			-worldTransform_.matWorld_.m[3][2]
+	);
+
+	bulletVelocity_ = Vector3Normalize(bulletVelocity_)
+		* kBulletSpeed;
+
 	Vector3 bulletPosition_ = 
 		Vector3(
 			worldTransform_.matWorld_.m[3][0],
@@ -208,6 +220,7 @@ void Player::Attack(){
 		//速度ベクトルを自機の向きにあわせる
 		bulletVelocity_ = myMatrix_.CrossVector(bulletVelocity_, worldTransform_.matWorld_);
 
+		
 		//弾を生成し、初期化
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
 		newBullet->Intialize(modelBullet_,bulletPosition_,bulletVelocity_);
@@ -221,15 +234,16 @@ void Player::Attack(){
 
 void Player::Update3DReticle() {
 	//自機から3Dレティクルへの距離
-	const float kDistancePlayerTo3DRethicle = 50.0f;
+	const float kDistancePlayerTo3DRethicle = -50.0f;
 	//自機から3Dレティクルへのオフセット(Z+向き)
 	Vector3 offset = { 0,0,1.0f };
 	//自機のワールド行列の回転を反映
-	offset = Vector3Transform(offset, worldTransform_.matWorld_);
+	offset = myMatrix_.CrossVector(offset, worldTransform_.matWorld_);
+	
 	//ベクトルの長さを整える
 	offset = Vector3Normalize(offset) * kDistancePlayerTo3DRethicle;
 	//3Dレティクルの座標を指定
-	worldTransform3DReticle_.translation_ = offset;
+	worldTransform3DReticle_.translation_ = worldTransform_.translation_ + offset;
 
 
 	//matrix
