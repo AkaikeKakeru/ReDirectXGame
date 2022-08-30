@@ -146,6 +146,7 @@ void Enemy::Fire() {
 	newBullet->Intialize(modelBullet_,worldTransform_.translation_, bulletVelocity_);
 
 	//’e‚ð“o˜^
+	gameScene_->AddEnemyBullet(std::move(newBullet));
 	//bullets_.push_back(std::move(newBullet));
 };
 

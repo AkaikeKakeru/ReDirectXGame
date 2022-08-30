@@ -17,6 +17,7 @@
 #include "TimedCall.h"
 #include "Collider.h"
 
+#include "GameScene.h"
 #include "Player.h"
 
 //ゲームシーン前方宣言
@@ -124,7 +125,7 @@ public:
 	void SetPosition(Vector3 position);
 	void SetIsFire(bool isFire);
 
-	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
+	void SetGameScene(GameScene* gameScene) {this-> gameScene_ = gameScene; }
 
 	void SetPlayer(Player* player) { this->player_ = player; }
 
