@@ -26,7 +26,7 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera_ = new RailCamera();
 
-	railCamera_->Initialize(Vector3(0, 0, -100),
+	railCamera_->Initialize(Vector3(0, 0, -20),
 		Vector3(
 			XMConvertToRadians(0.0f),
 			XMConvertToRadians(0.0f),
@@ -336,8 +336,6 @@ void GameScene::Update() {
 #pragma endregion
 
 #pragma region キャラクター
-	//衝突マネージャーを動かす
-	RunCollisionManager();
 
 #pragma region Player
 	player_->Update();
@@ -368,6 +366,8 @@ void GameScene::Update() {
 	}
 #pragma endregion
 
+	//衝突マネージャーを動かす
+	RunCollisionManager();
 
 #pragma endregion
 }

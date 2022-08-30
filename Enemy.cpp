@@ -55,11 +55,6 @@ void Enemy::Intialize(
 /// </summary>
 void Enemy::Update() {
 
-	//デスフラグの立った弾を削除
-	//bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-	//	return bullet->IsDead();
-	//	});
-
 	//完了フラグの立ったタイマーを削除
 	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& timedCall) {
 		return timedCall->IsFinished();
@@ -72,12 +67,6 @@ void Enemy::Update() {
 
 	//現在のフェーズで移動処理を行う
 	state_->Update(this);
-
-	////弾更新
-	//for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-	//	bullet->SetPlayer(player_);
-	//	bullet->Update();
-	//}
 
 	//キャラデバッグ用表示
 	debugText_->SetPos(50, 210);
@@ -93,11 +82,6 @@ void Enemy::Update() {
 /// </summary>
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
-	////弾描画
-	//for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-	//	bullet->Draw(viewProjection);
-	//}
 };
 
 /// <summary>
@@ -147,7 +131,6 @@ void Enemy::Fire() {
 
 	//弾を登録
 	gameScene_->AddEnemyBullet(std::move(newBullet));
-	//bullets_.push_back(std::move(newBullet));
 };
 
 /// 弾のタイマーを全削除
