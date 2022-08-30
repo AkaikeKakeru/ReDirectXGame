@@ -516,6 +516,17 @@ void GameScene::loadEnemyPopData() {
 };
 
 void GameScene::UpdateEnemypopCommands() {
+	//待機処理
+	if (isWait_) {
+		waitTimer_--;
+		if (waitTimer_ <= 0) {
+			//待機完了
+			isWait_ = false;
+		}
+		return;
+	}
+
+
 	//1行分の文字列を入れる変数
 	std::string line;
 
