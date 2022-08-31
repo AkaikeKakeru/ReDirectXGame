@@ -71,6 +71,11 @@ public:
 	void Update3DReticle();
 
 	/// <summary>
+	/// 2Dレティクルの更新
+	/// </summary>
+	void Update2DReticle();
+
+	/// <summary>
 	/// ゲッター
 	/// </summary>
 	//ワールド座標を取得
@@ -132,8 +137,8 @@ private:
 	Input* input_ = nullptr;
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
-	////ビュープロジェクション
-	//ViewProjection viewProjection_;
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
 
 	//ワールド変換行列
 	MyMatrix myMatrix_;

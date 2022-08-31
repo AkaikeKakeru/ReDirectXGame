@@ -68,6 +68,8 @@ void Player::Update() {
 
 	Update3DReticle();
 
+	Update2DReticle();
+
 	Attack();
 
 	//弾更新
@@ -270,6 +272,27 @@ void Player::Update3DReticle() {
 
 	worldTransform3DReticle_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
 	worldTransform3DReticle_.TransferMatrix();
+};
+
+void Player::Update2DReticle() {
+	Vector3 positionReticle = {
+	worldTransform3DReticle_.matWorld_.m[3][0],
+	worldTransform3DReticle_.matWorld_.m[3][1],
+	worldTransform3DReticle_.matWorld_.m[3][2],
+	};
+
+	//ビューポート行列
+	Matrix4 matViewPort = myMatrix_.MatrixViewPort(1280,800,Vector2(20,20));
+
+	//ビュー行列とプロジェクション行列、ビューポート行列を合成
+	Matrix4 matViewProjectionViewPort =
+		viewProjection_.matView * viewProjection_.matProjection * matViewPort;
+
+	//ワールド→スクリーン座標変換
+	positionReticle = Vector3TransformCoord(positionReticle, matViewProjectionViewPort);
+
+	//スプライトのレティクルに座標設定
+	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 };
 
 Vector3 Player::GetWorldPosition() {
