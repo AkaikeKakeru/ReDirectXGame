@@ -44,35 +44,35 @@ Matrix4 MyMatrix::MatrixRotationZ(Vector3 rotation)
 }
 
 
-Vector3 MyMatrix::CrossVector(Vector3 vector, Matrix4 matrix)
+Vector3 MyMatrix::CrossVectorW(Vector3 vector, Matrix4 matrix)
 {
 	Vector3 ans(0, 0, 0);
 	Matrix4 mat = matrix;
 	Vector3 vec = vector;
-	float w = 1.0f;
+	float w = vec.z;
 
 	ans.x = vec.x * mat.m[0][0]
 		+ vec.y * mat.m[1][0]
 		+ vec.z * mat.m[2][0];
 
-	ans.x /= w;
+	ans.x /=  w;
 
 	ans.y = vec.x * mat.m[0][1]
 		+ vec.y * mat.m[1][1]
 		+ vec.z * mat.m[2][1];
 
-	ans.y /= w;
+	ans.y /=  w;
 
 	ans.z = vec.x * mat.m[2][2]
 		+ vec.y * mat.m[1][2]
 		+ vec.z * mat.m[2][2];
 
-	ans.z /= w;
+	ans.z /=  w;
 
 	return ans;
 }
 
-Vector3 MyMatrix::CrossVectorW(Vector3 vector, Matrix4 matrix) {
+Vector3 MyMatrix::CrossVector(Vector3 vector, Matrix4 matrix) {
 	Vector3 ans(0, 0, 0);
 	Matrix4 mat = matrix;
 	Vector3 vec = vector;
@@ -114,9 +114,9 @@ Matrix4 MyMatrix::MatrixViewPort(float VpWidth,float VpHeight,Vector2 offset)
 {
 	Matrix4 mat = MathUtility::Matrix4Identity();
 	mat = {
-		VpWidth/2,0,0,0,
-		0,-VpHeight/2,0,0,
+		VpWidth /2 ,0,0,0,
+		0,-VpHeight / 2,0,0,
 		0,0,1,0,
-		VpWidth/2+offset.x,VpWidth/2+offset.y,0,1 };
+		(VpWidth / 2) + offset.x,(VpWidth / 2) + offset.y,0,1 };
 	return mat;
 }

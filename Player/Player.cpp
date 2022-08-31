@@ -35,6 +35,9 @@ void Player::Initialize(Model* model,Model* modelBullet) {
 	worldTransform_.translation_.z = 40.0f;
 	worldTransform3DReticle_.Initialize();
 
+	//ビュープロジェクション初期化
+	viewProjection_.Initialize();
+
 	//レティクル用テクスチャ取得
 	uint32_t textureReticle = TextureManager::Load("cursor.png");
 	//スプライト生成
@@ -62,9 +65,9 @@ void Player::Update() {
 		return bullet->IsDead();
 		});
 
-	Rotate();
-
 	Move();
+
+	Rotate();
 
 	Update3DReticle();
 
@@ -155,24 +158,29 @@ void Player::Rotate()
 
 #pragma region 半身回転
 	//上半身回転
-	if (input_->PushKey(DIK_U))
+
+	if (input_->PushKey(DIK_U) || input_->PushKey(DIK_J))
 	{
-		worldTransform_.rotation_.y -= 0.05f;
+		if (worldTransform_.rotation_.y > 3.14f - 0.3f) {
+			worldTransform_.rotation_.y -= 0.05f;
+		}
 	}
-	else if (input_->PushKey(DIK_I))
+	else if (input_->PushKey(DIK_I) || input_->PushKey(DIK_K))
 	{
-		worldTransform_.rotation_.y += 0.05f;
+		if (worldTransform_.rotation_.y < 3.14f + 0.3f) {
+			worldTransform_.rotation_.y += 0.05f;
+		}
 	}
 
-	//下半身回転
-	if (input_->PushKey(DIK_J))
-	{
-		worldTransform_.rotation_.y -= 0.05f;
-	}
-	else if (input_->PushKey(DIK_K))
-	{
-		worldTransform_.rotation_.y += 0.05f;
-	}
+	////下半身回転
+	//if (input_->PushKey(DIK_J))
+	//{
+	//	worldTransform_.rotation_.y -= 0.05f;
+	//}
+	//else if (input_->PushKey(DIK_K))
+	//{
+	//	worldTransform_.rotation_.y += 0.05f;
+	//}
 #pragma endregion
 
 }
@@ -256,7 +264,7 @@ void Player::Update3DReticle() {
 	//ベクトルの長さを整える
 	offset = Vector3Normalize(offset) * kDistancePlayerTo3DRethicle;
 	//3Dレティクルの座標を指定
-	worldTransform3DReticle_.translation_ = worldTransform_.translation_ + offset;
+	worldTransform3DReticle_.translation_ = worldTransform_.translation_+offset;
 
 
 	//matrix
@@ -272,6 +280,7 @@ void Player::Update3DReticle() {
 
 	worldTransform3DReticle_.matWorld_ = myMatrix_.MatrixWorld(scale, rota, translation);
 	worldTransform3DReticle_.TransferMatrix();
+
 };
 
 void Player::Update2DReticle() {
@@ -281,8 +290,14 @@ void Player::Update2DReticle() {
 	worldTransform3DReticle_.matWorld_.m[3][2],
 	};
 
+	//自機から3Dレティクルへのオフセット(Z+向き)
+	Vector3 offset = { 0,0,1.0f };
+	//自機のワールド行列の回転を反映
+	offset = myMatrix_.CrossVector(offset, worldTransform_.matWorld_);
+
+
 	//ビューポート行列
-	Matrix4 matViewPort = myMatrix_.MatrixViewPort(1280,800,Vector2(20,20));
+	Matrix4 matViewPort = myMatrix_.MatrixViewPort(1280, 800, Vector2(0,0));
 
 	//ビュー行列とプロジェクション行列、ビューポート行列を合成
 	Matrix4 matViewProjectionViewPort =
@@ -290,8 +305,12 @@ void Player::Update2DReticle() {
 
 	//ワールド→スクリーン座標変換
 	positionReticle = Vector3TransformCoord(positionReticle, matViewProjectionViewPort);
+	
+	//
 
 	//スプライトのレティクルに座標設定
+	positionReticle.y = positionReticle.y - 280;
+	positionReticle += offset;
 	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 };
 

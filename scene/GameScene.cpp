@@ -32,7 +32,7 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera_ = new RailCamera();
 
-	railCamera_->Initialize(Vector3(0, 0, -20),
+	railCamera_->Initialize(Vector3(0, 0, -40),
 		Vector3(
 			XMConvertToRadians(0.0f),
 			XMConvertToRadians(0.0f),
@@ -150,15 +150,15 @@ void GameScene::Update() {
 	debugText_->Printf(
 		"ARROWkey -> Move");
 
+	//debugText_->SetPos(50, 320);
+	//debugText_->Printf(
+	//	"UorJkey -> leftRota");
+
+	//debugText_->SetPos(50, 340);
+	//debugText_->Printf(
+	//	"IorKkey -> RightRota");
+
 	debugText_->SetPos(50, 320);
-	debugText_->Printf(
-		"UorJkey -> leftRota");
-
-	debugText_->SetPos(50, 340);
-	debugText_->Printf(
-		"IorKkey -> RightRota");
-
-	debugText_->SetPos(50, 360);
 	debugText_->Printf(
 		"SPACEkey -> Shot");
 
